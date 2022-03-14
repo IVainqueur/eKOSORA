@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <title>Dashboard | eKOSORA</title>
+</head>
+<body>
+    <div id="NavBar" class="CommonNav">
+        <div class="LeftSide">
+            <div class="HamburgerContainer">
+                <p id="HamburgerMenu"> </p>
+            </div>
+            <h1 id="TheLogo"></h1>
+        </div>
+        <div class="Middle">
+            <h1>Dashboard</h1>
+        </div>
+        <div class="theButtons">
+            <button id="LogOutBTN">LOG OUT </button>
+            <!-- <button id="SignUpBTN">SIGN UP</button> -->
+        </div>
+    </div>
+    <div class="Menu">
+        <div class="MenuItem active">
+            <a href="/dashboard">Dashboard</a>
+        </div>
+        <div class="MenuItem">
+            <a href="/marks">Lessons</a>
+        </div>
+        <div class="MenuItem">
+            <a href="/dashboard">Settings</a>
+        </div>
+        <div class="Profile">
+            <h3>Damascene</h3>
+            <p>Teacher</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="QuickFeatureContainer">
+            <h1>Quick Access</h1>
+            <div class="QuickFeatures">
+                <div class="QuickFeature">
+                    <img src="../img/marks.png" alt="Marks">
+                    <p>Marks</p>
+                </div>
+                <div class="QuickFeature">
+                    <img src="../img/students.png" alt="Marks">
+                    <p>Students</p>
+                </div>
+                <div class="QuickFeature">
+                    <img src="../img/notification.png" alt="Marks">
+                    <p>Announcements</p>
+                </div>
+                <!--<div class="QuickFeature">
+                    <img src="../img/messages.png" alt="Marks">
+                    <p>Messages</p>
+                </div> -->
+                
+            </div>
+        </div>
+        <!-- <br><br> -->
+        <h1>Statistics Summary</h1>
+        <div class="Statistics">
+            <div class="Statistic">
+                <canvas id="myChart" style="width:100%;max-width:50%; max-height: 400px;"></canvas>
+                <div class="Summary">
+                    <h1>Summary</h1>
+                    <div class="Best">
+                        <h3>Best Class</h3>
+                        <div class="infoPiece">
+                            <span>Class:</span>
+                            <span>Year 1B</span>
+                        </div>
+                        <div class="infoPiece">
+                            <span>Marks:</span>
+                            <span>84%</span>
+                        </div>
+                    </div>
+                    <div class="Worst">
+                        <h3>Worst Class</h3>
+                        <div class="infoPiece">
+                            <span>Class:</span>
+                            <span>Year 1A</span>
+                        </div>
+                        <div class="infoPiece">
+                            <span>Marks:</span>
+                            <span>84%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+<script src="../js/chart.js"></script>
+<script src="../js/common.js"></script>
+<script src="../js/dashboard.js"></script>
+</html>

@@ -1,0 +1,220 @@
+@import url("https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css");
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Questrial', sans-serif;
+    --main-blue: #4CA7CE;
+    --darker-blue: #3F7CAC;
+    transition: .3s ease;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+    background-color: white;
+}
+h1{
+    font-weight: 100;
+    font-family: 'Quantico', sans-serif;
+}
+h1#TheLogo::after{
+    content: 'eKOSORA';
+    background: rgba(0,0,0,0.2);
+    padding: 1px 10px;
+    border-radius: 5px;
+}
+@media(max-width: 670px){
+    h1#TheLogo::after{
+        content: 'eK'
+    }
+    #LogOutBTN{
+        display: none;
+    }
+    i.bx{
+        padding: 5px;
+        border-radius: 5px;
+
+    }
+    i.bx:hover{
+        transform: scale(1.05);
+        background-color: rgba(0,0,0,0.2);
+        /* border-radius: 50%; */
+    }
+}
+button{
+    transition: .5s ease;
+}
+button:hover{
+    animation: ring .5s ease;
+    filter: grayscale(0.6);
+}
+
+
+.CommonNav{
+    background-color: var(--darker-blue);
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 20px 40px;
+    justify-content: space-between;
+}
+
+.CommonNav h1{
+    color: white;
+}
+
+
+.CommonNav p{
+    width: 30px;
+    height: 4px;
+    border-radius: 10px;
+    background: white;
+    position: relative;
+    margin-right: 10px;
+    transition: .3s ease-in-out;
+    transform: translateX(-20px);
+}
+
+.CommonNav .LeftSide{
+    display: flex;
+    align-items: center;
+}
+.CommonNav .LeftSide .HamburgerContainer{
+    height: 50px;
+    width: 50px;
+    display: grid;
+    place-content: center;
+    cursor: pointer;
+}
+.CommonNav p::before{
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 10px;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(-10px);
+    transition: .5s ease-in-out;
+}
+.CommonNav p::after{
+    content: '';
+    width: 30px;
+    height: 4px;
+    border-radius: 10px;
+    background: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateY(10px);
+    transition: .5s ease-in-out;
+}
+
+.CommonNav button{
+    border: none;
+    outline: none;
+    padding: 15px 40px;
+    color: white;
+    font-size: 16px;
+    width: 150px;
+    border-radius: 2px;
+    background-color: var(--main-blue);
+}
+
+.clickedMenu{
+    background: transparent !important;
+}
+.clickedMenu::before{
+    transform: rotate(45deg) !important;
+}
+.clickedMenu::after{
+    transform: rotate(-45deg) !important;
+}
+
+
+.Menu{
+    height: calc(100vh - 60px);
+    width: 300px;
+    background-color: var(--darker-blue);
+    position: absolute;
+    top: 60px;
+    left: -310px;
+    transition: .5s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.show{
+    left: 0px;
+    z-index: 2;
+}
+
+.Menu .MenuItem{
+    padding: 15px 20px;
+    transition: .5s ease;
+}
+
+.Menu .MenuItem.active{
+    background-color: rgba(0,0,0,0.1);
+}
+
+.Menu .MenuItem:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+
+.Menu .MenuItem a{
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+.Menu .Profile{
+    background-color: var(--main-blue);
+    color: white;
+    text-align: end;
+    padding: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+}
+
+.Menu .Profile p{
+    color: #ffffff8a;
+}
+
+@keyframes ring {
+    0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(1deg);
+    }
+    75%{
+        transform: rotate(-1deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+
+.unFilledField::after{
+    content: 'Please fill this field';
+    color: #ed4949;
+    margin-top: 10px;
+}
+
+.unFilledField::after{
+    content: 'Please select a valid option from this field';
+    color: #ed4949;
+    margin-top: 10px;
+}
+.errorInForm::after{
+    content: attr(error);
+    color: #ed4949;
+    margin-top: 10px;
+}

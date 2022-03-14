@@ -1,0 +1,92 @@
+.main{
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.main > div{
+    height: 100%;
+}
+
+
+.main .TheForm{
+    width: 100%;
+}
+
+
+
+.Choices .Choice.active{
+    border-radius: 5px;
+    border: 3px solid var(--darker-blue);
+    background-color: #f5f5f5 !important;
+}
+
+.main .LoginChoice p{
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.main .TheForm{
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    padding: 0 20px;
+    position: relative;
+    padding-bottom: 91px;
+}
+
+.main .TheForm form{
+    width: 550px;
+    /* min-height: 80%; */
+    border-radius: 5px;
+    border: 2px solid var(--darker-blue);
+    padding: 40px;
+    margin-top: 40px;
+    /* margin-bottom: 46px; */
+}
+
+
+
+.main .TheForm h1{
+    text-align: center;
+    color: var(--darker-blue);
+}
+
+.main .TheForm label{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.main .TheForm span{
+    color: #6f6f6f;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+.main .TheForm input{
+    border: none;
+    outline: none;
+    padding: 20px;
+    background-color: #f5f5f5;
+}
+
+.main .TheForm form button{
+    border: none;
+    outline: none;
+    padding: 20px;
+    color: white;
+    font-size: 16px;
+    background: var(--main-blue);
+    width: 100%;
+}
+
+select{
+    margin-top: 5px;
+    padding: 15px 20px;
+    border: none;
+    background: rgba(0,0,0,0.1);
+}
+

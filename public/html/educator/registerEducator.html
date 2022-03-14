@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <title>New Educator | eKOSORA</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/newRecord.css">
+    <link rel="stylesheet" href="../css/newEducator.css">
+</head>
+<body>
+    <div id="NavBar" class="CommonNav">
+        <div class="LeftSide">
+            <div class="HamburgerContainer">
+                <p id="HamburgerMenu"> </p>
+            </div>
+            <h1 id="TheLogo"></h1>
+        </div>
+        <div class="Middle">
+            <h1>New Record</h1>
+        </div>
+        <div class="theButtons">
+            <button id="LogOutBTN">LOG OUT </button>
+            <!-- <button id="SignUpBTN">SIGN UP</button> -->
+        </div>
+    </div>
+    <div class="Menu">
+        <div class="MenuItem active">
+            <a href="/dashboard">Dashboard</a>
+        </div>
+        <div class="MenuItem">
+            <a href="/marks">Lessons</a>
+        </div>
+        <div class="MenuItem">
+            <a href="/dashboard">Settings</a>
+        </div>
+        <div class="Profile">
+            <h3>Damascene</h3>
+            <p>Teacher</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="TheForm">
+            <form action="#">
+                <h1>New Educator</h1>
+                <label for="">
+                    <span id="">Names*</span>
+                    <input type="text" name="names" id="">
+                </label>
+                <label for="">
+                    <span id="">Code</span>
+                    <input type="text" id="RecordNameBox" name="code">
+                </label>
+                <label for="">
+                    <span id="">Title</span>
+                    <input type="text" name="title">
+                </label>
+                <label for="">
+                    <span id="LessonsDropDown">Lessons <i class='bx bx-chevron-down'></i></span>
+                    <div class="Lessons">
+
+                    </div>
+                    <!-- <select name="lessons" id="SubjectChoice">
+                        <option value="">--SELECT--</option>
+                    </select> -->
+                </label>
+                <label for="">
+                    <span>Email*</span>
+                    <input type="email" id="DateBox" name="email">
+                </label>
+                <label for="">
+                    <span>Tel*</span>
+                    <input type="tel" id="DateBox" name="tel">
+                </label>
+                <button id="GetIn">ADD</button>
+            </form>
+        </div>
+    </div>
+</body>
+<script src="../js/common.js"></script>
+<script src="../js/newEducator.js"></script>
+</html>

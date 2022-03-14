@@ -1,0 +1,47 @@
+.Lessons{
+    height: 0;
+    overflow: hidden;
+}
+.showLessons{
+    height: fit-content;
+}
+.Lessons label{
+    flex-direction: row !important;
+    align-items: center;
+}
+
+
+input[type=checkbox] {
+    border: 2px solid var(--darker-blue) !important;
+    border-radius: 5px;
+    outline: none;
+    width: 15px;
+    height: 15px;
+    appearance: none;
+    padding: 10px !important;
+    margin-right: 10px;
+}
+input[type="checkbox"]:checked {
+    background: var(--darker-blue);
+    /* padding: 20px; */
+    /* transform: scale(1.2); */
+}
+
+#LessonsDropDown{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding-right: 10px;
+    align-items: center;
+}
+
+#LessonsDropDown i{
+    font-size: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+
+}
+
+#LessonsDropDown i:hover{
+    background: rgba(0,0,0,.3);
+}

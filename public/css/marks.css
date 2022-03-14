@@ -1,0 +1,323 @@
+.main{
+    /* height: 100%; */
+    width: 100%;
+    display: flex;
+    padding: 20px;
+}
+
+.main > div{
+    width: 45%;
+}
+
+.Left .Choosing{
+    display: flex;
+    flex-direction: column;
+    /* background: red; */
+    padding: 20px 40px;
+    border-radius: 5px;
+    border: 2px solid var(--main-blue);
+    padding-bottom: 40px;
+    
+}
+
+
+.Left .Choosing h1{
+    color: var(--main-blue);
+    font-family: 'Questrial';
+    
+}
+.Left .Choosing label{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    font-size: 18px;
+    color: rgba(0,0,0,0.8)
+}
+select{
+    margin-top: 5px;
+    padding: 15px 20px;
+    border: none;
+    background: rgba(0,0,0,0.1);
+}
+
+.Left .Selected{
+    padding: 40px;
+    margin-top: 20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    color: #989898;
+    font-size: 18px;
+}
+
+.Right{
+    border-radius: 5px;
+    box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.25);
+    margin-left: 20px;
+    width: 50%;
+    flex-grow: 1;
+    padding: 20px 0px;
+    padding-right: 10px;
+    overflow-x: auto;
+    text-align: center;
+    position: relative;
+}
+
+.Right *{
+    text-align: initial;
+}
+.Right h1{
+    color: var(--main-blue);
+    padding-left: 40px;
+    margin-bottom: 10px;
+}
+
+.Right h1 span{
+    color: black;
+    margin-left: 10px;
+}
+
+.Right table{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+th{
+    background: var(--darker-blue);
+    color: white;
+    text-transform: capitalize;
+}
+
+
+
+tr:nth-child(even){
+    background: rgba(0,0,0,0.2);
+    
+}
+
+td, th{
+    padding: 10px;
+    text-align: start;
+    width: 100px;
+}
+th:nth-of-type(1), td:nth-of-type(1){
+    /* display: none; */
+    background: white !important;
+    text-align: center;
+    width: 40px;
+}
+th:nth-of-type(2), td:nth-of-type(2){
+    width: 150px;
+}
+
+input[type=checkbox]{
+    border: 2px solid var(--darker-blue);
+    border-radius: 5px;
+    outline: none;
+    width: 20px;
+    height: 20px;
+    appearance: none;
+}
+input[type="checkbox"]:checked {
+    background: var(--darker-blue);
+    /* padding: 20px; */
+    transform: scale(1.4);
+}
+
+.Selected{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+button{
+    border: none;
+    outline: none;
+    padding: 15px 40px;
+    color: white;
+    font-size: 16px;
+    /* width: 150px; */
+    border-radius: 2px;
+    background-color: var(--main-blue);
+    text-align: center;
+}
+
+.Selected .EditChoice{
+    position:absolute;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.3);
+    padding: 20px;
+    display: flex;
+    bottom: 0%;
+    right: -20%;
+    background: white;
+    display: none;
+    height: fit-content;
+    z-index: 1;
+    right: 0;
+}
+.Selected .EditChoice button{
+    margin-right: 10px;
+    
+}
+
+*[contenteditable=true]{
+    border: 1px solid black;
+    /* border-radius: 15px; */
+}
+*[contenteditable=true]:focus{
+    background-color: rgba(0,0,0,0.2);
+}
+
+.Warning {
+    font-size: 18px;
+    font-weight: bold;
+    color: red;
+    padding: 10px 40px;
+}
+
+.GroupEditPopUp{
+    position: absolute;
+    height: 100%; 
+    width: 100%;
+    top: 0;
+    left: 0;
+    display: grid;
+    place-content: center;
+    z-index: 3;
+    display: none;
+}
+
+.PopUpCancel{
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.5);
+    height: 100%;
+    width: 100%;
+    
+}
+
+.ActualPopUp{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 4;
+    padding: 40px 67px;
+    background: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction:column;
+    align-items: center;
+}
+
+.ActualPopUp h1{
+    font-family: 'Questrial';
+    
+}
+
+.AddOrRemove{
+    height: 40px;
+    width: 150px;
+    display: flex;
+    justify-content: space-between;
+    background-color: #C4C4C4;
+    margin: 30px;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+ .span{
+    height: 100%;
+    display: grid;
+    place-content: center;
+    width: 50px;
+}
+
+#AddOrRemoveCount{
+    background: white;
+}
+
+.ActualPopUp select{
+    width: 100%;
+    margin-bottom: 20px;
+
+}
+
+
+@media(max-width: 970px){
+    .main{
+        flex-direction: column;
+    }
+    .main > div{
+        /* width: -webkit-fill-available; */
+        width: 100%;
+        flex-grow: 1;
+        margin: 0 auto 20px auto;
+    }
+    .Selected .EditChoice{
+        right: 0px;
+    }
+}
+
+#NewRecordBTN{
+    padding: 20px;
+    display: grid;
+    place-content: center;
+    background: var(--main-blue);
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    font-size: 40px;
+    color: white;
+    line-height: 0;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+
+
+#NewRecordBTN:hover{
+    animation: ring2 .5s ease;
+}
+
+@keyframes ring2 {
+    0%{
+        transform: rotate(0deg);
+    }
+    25%{
+        transform: rotate(-10deg);
+    }
+    75%{
+        transform: rotate(10deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
+}
+
+/* td:nth-child(3)::after {
+    content: 'Not updated';
+    color: rgba(0,0,0,0.4);
+    margin-left: 10px;
+} */
+
+.updating::after{
+    content: "Updating...";
+    margin-left: 10px;
+}
+
+.failedUpdating::after{
+    content: "Error Updating!";
+    margin-left: 10px;
+    color: red;
+}
+
+.updated::after{
+    content: 'Updated';
+    margin-left: 10px;
+    
+    color: rgb(64, 255, 47);
+}

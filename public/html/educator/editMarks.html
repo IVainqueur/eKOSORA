@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marks.css">
+    <title>Marks | eKOSORA</title>
+</head>
+<body>
+    <div id="NavBar" class="CommonNav">
+        <div class="LeftSide">
+            <div class="HamburgerContainer">
+                <p id="HamburgerMenu"> </p>
+            </div>
+            <h1 id="TheLogo"></h1>
+        </div>
+        <div class="Middle">
+            <h1>Marks</h1>
+        </div>
+        <div class="theButtons">
+            <!-- <i class='bx bx-log-out' style='color:#4ca7ce'  ></i> -->
+            <button id="LogOutBTN">LOG OUT </button>
+            <!-- <button id="SignUpBTN">SIGN UP</button> -->
+        </div>
+    </div>
+    <div class="Menu">
+        <div class="MenuItem">
+            <a href="/dashboard">Dashboard</a>
+        </div>
+        <div class="MenuItem active">
+            <a href="/dashboard">Lessons</a>
+        </div>
+        <div class="MenuItem">
+            <a href="/dashboard">Settings</a>
+        </div>
+        <div class="Profile">
+            <h3>Benilde</h3>
+            <p>Matron</p>
+        </div>
+    </div>
+    <div class="main">
+        <div class="Left">
+            <!-- <div class="Selected">
+                <p><span id="SelectedCount">0</span> students selected</p>
+                <button id="EditBTN">EDIT</button>
+                <div class="EditChoice">
+                    <button id="IndEdit">INDIVIDUALLY</button>
+                    <button id="GroupEdit">AS A GROUP</button>
+                </div>
+                
+            </div> -->
+            <div class="Choosing">
+                <h1>Choose</h1>
+                <label for="">
+                    <span>Class:</span>
+                    <select name="" id="ClassChoice">
+                        <option value="">--Select--</option>
+                        <option value="year1_A">Year 1 A</option>
+                        <option value="year1_B">Year 1 B</option>
+                        <option value="year2_A">Year 2 A</option>
+                        <option value="year2_B">Year 2 B</option>
+                        <option value="year2_C">Year 2 C</option>
+                        <option value="year3_A">Year 3 A</option>
+                        <option value="year3_B">Year 3 B</option>
+                    </select>
+                </label>
+                <label for="">
+                    <span>Course:</span>
+                    <select name="" id="SubjectChoice">
+                        <option value="">--Select--</option>
+                        <!-- <option value="WUI">Web User Interface</option>
+                        <option value="GUI">Graphical User Interface</option>
+                        <option value="PHP">Web Dev With PHP</option>
+                        <option value="JS">JavaScript</option>
+                        <option value="FOP">Fundamentals of Programming</option>
+                        <option value="ES">Embedded Systems</option>
+                        <option value="DSA">Data Structures and Algorithms</option>
+                        <option value="MTC">Mathematics</option>
+                        <option value="PHY">Physics</option>
+                        <option value="ENG">English</option> -->
+                    </select>
+                </label>
+            </div>
+            <div class="Selected">
+                <p><span id="SelectedCount">0</span> students selected</p>
+                <button id="EditBTN">EDIT</button>
+                <div class="EditChoice">
+                    <button id="IndEdit">INDIVIDUALLY</button>
+                    <button id="GroupEdit">AS A GROUP</button>
+                </div>
+                
+            </div>
+        </div>
+        <div class="Right">
+            <h1><span></span></h1>
+            <p class="Warning">
+                
+            </p>
+            <!-- <img src="../img/loader.gif" alt="Loading"> -->
+            <p class="notifier" style="text-align: center; color: rgba(0,0,0,0.5); font-size: 18px; font-weight: 400;">
+                Nothing selected
+            </p>
+            <span title="Add new record" id="NewRecordBTN" onclick="window.location.pathname = '/student/newRecord'">+</span>
+
+        </div>
+       
+    </div>
+    <div class="GroupEditPopUp">
+        <div class="PopUpCancel"></div>
+        <div class="ActualPopUp">
+            <h1>Marks to Add or Remove</h1>
+            <div class="AddOrRemove">
+                <div class="span" id="RemoveBTN">-</div>
+                <div class="span" id="AddOrRemoveCount">0</div>
+                <div class="span" id="AddBTN">+</div>
+            </div>
+            <select name="" id="">
+                <option value="">Select record</option>
+                <option value="one">Test /40 on 20th Feb</option>
+            </select>
+            <button>SUBMIT</button>
+        </div>
+    </div>
+
+</body>
+<script src="../js/common.js"></script>
+<script src="../js/marks.js"></script>
+</html>

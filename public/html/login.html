@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <title>Login | eKOSORA</title>
+</head>
+<body>
+    <div id="NavBar" class="CommonNav">
+        <h1 id="TheLogo"></h1>
+        <div class="theButtons">
+            <a href="/login"><button id="LogInBTN">LOG IN</button></a>
+            <a href="#"><button id="SignUpBTN">SIGN UP</button></a>
+        </div>
+    </div>
+    <div class="main">
+        <div class="LoginChoice">
+            <p>Login as</p>
+            <div class="Choices">
+                <div class="Choice" toInquire="Phone/Email" accountType="parent">
+                    Parent
+                </div>
+                <div class="Choice active" toInquire="Student Code" accountType="student">
+                    Student
+                </div>
+                <div class="Choice" toInquire="Phone/Email" accountType="educator">
+                    Educator
+                </div>
+            </div>
+        </div>
+        <div class="TheForm">
+            <form action="#">
+                <h1>LOGIN</h1>
+                <label for="">
+                    <span id="RequiredBox">Phone/Email</span>
+                    <input type="text" id="codeBox">
+                </label>
+                <label for="">
+                    <span>Password</span>
+                    <input type="password" id="passwordBox">
+                </label>
+                <button id="GetIn">GET IN</button>
+            </form>
+            
+        </div>
+    </div>
+</body>
+<script src="../js/login.js"></script>
+</html>
