@@ -26,7 +26,7 @@ document.querySelector('form').addEventListener('submit', (e)=>{
     }
     toSend.composer = JSON.parse(localStorage.eKOSORA_User)._id
     console.log(toSend)
-    fetch('/announcement/register', {
+    fetch('/announcement/add', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

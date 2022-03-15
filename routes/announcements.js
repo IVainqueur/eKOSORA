@@ -14,7 +14,7 @@ app.get('/new', (req, res)=>{
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/newAnnouncements.html')
 })
 
-app.post('/register',async  (req, res)=>{
+app.post('/add',async  (req, res)=>{
     console.log(req.body)
     // return res.json({code: "#Success"})
     let newAnnouncement = require('../models/ml-announcement')({
@@ -34,9 +34,20 @@ app.post('/register',async  (req, res)=>{
 
 app.get('/view',async (req, res)=>{
     try{
-        let announcements = await require('../models/ml-announcement').find({meantFor: {$in: [req.body.prefix]}})
+        let announcementsQuery = await require('../models/ml-announcement').find({meantFor: {$in: [req.body.prefix]}})
+        let announcements = announcementsQuery.map(x => x)
+        if(announcements.length != 0){
+            for(let i=0; i < announcements.length; i++){
+                let composer = await require('../models/ml-educator').findOne({_id: announcements[i].composer})
+                // console.log(composer)
+                announcements[i]._doc.writtenBy = composer.names
+                // announcements[i].composer = composer.names
+                // console.dir(announcements[i]._doc)
+            }
+        }
         return res.json({code: "#Success", doc: announcements})
     }catch(e){
+        console.log(e)
         return res.json({code: "#Error", message: e})
     }
 })

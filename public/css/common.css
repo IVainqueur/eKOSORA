@@ -219,3 +219,8 @@ button:hover{
     color: #ed4949;
     margin-top: 10px;
 }
+
+
+a{
+    text-decoration: none;
+}
