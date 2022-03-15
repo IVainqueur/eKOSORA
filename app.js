@@ -7,6 +7,7 @@ const studentRoute = require('./routes/students')
 const getInRoute = require('./routes/getIn')
 const parentRoute = require('./routes/parents')
 const educatorRoute = require('./routes/educators')
+const announcementRoute = require('./routes/announcements')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -50,6 +51,7 @@ app.use((req, res, next)=>{ //Cookie validation
     next()
 })
 
+app.use('/announcement', announcementRoute)
 app.use('/student', studentRoute)
 app.use('/educator', educatorRoute)
 app.use('/parent', parentRoute)

@@ -75,7 +75,6 @@ button:hover{
     position: relative;
     margin-right: 10px;
     transition: .3s ease-in-out;
-    transform: translateX(-20px);
 }
 
 .CommonNav .LeftSide{
@@ -88,6 +87,8 @@ button:hover{
     display: grid;
     place-content: center;
     cursor: pointer;
+    transform: translateX(-20px);
+    
 }
 .CommonNav p::before{
     content: '';

@@ -4,7 +4,7 @@ const path = require('path')
 
 
 app.get('/register', (req, res)=>{
-    if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    if((req.body.prefix != "educator") || req.body.AdP != "true") return res.send("This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
 
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/registerEducator.html')
 })

@@ -45,3 +45,12 @@ input[type="checkbox"]:checked {
 #LessonsDropDown i:hover{
     background: rgba(0,0,0,.3);
 }
+
+
+textarea {
+    height: 300px;
+    border: none;
+    background: #f5f5f5;
+    outline: none;
+    padding: 20px;
+}

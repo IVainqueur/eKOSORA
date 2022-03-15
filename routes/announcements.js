@@ -1,0 +1,44 @@
+const express = require('express')
+const app = express.Router()
+const path = require('path')
+
+app.get('/', (req, res)=>{
+    // if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+
+    res.sendFile(path.dirname(__dirname)+'/public/html/educator/announcements.html')
+})
+
+app.get('/new', (req, res)=>{
+    if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+
+    res.sendFile(path.dirname(__dirname)+'/public/html/educator/newAnnouncements.html')
+})
+
+app.post('/register',async  (req, res)=>{
+    console.log(req.body)
+    // return res.json({code: "#Success"})
+    let newAnnouncement = require('../models/ml-announcement')({
+        composer: req.body.composer,
+        title: req.body.title,
+        content: req.body.content,
+        meantFor: req.body.meantFor,
+        expiry: (req.body.expiry == '')? Date.now() + 2592000000 : new Date(req.body.expiry)
+    })
+    try{
+        let saveAnnouncement = await newAnnouncement.save()
+        res.json({code: "#Success", doc: saveAnnouncement})
+    }catch(e){
+        res.json({code: "#Error", message: e})
+    }
+})
+
+app.get('/view',async (req, res)=>{
+    try{
+        let announcements = await require('../models/ml-announcement').find({meantFor: {$in: [req.body.prefix]}})
+        return res.json({code: "#Success", doc: announcements})
+    }catch(e){
+        return res.json({code: "#Error", message: e})
+    }
+})
+
+module.exports = app
