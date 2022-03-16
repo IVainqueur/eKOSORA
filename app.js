@@ -8,12 +8,17 @@ const getInRoute = require('./routes/getIn')
 const parentRoute = require('./routes/parents')
 const educatorRoute = require('./routes/educators')
 const announcementRoute = require('./routes/announcements')
+const settingsRoute = require('./routes/settings')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const eUpload = require('express-fileupload')
 
 //middleware
+require('dotenv').config()
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
+app.use(eUpload())
 app.use(express.static('public'))
 app.use((req, res, next)=>{ //Cookie validation
     // console.log(req)
@@ -52,6 +57,7 @@ app.use((req, res, next)=>{ //Cookie validation
 })
 
 app.use('/announcement', announcementRoute)
+app.use('/settings', settingsRoute)
 app.use('/student', studentRoute)
 app.use('/educator', educatorRoute)
 app.use('/parent', parentRoute)
@@ -90,56 +96,15 @@ app.get('/subjects', (req,res)=>{
     })
 })
 
+app.get('/settings', (req, res)=>{
+    res.sendFile(__dirname + `/public/html/${req.body.prefix}/settings.html`)
+})
+
+app.get('*', (req, res)=>{
+    res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>Page not found. <a href='/'>Click here</a> to go back</p>")
+})
+
 app.listen(process.env.PORT, (err)=>{
     if(err) return console.log("Something went wrong!")
     console.log("#ServerUP at "+ process.env.PORT)
 })
-
-
-let theLessons = [
-    ["Web User Interface Development with HTML and CSS", "WUI"], 
-    ["Web Development with PHP", "PHP"],
-    ["Web Development with JavaScript", "JS"],
-    ["Embedded Systems", "ES"] ,
-    ["Data Structures and Algorithms", "DSA"],
-    ["Fundamentals of Databases", "FOD"],
-    ["Graphical User Interface Development", "GUI"],
-    ["Mathematics", "MTC"],
-    ["Physics", "PHY"],
-    ["English", "ENG"]
-]
-
-// for(let lesson of theLessons){
-//     let newLesson = require('./models/ml-subject')({
-//         title: lesson[0],
-//         code: lesson[1]
-//     })
-//     // console.log(newLesson)
-//     newLesson.save((err, doc)=>{
-//         if(err) return console.log("not saved %s", lesson[1])
-//     })
-// }
-
-let year1 = require('./year1.json')
-let newStudents = []
-// for(let student of year1.Intake2021.slice(1, -1)){
-//     let newStudent = {
-//         names: `${student[2]} ${student[3]}`,
-//         code: student[4],
-//         email: student[5],
-//         password: "password@123",
-//         class: {
-//             year: 1,
-//             class: student[6]
-//         }
-//     }
-//     // newStudents.push(newStudent)
-//     let studentToSave = require('./models/ml-student')(newStudent)
-
-//     studentToSave.save((err, doc)=>{
-//         if(err) return console.log("Failed")
-//         console.log("done")
-//     })
-// }
-
-// console.log(newStudents)

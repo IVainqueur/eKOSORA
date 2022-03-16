@@ -13,7 +13,8 @@ const studentSchema = mongo.Schema({
     parentEmails: {
         type: Array,
         default: []
-    }
+    },
+    profileLink: String
 })
 
 module.exports = mongo.model('student', studentSchema)

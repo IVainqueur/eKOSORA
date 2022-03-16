@@ -8,6 +8,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
     <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../css/common.css">
+<link rel="icon" type="image/x-icon" href="../img/favicon.png">
+
     <link rel="stylesheet" href="../css/dashboard.css">
     <title>Dashboard | eKOSORA</title>
 </head>
@@ -15,9 +17,12 @@
     <div id="NavBar" class="CommonNav">
         <div class="LeftSide">
             <div class="HamburgerContainer">
-                <p id="HamburgerMenu"> </p>
+                <p id="HamburgerMenu" class="clickedMenu"> </p>
             </div>
-            <h1 id="TheLogo"></h1>
+            <!-- <h1 id="TheLogo"></h1> -->
+        <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+        <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+
         </div>
         <div class="Middle">
             <h1>Dashboard</h1>
@@ -27,15 +32,17 @@
             <!-- <button id="SignUpBTN">SIGN UP</button> -->
         </div>
     </div>
-    <div class="Menu">
-        <div class="MenuItem active">
+    <div class="Content">
+    <div class="Menu show">
+
+        <div class="MenuItem">
             <a href="/dashboard">Dashboard</a>
         </div>
         <div class="MenuItem">
-            <a href="/marks">Lessons</a>
+            <a href="/marks">Marks</a>
         </div>
         <div class="MenuItem">
-            <a href="/dashboard">Settings</a>
+            <a href="/settings">Settings</a>
         </div>
         <div class="Profile">
             <h3></h3>
@@ -99,6 +106,7 @@
             
         </div>
     </div>
+</div>
 </body>
 <script src="../js/chart.js"></script>
 <script src="../js/common.js"></script>

@@ -6,6 +6,7 @@ const mailer = require('nodemailer');
 const {v4: uuidGenerate} = require('uuid')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
+const path = require('path')
 
 
 //Middleware
@@ -76,7 +77,7 @@ app.get('/findOne/:id', (req, res)=>{
 app.get('/newRecord', (req, res)=>{
     if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
     
-    res.sendFile(path.dirname(__dirname)+'/public/html/newRecord.html')
+    res.sendFile(path.dirname(__dirname)+`/public/html/${req.body.prefix}/newRecord.html`)
 })
 
 app.post('/addRecord', (req, res)=>{

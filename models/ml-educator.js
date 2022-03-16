@@ -7,7 +7,8 @@ const educatorSchema = mongo.Schema({
     lessons: Array,
     email: String,
     tel: String,
-    password: String
+    password: String,
+    profileLink: String
 })
 
 module.exports = mongo.model('educator', educatorSchema)

@@ -1,95 +1,115 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
-    <title>New Announcement | eKOSORA</title>
-    <link rel="stylesheet" href="../css/common.css">
-    <link rel="stylesheet" href="../css/newRecord.css">
-    <link rel="stylesheet" href="../css/newEducator.css">
-</head>
-<body>
-    <div id="NavBar" class="CommonNav">
-        <div class="LeftSide">
-            <div class="HamburgerContainer">
-                <p id="HamburgerMenu"> </p>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+        <!-- <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> -->
+        <title>New Announcement | eKOSORA</title>
+        <link rel="stylesheet" href="../css/common.css">
+<link rel="icon" type="image/x-icon" href="../img/favicon.png">
+
+        <link rel="stylesheet" href="../css/newRecord.css">
+        <link rel="stylesheet" href="../css/newEducator.css">
+    </head>
+    <body>
+        <div id="NavBar" class="CommonNav">
+            <div class="LeftSide">
+                <div class="HamburgerContainer">
+                    <p id="HamburgerMenu" class="clickedMenu"></p>
+                </div>
+                <!-- <h1 id="TheLogo"></h1> -->
+        <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+        <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+
             </div>
-            <h1 id="TheLogo"></h1>
-        </div>
-        <div class="Middle">
-            <h1>New Announcement</h1>
-        </div>
-        <div class="theButtons">
-            <button id="LogOutBTN">LOG OUT </button>
-            <!-- <button id="SignUpBTN">SIGN UP</button> -->
-        </div>
-    </div>
-    <div class="Menu">
-        <div class="MenuItem active">
-            <a href="/dashboard">Dashboard</a>
-        </div>
-        <div class="MenuItem">
-            <a href="/marks">Lessons</a>
-        </div>
-        <div class="MenuItem">
-            <a href="/timetable">Timetables</a>
-        </div>
-        <div class="MenuItem">
-            <a href="/dashboard">Settings</a>
-        </div>
-        <div class="Profile">
-            <h3></h3>
-            <p></p>
-        </div>
-    </div>
-    <div class="main">
-        <div class="TheForm">
-            <form action="#">
+            <div class="Middle">
                 <h1>New Announcement</h1>
-                <label for="">
-                    <span id="">Title*</span>
-                    <input type="text" name="title" id="">
-                </label>
-                <label for="">
-                    <span id="">Content</span>
-                    <textarea id="RecordNameBox" name="content"></textarea>
-                </label>
-                <label for="">
-                    <span id="">Meant For:</span>
-                    <div class="Lessons showLessons">
-                        <!-- <label for="">
+            </div>
+            <div class="theButtons">
+                <button id="LogOutBTN">LOG OUT</button>
+                <!-- <button id="SignUpBTN">SIGN UP</button> -->
+            </div>
+        </div>
+        <div class="Content">
+            <div class="Menu show">
+                <div class="MenuItem">
+                    <a href="/dashboard">Dashboard</a>
+                </div>
+                <div class="MenuItem">
+                    <a href="/marks">Marks</a>
+                </div>
+                <div class="MenuItem">
+                    <a href="/timetable">Timetables</a>
+                </div>
+                <div class="MenuItem">
+                    <a href="/settings">Settings</a>
+                </div>
+                <div class="Profile">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="main">
+                <div class="TheForm">
+                    <form action="#">
+                        <h1>New Announcement</h1>
+                        <label for="">
+                            <span id="">Title*</span>
+                            <input type="text" name="title" id="">
+                        </label>
+                        <label for="">
+                            <span id="">Content</span>
+                            <textarea id="RecordNameBox" name="content"></textarea>
+                        </label>
+                        <label for="">
+                            <span id="">Meant For:</span>
+                            <div class="Lessons showLessons">
+                                <!-- <label for="">
                             <input type="checkbox" name="meantFor" id="" value="All">
                             <span>All</span>
                         </label> -->
-                        <label for="">
-                            <input type="checkbox" name="meantFor" id="" value="student">
-                            <span>Students</span>
+                                <label for="">
+                                    <input
+                                        type="checkbox"
+                                        name="meantFor"
+                                        id=""
+                                        value="student"
+                                    >
+                                    <span>Students</span>
+                                </label>
+                                <label for="">
+                                    <input
+                                        type="checkbox"
+                                        name="meantFor"
+                                        id=""
+                                        value="educator"
+                                    >
+                                    <span>Educators</span>
+                                </label>
+                                <label for="">
+                                    <input
+                                        type="checkbox"
+                                        name="meantFor"
+                                        id=""
+                                        value="parent"
+                                    >
+                                    <span>Parents</span>
+                                </label>
+                            </div>
                         </label>
                         <label for="">
-                            <input type="checkbox" name="meantFor" id="" value="educator">
-                            <span>Educators</span>
+                            <span id="">Expires*</span>
+                            <input type="date" name="expiry">
                         </label>
-                        <label for="">
-                            <input type="checkbox" name="meantFor" id="" value="parent">
-                            <span>Parents</span>
-                        </label>
-                    </div>
-                    
-                </label>
-                <label for="">
-                    <span id="">Expires*</span>
-                    <input type="date" name="expiry">
-                </label>
-
-                <button id="GetIn">ADD</button>
-            </form>
+                        <button id="GetIn">ADD</button>
+                    </form>
+                </div>
+            </div>
         </div>
-    </div>
-</body>
-<script src="../js/common.js"></script>
-<script src="../js/newAnnouncement.js"></script>
+    </body>
+    <script src="../js/common.js"></script>
+    <script src="../js/newAnnouncement.js"></script>
 </html>

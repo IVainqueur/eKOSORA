@@ -19,15 +19,26 @@ h1{
     font-weight: 100;
     font-family: 'Quantico', sans-serif;
 }
-h1#TheLogo::after{
-    content: 'eKOSORA';
+#TheLogo{
     background: rgba(0,0,0,0.2);
     padding: 1px 10px;
     border-radius: 5px;
+    height: 40px;
+    
+}
+#TheSmallLogo{
+    background: rgba(0,0,0,0.2);
+    padding: 1px 10px;
+    border-radius: 5px;
+    height: 40px;
+    display: none;
 }
 @media(max-width: 670px){
-    h1#TheLogo::after{
-        content: 'eK'
+    #TheLogo{
+        display: none;
+    }
+    #TheSmallLogo{
+        display: initial;
     }
     #LogOutBTN{
         display: none;
@@ -141,21 +152,23 @@ button:hover{
     height: calc(100vh - 60px);
     width: 300px;
     background-color: var(--darker-blue);
-    position: absolute;
-    top: 60px;
+    position: relative;
+    /* top: 60px; */
     left: -310px;
     transition: .5s ease;
     display: flex;
     flex-direction: column;
+    width: 0;
 }
 
 .show{
     left: 0px;
     z-index: 2;
+    width: 300px;
 }
 
 .Menu .MenuItem{
-    padding: 15px 20px;
+    /* padding: 15px 20px; */
     transition: .5s ease;
 }
 
@@ -171,6 +184,9 @@ button:hover{
     color: white;
     text-decoration: none;
     font-size: 16px;
+    width: 100%;
+    display: inline-block;
+    padding: 15px 20px;
 }
 .Menu .Profile{
     background-color: var(--main-blue);
@@ -223,4 +239,38 @@ button:hover{
 
 a{
     text-decoration: none;
+}
+
+.Content{
+    display: flex;
+}
+
+.Content .main{
+    width: calc(100% - 300px);
+}
+.biggerMain{
+    flex-grow: 1;
+}
+option{
+    font-size: 16px;
+}
+
+.AlertDIV{
+    background: var(--main-blue);
+    color: white;
+    min-width: 400px;
+    width: 400px;
+    padding: 20px 20px;
+    position: sticky;
+    bottom: -100%;
+    opacity: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
+    border-radius: 2px;
+}
+
+.showAlert{
+    bottom: 20px;
+    opacity: 1;
 }

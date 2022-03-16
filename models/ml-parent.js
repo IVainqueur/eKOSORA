@@ -8,7 +8,8 @@ const parentSchema = mongo.Schema({
         type: String,
         default: 'password@123'
     },
-    children: Array
+    children: Array,
+    profileLink: String
 })
 
 module.exports = mongo.model('parent', parentSchema)

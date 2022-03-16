@@ -11,7 +11,19 @@ fetch("/subjects")
     window.dispatchEvent(new Event('hashchange'))
 
 })
+//RESIZE OBSERVER
 
+const observer = new ResizeObserver((entries)=>{
+    let main = entries[0]
+    console.log(main.contentRect.height, main.contentRect.width)
+    if(main.contentRect.width <= 970){
+        main.target.classList.add('smallMain')
+    }else{
+        main.target.classList.remove('smallMain')
+    }
+})
+
+observer.observe(document.querySelector('.main'))
 //SOME GLOBAL VARIABLES
 const selected = {
     class: {
