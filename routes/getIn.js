@@ -43,8 +43,18 @@ app.post('/login/check', async (req, res)=>{
         
         return res.json({code: "#Success", doc: {
             names: user.names,
-            title: req.body.accountType,
-            _id: user._id
+            // title: req.body.accountType,
+            _id: user._id,
+            code: user.code,
+            email: user.email,
+            title: user.title,
+            tel: user.tel,
+            parentEmails: user.parentEmails,
+            lessons: user.lessons,
+            class: user.class,
+            profileLink: user.profileLink,
+            accountType: req.body.accountType
+
         }})
     }
     catch(e){

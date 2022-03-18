@@ -3,7 +3,7 @@ const mongo = require('mongoose')
 const parentSchema = mongo.Schema({
     names: String,
     email: String,
-    phone: String,
+    tel: String,
     password: {
         type: String,
         default: 'password@123'

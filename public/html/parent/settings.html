@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+        <!-- <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> -->
+        <title>Settings | eKOSORA</title>
+        <link rel="stylesheet" href="../css/common.css">
+<link rel="icon" type="image/x-icon" href="../img/favicon.png">
+
+        <link rel="stylesheet" href="../css/settings.css">
+    <!-- <link rel="stylesheet" href="../css/newEducator.css"> -->
+    </head>
+    <body>
+        <div id="NavBar" class="CommonNav">
+            <div class="LeftSide">
+                <div class="HamburgerContainer">
+                    <p id="HamburgerMenu" class="clickedMenu"></p>
+                </div>
+                <!-- <h1 id="TheLogo"></h1> -->
+                <a href="/dashboard">
+                    <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+                    <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+                </a>
+
+            </div>
+            <div class="Middle">
+                <h1>Settings</h1>
+            </div>
+            <div class="theButtons">
+                <button id="LogOutBTN">LOG OUT</button>
+<i class='bx bx-log-out' style='color:#ffffff'  ></i>
+                <!-- <button id="SignUpBTN">SIGN UP</button> -->
+            </div>
+        </div>
+        <div class="Content">
+            <div class="Menu show">
+                <div class="MenuItem">
+                    <a href="/dashboard">Dashboard</a>
+                </div>
+                <div class="MenuItem">
+                    <a href="/marks">Marks</a>
+                </div>
+                <div class="MenuItem">
+                    <a href="/timetable">Timetables</a>
+                </div>
+                <div class="MenuItem">
+                    <a href="/settings">Settings</a>
+                </div>
+                <div class="Profile">
+                    <h3></h3>
+                    <p></p>
+                </div>
+            </div>
+            <div class="main">
+                <div class="Settings">
+                    <div class="ProfileImage">
+                        <img src="../img/profile.png" alt=" ">
+                        <span id="ProfileChangeBTN">change profile</span>
+                    </div>
+                    <div class="textContent">
+                        <div class="Field" title="names">
+                            <h3>Names:</h3>
+                            <input type="text" value="Some content" readonly class="span">
+                        </div>
+                        <div class="Field" title="tel">
+                            <h3>Tel:</h3>
+                            <input type="text" value="Some content" readonly class="span">
+                        </div>
+                        <div class="Field" title="children">
+                            <h3>Children:</h3>
+                            <input type="text" value="Some content" readonly class="span">
+                        </div>
+                        <div class="Field" title="email">
+                            <h3>E-mail:</h3>
+                            <input type="text" value="Some content" readonly class="span">
+                        </div>
+                        <!-- <div class="Field" title="parentEmails">
+                            <h3>Parents:</h3>
+                            <input type="text" value="Some content" readonly class="span">
+                        </div> -->
+                        <div class="Field" title="password">
+                            <h3>Password:</h3>
+                            <input type="password" value="Some content" readonly class="span">
+                            <img src="../img/visibility_off.svg" alt="View/Hide Password" id="ViewHidePassword">
+                        </div>
+                        <div class="TheBTNs">
+                            <button id="EditBTN">EDIT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../js/common.js"></script>
+    <script src="../js/settings.js"></script>
+</html>

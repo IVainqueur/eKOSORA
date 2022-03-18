@@ -436,6 +436,7 @@ individualEdit.addEventListener('click', ()=>{
                 if(Number(editable.textContent) > Number(document.querySelectorAll('th')[editable.cellIndex].textContent.slice(1))){
                     editable.textContent = prev
                 }
+                if(editable.textContent == '') editable.textContent = '0'
                 
                 // return console.log({
                 //     recordId: theData[editable.parentElement.rowIndex].records[editable.cellIndex-2]._id,

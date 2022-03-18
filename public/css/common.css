@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Questrial', sans-serif;
+    font-family: 'Questrial','Laksaman', sans-serif;
     --main-blue: #4CA7CE;
     --darker-blue: #3F7CAC;
     transition: .3s ease;
@@ -33,6 +33,10 @@ h1{
     height: 40px;
     display: none;
 }
+i.bx{
+    display: none;
+
+}
 @media(max-width: 670px){
     #TheLogo{
         display: none;
@@ -44,8 +48,10 @@ h1{
         display: none;
     }
     i.bx{
+        display: initial;
         padding: 5px;
         border-radius: 5px;
+        font-size: 35px;
 
     }
     i.bx:hover{
@@ -71,6 +77,8 @@ button:hover{
     align-items: center;
     padding: 20px 40px;
     justify-content: space-between;
+    position: fixed;
+    z-index: 10;
 }
 
 .CommonNav h1{
@@ -152,7 +160,7 @@ button:hover{
     height: calc(100vh - 60px);
     width: 300px;
     background-color: var(--darker-blue);
-    position: relative;
+    position: fixed;
     /* top: 60px; */
     left: -310px;
     transition: .5s ease;
@@ -242,11 +250,14 @@ a{
 }
 
 .Content{
+    padding-top: 60px;
     display: flex;
+    padding-left: 300px;
+    height: 100%;
 }
 
 .Content .main{
-    width: calc(100% - 300px);
+    width: 100%;
 }
 .biggerMain{
     flex-grow: 1;
@@ -273,4 +284,8 @@ option{
 .showAlert{
     bottom: 20px;
     opacity: 1;
+}
+
+.onlyMain{
+    padding-left: 0;
 }

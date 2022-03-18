@@ -44,7 +44,8 @@
 .Settings .textContent{
     display: flex;
     flex-direction: column;
-    width: 50%;
+    /* width: 50%; */
+    flex-grow: 1;
 }
 
 .Settings .textContent> div{
@@ -75,8 +76,9 @@
     border: none;
     outline: none;
     font-size: 16px;
-   /*  max-width: 70%;
+    /*  max-width: 70%;
     flex-grow: 1; */
+    flex-grow: 1;
 }
 
 .Settings .textContent .Field h3{
@@ -91,6 +93,15 @@
 }
 .TheBTNs button{
     margin-right: 10px;
+}
+
+#ViewHidePassword{
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+}
+#ViewHidePassword:hover{
+    background-color: rgba(0,0,0,0.2);
 }
 
 

@@ -85,8 +85,9 @@ app.get('/dashboard', (req, res)=>{
 })
 
 app.get('/marks', (req, res)=>{
+    req.body.dir = req.body.prefix
     req.body.prefix = (req.body.prefix == 'student')? '' : 'edit'
-    res.sendFile(__dirname + `/public/html/educator/${req.body.prefix}Marks.html`)
+    res.sendFile(__dirname + `/public/html/${req.body.dir}/${req.body.prefix}Marks.html`)
 })
 
 app.get('/subjects', (req,res)=>{
@@ -98,6 +99,15 @@ app.get('/subjects', (req,res)=>{
 
 app.get('/settings', (req, res)=>{
     res.sendFile(__dirname + `/public/html/${req.body.prefix}/settings.html`)
+})
+
+app.get('/getInfo/:id', (req, res)=>{
+    // console.log(req.body)
+    require(`./models/ml-${req.body.prefix}`).findOne({_id: req.params.id}, (err, doc)=>{
+        if(err) return res.json({code: "#Error", message: err})
+        if(doc == null) return res.json({code: "#NoSuchId"})
+        res.json({code: "#Success", doc})
+    })
 })
 
 app.get('*', (req, res)=>{

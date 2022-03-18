@@ -37,4 +37,34 @@ app.post('/newProfile', (req, res)=>{
     }).end(req.files.file.data)
 })
 
+app.post('/updateSettings/:id', async (req, res)=>{
+    require(`../models/ml-${req.body.prefix}`).updateOne({_id: req.params.id}, req.body, async (err, doc)=>{
+        if(err) return res.json({code: "#Error", message: err})
+        // console.log(doc)
+        try{
+            let newUser = await require(`../models/ml-${req.body.prefix}`).findOne({_id: req.params.id})
+            if(!newUser) return res.json({code: "#NoSuchId"})
+            console.log(newUser)
+
+            res.json({code: "#Success", doc: {
+                names: newUser.names,
+                _id: newUser._id,
+                code: newUser.code,
+                email: newUser.email,
+                title: newUser.title,
+                tel: newUser.tel,
+                parentEmails: newUser.parentEmails,
+                lessons: newUser.lessons,
+                class: newUser.class,
+                profileLink: newUser.profileLink,
+                accountType: req.body.accountType
+
+            }})
+        }catch(e){
+            return res.json({code: "#Error", message: e})
+        }
+    
+        })
+})
+
 module.exports = app

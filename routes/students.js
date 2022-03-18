@@ -147,7 +147,7 @@ app.post('/addParent', async (req, res)=>{
             let newParent = require('../models/ml-parent')({
                 names: '',
                 email: req.body.email,
-                phone: '',
+                tel: '',
                 children: [req.body.studentId]
             })
             newParent.save( async (err, result)=>{
