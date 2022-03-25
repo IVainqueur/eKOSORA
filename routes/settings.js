@@ -43,7 +43,7 @@ app.post('/updateSettings/:id', async (req, res)=>{
         // console.log(doc)
         try{
             let newUser = await require(`../models/ml-${req.body.prefix}`).findOne({_id: req.params.id})
-            if(!newUser) return res.json({code: "#NoSuchId"})
+            if(!newUser) return res.json({code: "#NoSuchID"})
             console.log(newUser)
 
             res.json({code: "#Success", doc: {

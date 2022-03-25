@@ -4,7 +4,7 @@ fetch(`/getInfo/${JSON.parse(localStorage.eKOSORA_User)._id}`)
     if(data.code == "#Error"){
         return AlertAlt("Something went wrong. Please try again", sustain=true)
     }
-    if(data.code == "#NoSuchId"){
+    if(data.code == "#NoSuchID"){
         document.write("Something is wrong with your account authentication. <a href='/login'>Click Here</a> to log in again")
         return
     }
@@ -14,9 +14,9 @@ fetch(`/getInfo/${JSON.parse(localStorage.eKOSORA_User)._id}`)
     }
 })
 
-
 if(JSON.parse(localStorage.eKOSORA_User).profileLink){
     document.querySelector('.ProfileImage img').src = JSON.parse(localStorage.eKOSORA_User).profileLink
+
 }
 
 const fillInData = (toUse)=>{
@@ -117,7 +117,7 @@ const clickedEdit = (e)=>{
 
 editBTN.addEventListener('click', clickedEdit, {once: true})
 
-document.querySelector('#ProfileChangeBTN').addEventListener('click', (e)=>{
+document.querySelector('.ProfileImage').addEventListener('click', (e)=>{
     let fileInput = document.createElement('input')
     fileInput.type = 'file'
     fileInput.accept = ".png, .jpeg, .jpg, .gif, .ico"
@@ -126,39 +126,54 @@ document.querySelector('#ProfileChangeBTN').addEventListener('click', (e)=>{
         let failed = false
         reader.onload = async function(event) {
             if(event.total > 100000){
+                console.log("Inside the load function")
                 failed = true
                 return alert("The file must be under 50Kb in size")
             } 
             let img = document.querySelector('.ProfileImage img')
             img.src = event.target.result
-            
+            let data = new FormData()
+            // data.append('fromReader', event.target.result)
+            AlertAlt('Updating profile...', true)
+            data.append('file', fileInput.files[0])
+            data.append("_id", JSON.parse(localStorage.eKOSORA_User)._id)
+            // console.log(event.total)
+            fetch('/settings/newProfile', {
+                method: 'POST',
+                headers: {},
+                body: data
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if(data.code == "#Success"){
+                    let userInfo = JSON.parse(localStorage.eKOSORA_User)
+                    userInfo.profileLink = data.url
+                    localStorage.eKOSORA_User = JSON.stringify(userInfo)
+                    AlertAlt('Updated profile successfully')
+                }
+            })
             
         }
-        await reader.readAsDataURL(e2.target.files[0])
+        let readFile = await reader.readAsDataURL(e2.target.files[0])
+        // if(failed) return
+        // console.log("reached here")
         // return
-        if(failed) return
-        let data = new FormData()
-        // data.append('fromReader', event.target.result)
-        data.append('file', e2.target.files[0])
-        data.append("_id", JSON.parse(localStorage.eKOSORA_User)._id)
-        // console.log(event.total)
-        fetch('/settings/newProfile', {
-            method: 'POST',
-            headers: {},
-            body: data
-        })
-        .then(res => res.json())
-        .then(data => {
-            console.log(data)
-            if(data.code == "#Success"){
-                let userInfo = JSON.parse(localStorage.eKOSORA_User)
-                userInfo.profileLink = data.url
-                localStorage.eKOSORA_User = JSON.stringify(userInfo)
-            }
-        })
+        
         // console.log(e2.target.files[0])
     }
 
     fileInput.click()
 
 })
+
+const observer = new ResizeObserver((entries)=>{
+    let mainDIV = entries[0]
+    if(mainDIV.contentRect.width < 690){
+        mainDIV.target.classList.add('smallSettings')
+    }else{
+        mainDIV.target.classList.remove('smallSettings')
+    }
+})
+
+observer.observe(document.querySelector('.Settings'))

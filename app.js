@@ -105,7 +105,7 @@ app.get('/getInfo/:id', (req, res)=>{
     // console.log(req.body)
     require(`./models/ml-${req.body.prefix}`).findOne({_id: req.params.id}, (err, doc)=>{
         if(err) return res.json({code: "#Error", message: err})
-        if(doc == null) return res.json({code: "#NoSuchId"})
+        if(doc == null) return res.json({code: "#NoSuchID"})
         res.json({code: "#Success", doc})
     })
 })

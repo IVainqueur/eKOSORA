@@ -181,4 +181,14 @@ app.post('/addParent', async (req, res)=>{
     }
 })
 
+app.get('/getMarks/:id', async (req, res)=>{
+    try{
+        let marks = await require('../models/ml-student').findOne({_id: req.params.id})
+        if(!marks) return res.json({code: "#NoSuchID"})
+        res.json({code: "#Success", marks: marks.records})
+    }catch(e){
+        res.json({code: "#Error", message: e})
+    }
+})
+
 module.exports = app
