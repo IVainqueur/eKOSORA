@@ -3,7 +3,7 @@ fetch('/announcement/view')
 .then(data =>{
     console.log(data)
     if(data.doc.length == 0){
-        document.querySelector('.Announcements').innerHTML = "<p>No announcements to show</p>"
+        document.querySelector('.Announcements').innerHTML += "<p>No announcements to show</p>"
         return
     }
     for(let announcement of data.doc){

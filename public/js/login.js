@@ -71,7 +71,7 @@ getInBTN.addEventListener('click', (e)=>{
         
         if(data.code == "#Success") {
             localStorage.eKOSORA_User = JSON.stringify(data.doc)
-            return location.pathname = '/dashboard'
+            return location.pathname = (document.cookie.match(/redirected=true/))? decodeURIComponent(document.cookie).match(/from=(\/\w+)/)[1] :'/dashboard'
         }else if(data.code == "#NoSuchUser"){
             theForm.setAttribute('error', `There is no ${selectedForm} registered under the entered email`)
             return theForm.classList.add('errorInForm')

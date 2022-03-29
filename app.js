@@ -39,8 +39,17 @@ app.use((req, res, next)=>{ //Cookie validation
     }
     if((req.originalUrl != "/")){
         if(!req.originalUrl.match(/login/)){
+            // console.log(req.path)
             if(req.cookies.jwt == undefined){
                 console.log("No jwt token")
+                if(req.path != "/logout"){
+                    res.cookie('redirected', 'true', {
+                        maxAge: 5*60*1000
+                    })
+                    res.cookie('from', req.path.toString(), {
+                        maxAge: 5*60*1000
+                    })
+                }
                 return res.redirect('/login')
             }else{
                 jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, result)=>{

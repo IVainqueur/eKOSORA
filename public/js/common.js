@@ -59,3 +59,6 @@ if(document.querySelector('.main')){
     }, 1000)
     
 }
+
+
+if(location.pathname != "/getin/login") document.cookie = "redirected=false"

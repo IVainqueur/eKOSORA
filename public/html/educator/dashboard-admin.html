@@ -8,10 +8,10 @@
         <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
         <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/common.css">
-<link rel="icon" type="image/x-icon" href="../img/favicon.png">
-
+        <link rel="icon" type="image/x-icon" href="../img/favicon.png">
         <link rel="stylesheet" href="../css/dashboard.css">
-        <title>Dashboard | eKOSORA</title>
+            <link rel="stylesheet" href="../css/announcements.css">
+
     </head>
     <body>
         <div id="NavBar" class="CommonNav">
@@ -20,18 +20,17 @@
                     <p id="HamburgerMenu" class="clickedMenu"></p>
                 </div>
                 <!-- <h1 id="TheLogo"></h1> -->
-                        <a href="/dashboard">
+                <a href="/dashboard">
                     <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
                     <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
                 </a>
-
             </div>
             <div class="Middle">
                 <h1>Dashboard</h1>
             </div>
             <div class="theButtons">
                 <button id="LogOutBTN">LOG OUT</button>
-<i class='bx bx-log-out' style='color:#ffffff'  ></i>
+                <i class="bx bx-log-out" style="color:#ffffff"></i>
                 <!-- <button id="SignUpBTN">SIGN UP</button> -->
             </div>
         </div>
@@ -81,7 +80,13 @@
                     </div>
                 </div>
                 <!-- <br><br> -->
-                <h1>Statistics Summary</h1>
+                <div class="Announcements" style="max-width: 100%;width: 100%;min-height: 200px;">
+     
+     
+                    <h1>Announcements</h1>
+            <script src="../js/getAnnouncements.js"></script>
+        </div>
+        <h1>Statistics Summary</h1>
                 <div class="Statistics">
                     <div class="Statistic">
                         <canvas id="myChart" style="width:100%;max-width:50%; max-height: 400px;"></canvas>
