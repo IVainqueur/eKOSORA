@@ -81,7 +81,7 @@ const clickedSaveEdit = (e)=>{
             AlertAlt("User info updated successfully.")
             console.log(data)
             localStorage.eKOSORA_User = JSON.stringify(data.doc)
-            setTimeout(()=>{location.reload()}, 2000)
+            setTimeout(()=>{location.reload()}, 200)
         }
     })
 
@@ -177,3 +177,60 @@ const observer = new ResizeObserver((entries)=>{
 })
 
 observer.observe(document.querySelector('.Settings'))
+
+
+///! GET EXTRA SETTINGS
+
+fetch('/settings/otherSettings')
+.then(res => res.json())
+.then(data => {
+    if(data.code == "#Error"){
+        AlertAlt("Could not load other settings. Try refreshing the page!")
+    }
+    if(data.code == "#Success"){
+        for(let setting of data.doc){
+            // console.log(setting.value.value['number'])
+            let div = document.createElement('div')
+            let h1 = document.createElement('h1')
+            
+            h1.textContent = setting.key
+            h1.style.textTransform = "capitalize"
+            
+            div.className = "OtherSetting"
+
+            div.appendChild(h1)
+
+            for(let valueKey of Object.keys(setting.value.value)){
+                let field = document.createElement('div')
+                field.className = "Field"
+                let h3 = document.createElement('h3')
+                h3.textContent = valueKey + ":"
+                h3.style.textTransform = "capitalize"
+                let input = document.createElement('input')
+                input.type = setting.value.value[valueKey].type
+                input.className = "span"
+                input.readOnly = true
+                if(setting.value.value[valueKey].type == 'Date'){
+                    input.valueAsNumber = Date.parse(new Date(setting.value.value[valueKey].data))
+                }else{
+                    input.value = setting.value.value[valueKey].data
+                }
+
+                // console.log(setting.value.value[valueKey])
+
+                field.appendChild(h3)
+                field.appendChild(input)
+                div.appendChild(field)
+            }
+
+            document.querySelector('.main').appendChild(div)
+
+        }
+    }
+
+})
+
+
+function getType(value){
+
+}

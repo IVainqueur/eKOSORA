@@ -5,12 +5,17 @@ hamburgerMenu.onclick = ()=>{
     document.querySelector('.Content').classList.toggle('onlyMain')
     if(document.querySelector('.Content .main')) document.querySelector('.main').classList.toggle('biggerMain')
 }
+let userInfo = JSON.parse(localStorage.eKOSORA_User)
 
-let userName = JSON.parse(localStorage.eKOSORA_User).names.split(' ').slice(0, -1).map(x => x.slice(0,1)+'.').join(' ') + ` ${JSON.parse(localStorage.eKOSORA_User).names.split(' ')[JSON.parse(localStorage.eKOSORA_User).names.split(' ').length -1]}`
+let userName = userInfo.names.split(' ').slice(0, -1).map(x => x.slice(0,1)+'.').join(' ') + ` ${userInfo.names.split(' ')[userInfo.names.split(' ').length -1]}`
 // console.log(userName)
-document.querySelector('.Profile h3').textContent = JSON.parse(localStorage.eKOSORA_User).names.split(' ')[1][0].toUpperCase() + JSON.parse(localStorage.eKOSORA_User).names.split(' ')[1].slice(1).toLowerCase()
+document.querySelector('.Profile h3').textContent = userInfo.names.split(' ')[1][0].toUpperCase() + userInfo.names.split(' ')[1].slice(1).toLowerCase()
 // document.querySelector('.Profile h3').textContent = userName
-document.querySelector('.Profile p').textContent = JSON.parse(localStorage.eKOSORA_User).accountType
+document.querySelector('.Profile p').textContent = userInfo.accountType 
+if(userInfo.title){
+    document.querySelector('.Profile p').textContent += ((userInfo.title.match(/admin/)? "(admin)": ""))
+}
+
 
 if(document.querySelector('#LogOutBTN')){
     document.querySelector('#LogOutBTN').parentElement.addEventListener('click', (e)=>{
@@ -52,11 +57,12 @@ if(document.querySelector('.main')){
             hamburgerMenu.children[0].classList.remove('clickedMenu')
             document.querySelector('.Menu').classList.remove('show')
             document.querySelector('.Content').classList.add('onlyMain')
+            // hamburgerMenu.click()
         }
     }
     setTimeout(()=>{
         window.dispatchEvent(new Event('resize'))
-    }, 1000)
+    }, 300)
     
 }
 

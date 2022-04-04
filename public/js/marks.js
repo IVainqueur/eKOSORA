@@ -431,18 +431,10 @@ individualEdit.addEventListener('click', ()=>{
                 if(Number(editable.textContent + e.key) > Number(document.querySelectorAll('th')[editable.cellIndex].textContent.slice(1))) return e.preventDefault()
             }
             setTimeout(()=>{
-                // changed[editable.parentElement.rowIndex] = editable.textContent
-                // console.log(theData[editable.parentElement.rowIndex].records[editable.cellIndex-2]._id)
                 if(Number(editable.textContent) > Number(document.querySelectorAll('th')[editable.cellIndex].textContent.slice(1))){
                     editable.textContent = prev
                 }
-                if(editable.textContent == '') editable.textContent = '0'
                 
-                // return console.log({
-                //     recordId: theData[editable.parentElement.rowIndex].records[editable.cellIndex-2]._id,
-                //     studentId: theData[editable.parentElement.rowIndex].studentId,
-                //     mark: Number(editable.textContent)
-                // })
                 editable.className = "updating"
                 fetch('/student/updateMark', {
                     method: 'POST',

@@ -44,7 +44,8 @@ app.post('/updateSettings/:id', async (req, res)=>{
         try{
             let newUser = await require(`../models/ml-${req.body.prefix}`).findOne({_id: req.params.id})
             if(!newUser) return res.json({code: "#NoSuchID"})
-            console.log(newUser)
+            // console.log(req.body.accountType)
+            // console.log(req.body)
 
             res.json({code: "#Success", doc: {
                 names: newUser.names,
@@ -57,7 +58,7 @@ app.post('/updateSettings/:id', async (req, res)=>{
                 lessons: newUser.lessons,
                 class: newUser.class,
                 profileLink: newUser.profileLink,
-                accountType: req.body.accountType
+                accountType: req.body.prefix
 
             }})
         }catch(e){
@@ -65,6 +66,26 @@ app.post('/updateSettings/:id', async (req, res)=>{
         }
     
         })
+})
+
+app.get('/otherSettings', (req, res)=>{
+    require('../models/ml-setting').find({}, (err, doc)=>{
+        if(err) res.json({code: "#Error", message: err})
+        // console.log(typeof doc[0].value.value.start)
+        let result = [].concat(doc)
+        doc = []
+        for(let setting of result){
+            for(let value of Object.keys(setting.value.value)){
+                setting.value.value[value] = {
+                    data: setting.value.value[value],
+                    type: Object.prototype.toString.call(setting.value.value[value]).slice(1, -1).split(' ')[1]
+                }
+            }
+            doc.push(setting)
+        }
+        // console.log(doc1[0].value.value)
+        res.json({code: "#Success", doc})
+    })
 })
 
 module.exports = app
