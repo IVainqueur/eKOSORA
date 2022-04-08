@@ -6,7 +6,7 @@
     margin-left: 10px;
     width: 150px;
     border-radius: 2px;
-    font-size: 16px;
+    /* font-size: 16px; */
 }
 
 #NavBar #SignUpBTN{
@@ -23,6 +23,8 @@
     height: 100%;
     display: flex;
     flex-direction: row;
+    /* flex-direction: column; */
+    padding-top: 60px;
 }
 
 .main > div{
@@ -40,6 +42,7 @@
     display: grid;
     place-content: center;
     padding: 0 40px;
+    /* height: fit-content; */
 }
 
 .main .LoginChoice .Choices{
@@ -54,7 +57,7 @@
     height: 200px;
     width: 200px;
     font-family: 'Quantico', sans-serif;
-    font-size: 30px;
+    font-size: 1.5em;
     color: rgba(0,0,0,0.4);
     margin-right: 20px;
     margin-bottom: 20px;
@@ -67,7 +70,7 @@
 }
 
 .main .LoginChoice p{
-    font-size: 24px;
+    font-size: 1.5em;
     margin-bottom: 10px;
 }
 
@@ -78,6 +81,7 @@
     align-items: center;
     padding: 0 20px;
     position: relative;
+    /* height: 959px; */
 }
 
 .main .TheForm form{
@@ -86,7 +90,7 @@
     border-radius: 5px;
     border: 2px solid var(--darker-blue);
     padding: 40px;
-    
+    /* height: fit-content; */
 }
 
 
@@ -104,7 +108,7 @@
 
 .main .TheForm span{
     color: #6f6f6f;
-    font-size: 18px;
+    /* font-size: 18px; */
     margin-bottom: 5px;
 }
 
@@ -130,6 +134,20 @@
     cursor: pointer;
 }
 
+
+
+.unFilledField::after{
+    content: 'Please fill this field';
+    color: #ed4949;
+    margin-top: 10px;
+}
+
+.errorInForm::after{
+    content: attr(error);
+    color: #ed4949;
+    margin-top: 10px;
+}
+
 @media(max-width:1025px){
     .main .LoginChoice{
         width: 40%;
@@ -142,17 +160,33 @@
     }
     .main > div{
         width: 100% !important;
+        
+    }
+    .LoginChoice .Choice{
+        height: 150px !important;
+        width: 150px !important;
+    }
+    .LoginChoice{
+        height: fit-content !important;
+        padding: 40px !important;
     }
 }
 
-.unFilledField::after{
-    content: 'Please fill this field';
-    color: #ed4949;
-    margin-top: 10px;
-}
-
-.errorInForm::after{
-    content: attr(error);
-    color: #ed4949;
-    margin-top: 10px;
+@media(max-height: 835px){
+    .main{
+        flex-direction: column;
+        align-items: center;
+        height: fit-content;
+    }
+    .LoginChoice{
+        flex-direction: row;
+        width: 100% !important;
+        margin-bottom: 20px;
+        min-height: 255px;
+        height: fit-content !important;
+    }
+    form{
+        height: fit-content !important;
+        min-height: 380px;
+    }
 }
