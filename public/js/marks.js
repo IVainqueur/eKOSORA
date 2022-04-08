@@ -11,6 +11,9 @@ fetch("/subjects")
     window.dispatchEvent(new Event('hashchange'))
 
 })
+.catch(err => {
+    AlertAlt("Something went wrong. Please try again")
+})
 //RESIZE OBSERVER
 
 const observer = new ResizeObserver((entries)=>{
@@ -50,9 +53,14 @@ window.onhashchange = async (e)=>{
     document.querySelector(`option[value=${modified[1]}]`).selected = true
     document.querySelector(`option[value=${modified[0].slice(1)}]`).parentElement.dispatchEvent(new Event('change'))
     document.querySelector(`option[value=${modified[1].slice(0)}]`).parentElement.dispatchEvent(new Event('change'))
-    let result = await fetch(`/student/getRecords/?year=${selected.class.year}&class=${selected.class.class}&subject=${selected.subject}`)
-    result = await result.json()
-    parseFetchData(result)
+
+    try{
+        let result = await fetch(`/student/getRecords/?year=${selected.class.year}&class=${selected.class.class}&subject=${selected.subject}`)
+        result = await result.json()
+        parseFetchData(result)
+    }catch(e){
+        AlertAlt("Something went wrong. Please try again")
+    }
 }
 
 
@@ -453,6 +461,9 @@ individualEdit.addEventListener('click', ()=>{
                     if(data.code == "#Success") return editable.className="updated"
                     editable.className="failedUpdating"
 
+                })
+                .catch(err => {
+                    AlertAlt("Something went wrong. Please try again")
                 })
             }, 10)
         }

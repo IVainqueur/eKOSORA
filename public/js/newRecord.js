@@ -10,6 +10,9 @@ fetch("/subjects")
         document.querySelector('select#SubjectChoice').appendChild(option)
     }
 })
+.catch(err => {
+    AlertAlt("Something went wrong. Please try again")
+})
 
 
 for(let select of document.querySelectorAll('select')){
@@ -67,6 +70,9 @@ document.querySelector('form').addEventListener('submit', (e)=>{
         if(data.code == "#Success") return document.querySelector('form').reset()
         alert("Something went wrong. Please check console for more information")
         // console.log(data)
+    })
+    .catch(err => {
+        AlertAlt("Something went wrong. Please try again")
     })
     
 })

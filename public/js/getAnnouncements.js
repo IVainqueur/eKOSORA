@@ -31,3 +31,6 @@ fetch('/announcement/view')
         document.querySelector('.Announcements').appendChild(div)
     }
 })
+.catch(err => {
+    AlertAlt("Something went wrong. Please try again")
+})

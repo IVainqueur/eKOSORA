@@ -13,6 +13,9 @@ fetch(`/getInfo/${JSON.parse(localStorage.eKOSORA_User)._id}`)
         fillInData(data.doc)
     }
 })
+.catch(err => {
+    AlertAlt("Something went wrong. Please try again")
+})
 
 if(JSON.parse(localStorage.eKOSORA_User).profileLink){
     document.querySelector('.ProfileImage img').src = JSON.parse(localStorage.eKOSORA_User).profileLink
@@ -84,6 +87,9 @@ const clickedSaveEdit = (e)=>{
             setTimeout(()=>{location.reload()}, 200)
         }
     })
+    .catch(err => {
+        AlertAlt("Something went wrong. Please try again")
+    })
 
     // fetch()
 }
@@ -152,6 +158,9 @@ document.querySelector('.ProfileImage').addEventListener('click', (e)=>{
                     localStorage.eKOSORA_User = JSON.stringify(userInfo)
                     AlertAlt('Updated profile successfully')
                 }
+            })
+            .catch(err => {
+                AlertAlt("Something went wrong. Please try again")
             })
             
         }
@@ -228,6 +237,9 @@ fetch('/settings/otherSettings')
         }
     }
 
+})
+.catch(err => {
+    AlertAlt("Something went wrong. Please try again")
 })
 
 

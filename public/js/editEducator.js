@@ -1,16 +1,16 @@
-//Getting the subjects
+//GET ALL SUBJECTS
 fetch("/subjects")
 .then(res=>res.json())
 .then(data => {
     if(data.code == "#Error") return console.log("SOmething went wrong")
     for(let subject of data.doc){
-        console.log(subject)
+        // console.log(subject.code)
         let label = document.createElement('label')
         let checkbox = document.createElement('input')
         checkbox.type = "checkbox"
+        checkbox.value = subject.code
         label.appendChild(checkbox)
         let choice = document.createElement('option')
-        checkbox.value = subject.code
         choice.textContent = subject.title
         label.appendChild(choice)
         document.querySelector('.Lessons').appendChild(label)
@@ -20,20 +20,37 @@ fetch("/subjects")
     AlertAlt("Something went wrong. Please try again")
 })
 
-for(let select of document.querySelectorAll('select')){
-    select.addEventListener('change', (e)=>{
-        select.firstElementChild.disabled = true
-    })
-}
-
 document.querySelector('#LessonsDropDown img').onclick = (e)=>{
     document.querySelector('.Lessons').classList.toggle('showLessons')
+}
+
+//FETCH THE SPECIFIED ID's INFO
+fetch(`/educator/getOne?id=${location.search.slice(location.search.indexOf('=')+1)}`)
+.then(res => res.json())
+.then(data => {
+    if(data.code == "#Error") return AlertAlt("Something went wrong. Try refreshing the page.")
+    if(data.code == "#NotFound") return AlertAlt("There is no educator under the ID")
+    fillInData(data.doc)
+})
+.catch(err => {
+    AlertAlt("Something went wrong. Please try again")
+})
+
+
+function fillInData(data){
+    for(let input of document.querySelectorAll('input')){
+        if(input.type == 'checkbox') {
+            // console.log(data.lessons, input.value)
+            if(data.lessons.includes(input.value)) input.checked = true
+            continue
+        }
+        input.value = data[input.getAttribute('name')]
+    }
 }
 
 document.querySelector('form').addEventListener('submit', (e)=>{
     e.preventDefault()
     let toSend = {lessons: []}
-    // let checkedBoxes = []
     for(let input of document.querySelectorAll('input, select')){
         let toUse = null
         if(input.tagName == "INPUT"){
@@ -69,13 +86,16 @@ document.querySelector('form').addEventListener('submit', (e)=>{
 
     // console.log(checkedBoxes)
     // toSend.lessons = checkedBoxes
-    console.log(toSend)
+    // toSend._id = location.search.slice(location.search.indexOf('=')+1)
+    //  console.log(toSend)
     fetch('', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(toSend)
+        body: JSON.stringify({
+            data: toSend
+        })
     })
     .then(res => {
        res.json()

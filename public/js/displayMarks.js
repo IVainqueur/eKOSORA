@@ -41,3 +41,6 @@ fetch(`/student/getMarks/${JSON.parse(localStorage.eKOSORA_User)._id}`)
     // console.log(data)
     makeCards(data.marks)
 })
+.catch(err => {
+    AlertAlt("Something went wrong. Please try again")
+})

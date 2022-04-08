@@ -7,6 +7,9 @@ const logOut = ()=>{
         // logOut()
         console.log(e)
     })
+    .catch(err => {
+        alert("Something went wrong. Please try again")
+    })
 }
 
 logOut()
@@ -79,6 +82,9 @@ getInBTN.addEventListener('click', (e)=>{
             theForm.setAttribute('error', `Incorrect password`)
             return theForm.classList.add('errorInForm')
         }
+    })
+    .catch(err => {
+        alert("Something went wrong. Please try again")
     })
 
 })

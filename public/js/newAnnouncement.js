@@ -43,4 +43,7 @@ document.querySelector('form').addEventListener('submit', (e)=>{
         }
 
     })
+    .catch(err => {
+        AlertAlt("Something went wrong. Please try again")
+    })
 })
