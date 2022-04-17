@@ -31,7 +31,7 @@ connectToEmail()
 
 //? THERE WILL BE COOKIE-RELATED VALIDATION
 app.post('/register', async (req, res)=>{
-    req.body.password = await bcrypt.hash("password@123", Number(process.env.BCRYPT_SALT))
+    // req.body.password = await bcrypt.hash("password@123", Number(process.env.BCRYPT_SALT))
     let newStudent = require('../models/ml-student')(req.body)
 
     newStudent.save((err, doc)=>{
@@ -82,7 +82,7 @@ app.get('/newRecord', (req, res)=>{
 
 app.post('/addRecord', (req, res)=>{
     req.body.date = Date.parse(new Date(req.body.date).toString().slice(0,15))
-    require('../models/ml-student').updateMany({class: req.body.class}, {$push: {records: {
+    require('../models/ml-student').updateMany({"class.year": req.body.class.year}, {$push: {records: {
         _id: mongo.Types.ObjectId(),
         recordName: req.body.recordName,
         date: req.body.date,
@@ -104,6 +104,31 @@ app.post('/updateMark', (req, res)=>{
     // console.log(req.body)
     require('../models/ml-student').updateOne({_id: req.body.studentId, records: {$elemMatch: {_id: req.body.recordId}}}, {
         $set: {"records.$.mark": req.body.mark}
+    }, (err, doc)=>{
+        if(err) return res.json({code: "#Error", error: err})
+        res.json({code: "#Success", doc})
+    })
+})
+
+app.post('/updateForMany', (req, res)=>{
+    req.body.recordId = mongo.Types.ObjectId(req.body.recordId)
+
+    req.body.students.forEach((studentId, index)=>{
+        req.body.students[index] = mongo.Types.ObjectId(studentId)
+    })
+    
+    
+
+    require('../models/ml-student').updateMany({_id: {$in: req.body.students}, records: {$elemMatch: {_id: req.body.recordId}}}, {
+        "records.$.mark": {
+            $cond: {
+                if: {
+                    $gte: [{$add: ["records.$.mark",req.body.mark]}, "records.$.max"]
+                },
+                then: "records.$.max",
+                else: {$add: ["records.$.mark",req.body.mark]}
+            }
+        }
     }, (err, doc)=>{
         if(err) return res.json({code: "#Error", error: err})
         res.json({code: "#Success", doc})
@@ -190,5 +215,70 @@ app.get('/getMarks/:id', async (req, res)=>{
         res.json({code: "#Error", message: e})
     }
 })
+
+app.post('/getSummary', async (req, res)=>{
+    if((req.body.lessons.length == 0) || !req.body.lessons) return res.json({code: "#EmptyLessonsList"})
+
+    try{
+        //First check for the classes that have those lessons
+        let years = await require("../models/ml-academicLevel").find({lessons: {$elemMatch: {$in: req.body.lessons}}})
+        console.log(years.map(x => x.year))
+        let students = await require('../models/ml-student').find({"class.year": {$in: years.map(x => x.year)}})
+        console.log(students.length)
+
+        //TODO: Filtering out the unneeded data
+
+        let filteredStudents = []
+        let unwantedKeys = ["__v", "_id", "password", "parentEmails"]
+
+        for(let student of students.map(x => x._doc)){
+            let newStudent= {}
+            Object.keys(student).map(x =>{
+                if(!unwantedKeys.includes(x)) {
+                    if(x == "records"){
+                        let wantedRecords = []
+                        for(let record of student["records"]){
+                            if(req.body.lessons.includes(record.subject)) wantedRecords.push(record)
+                        }
+                        return newStudent[x] = wantedRecords
+                    }
+                    newStudent[x] = student[x]
+
+                }
+            })
+            filteredStudents.push(newStudent)
+
+        }
+
+        students = filteredStudents
+
+        
+
+        let classified = {}
+
+        //Adding the years as keys to the classified array
+        for(let year of years){
+            classified[year.year.toString()] = {}
+            for(let classLetter of year.classes){
+                classified[year.year.toString()][classLetter] = []
+            }
+        }
+        //add the each student to their respective year and class
+        for(let student of students){
+            classified[student.class.year.toString()][student.class.class].push(student)
+        }
+
+        
+        res.json({code: "#Success", doc: classified})
+    }catch(e){
+        console.log(e)
+        res.json({code: "#Error", message: e})
+    }
+    
+})
+
+
+
+
 
 module.exports = app

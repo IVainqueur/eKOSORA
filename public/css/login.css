@@ -6,7 +6,6 @@
     margin-left: 10px;
     width: 150px;
     border-radius: 2px;
-    /* font-size: 16px; */
 }
 
 #NavBar #SignUpBTN{
@@ -23,7 +22,6 @@
     height: 100%;
     display: flex;
     flex-direction: row;
-    /* flex-direction: column; */
     padding-top: 60px;
 }
 
@@ -42,7 +40,6 @@
     display: grid;
     place-content: center;
     padding: 0 40px;
-    /* height: fit-content; */
 }
 
 .main .LoginChoice .Choices{
@@ -81,7 +78,6 @@
     align-items: center;
     padding: 0 20px;
     position: relative;
-    /* height: 959px; */
 }
 
 .main .TheForm form{
@@ -90,7 +86,6 @@
     border-radius: 5px;
     border: 2px solid var(--darker-blue);
     padding: 40px;
-    /* height: fit-content; */
 }
 
 
@@ -108,7 +103,6 @@
 
 .main .TheForm span{
     color: #6f6f6f;
-    /* font-size: 18px; */
     margin-bottom: 5px;
 }
 
@@ -170,6 +164,9 @@
         height: fit-content !important;
         padding: 40px !important;
     }
+    .main .LoginChoice .Choices{
+        flex-wrap: nowrap;
+    }
 }
 
 @media(max-height: 835px){
@@ -188,5 +185,18 @@
     form{
         height: fit-content !important;
         min-height: 380px;
+    }
+}
+
+@media(max-width: 580px){
+    form{
+        width: 99% !important;
+    }
+    .LoginChoice{
+        padding: 40px 0 !important;
+    }
+    .LoginChoice .Choices .Choice{
+        width: 100% !important;
+        padding: 20px !important;
     }
 }

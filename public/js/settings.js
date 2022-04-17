@@ -115,8 +115,9 @@ const clickedEdit = (e)=>{
         if(input.parentElement.getAttribute('noteditable') == 'true') continue
         if(input.value == 'unknown') input.value = ''
         input.readOnly = false
-        input.style.border = "1px solid #b7b7b7"
-        input.style.backgroundColor = "#b7b7b7"
+        // input.style.border = "1px solid #b7b7b7"
+        // input.style.backgroundColor = "#b7b7b7"
+        input.classList.add("editableOption")
     }
 }
 
@@ -197,6 +198,7 @@ fetch('/settings/otherSettings')
         AlertAlt("Could not load other settings. Try refreshing the page!")
     }
     if(data.code == "#Success"){
+        if(data.doc.length == 0) return
         for(let setting of data.doc){
             // console.log(setting.value.value['number'])
             let div = document.createElement('div')

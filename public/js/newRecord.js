@@ -67,7 +67,7 @@ document.querySelector('form').addEventListener('submit', (e)=>{
     .then(res => res.json())
     .then(data =>{
         console.log(data)
-        if(data.code == "#Success") return document.querySelector('form').reset()
+        if(data.code == "#Success") return location.pathname = "/marks"
         alert("Something went wrong. Please check console for more information")
         // console.log(data)
     })

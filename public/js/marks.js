@@ -14,8 +14,10 @@ fetch("/subjects")
 .catch(err => {
     AlertAlt("Something went wrong. Please try again")
 })
-//RESIZE OBSERVER
 
+let students = null
+
+//RESIZE OBSERVER
 const observer = new ResizeObserver((entries)=>{
     let main = entries[0]
     console.log(main.contentRect.height, main.contentRect.width)
@@ -57,13 +59,12 @@ window.onhashchange = async (e)=>{
     try{
         let result = await fetch(`/student/getRecords/?year=${selected.class.year}&class=${selected.class.class}&subject=${selected.subject}`)
         result = await result.json()
+        students = result.records
         parseFetchData(result)
     }catch(e){
         AlertAlt("Something went wrong. Please try again")
     }
 }
-
-
 
 
 document.addEventListener('click', (e)=>{
@@ -112,9 +113,13 @@ subjectChoice.addEventListener('change', async (e)=>{
 })
 
 let theData = null
+
 function parseFetchData(data){
-    // console.log(data)
+    // console.log(data.records)
     theData = data.records
+
+    document.querySelector('.Right h1 span').textContent = selected.subject + " marks"
+
     if(document.querySelector(`.Right table`)) document.querySelector(`.Right`).removeChild(document.querySelector(`.Right table`))
 
     if(data[Object.keys(data)[1]].length == 0) return document.querySelector('.notifier').textContent = "No records to show"
@@ -126,20 +131,17 @@ function parseFetchData(data){
     // console.log()
     let forTable = []
     forTable = forTable.concat(data.records.map(x => [x.studentName]))
-    // console.log(forTable)
+
+    theData = data.records
     data = data.records.map(x => x.records)
-    // for(let unoData of data){
-    //     console.log(unoData[0])
-    // }
+
     for(let i = 0; i < data.length; i++){
         let unoData = data[i]
-        
-        // console.log(unoData)
         forTable[i] = forTable[i].concat(unoData.map(x => x.mark))
+        forTable[i].push(theData[i].studentId)
     }
 
     buildTable(heads, forTable, '.Right')
-    // console.log(forTable)
 
 }
 
@@ -148,11 +150,10 @@ document.querySelector('.Right h1').insertBefore(className, document.querySelect
 
 //building the table
 const buildTable = (heads, data, selector)=>{
+    // console.log(data)
     document.querySelector('.notifier').textContent = ''
 
-    // document.querySelector(selector).firstElementChild.firstChild.textContent = classChoice.selectedOptions[0].textContent4
     className.textContent = classChoice.selectedOptions[0].textContent
-    // document.querySelector(selector).insertBefore(className, documentdocument.insertBefore.querySelector('se'))
 
     document.querySelector(selector).firstElementChild.firstElementChild.textContent = `${subjectChoice.selectedOptions[0].value} marks`
 
@@ -162,6 +163,7 @@ const buildTable = (heads, data, selector)=>{
     let table = document.createElement('table')
     let thead = document.createElement('thead')
     let tbody = document.createElement('tbody')
+
     //Building the head
     let checkHead = document.createElement('th') //For the checkbox column
     checkHead.innerHTML = '<input type="checkbox">'
@@ -173,12 +175,13 @@ const buildTable = (heads, data, selector)=>{
     }
     for(let i=0; i < data.length; i++){
         let tr = document.createElement('tr')
-        for(let j = 0; j <= (data[i]).length; j++){
+        for(let j = 0; j <= (data[i]).length -1; j++){
             let td = document.createElement('td')
             td.textContent = (j == 0) ? '': (data[i])[j-1]
             td.innerHTML = (j == 0) ? `<input type="checkbox">` : td.innerHTML
             tr.appendChild(td)
         }
+        tr.title = data[i][data[i].length-1]
         tbody.appendChild(tr)
     }
     
@@ -187,193 +190,6 @@ const buildTable = (heads, data, selector)=>{
     document.querySelector(selector).appendChild(table)
     setListeners()
 }
-
-
-
-// let theStudents = [
-//     {
-//         names: 'ISHIMWE Vainqueur',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 35
-//             },
-//             {
-//                 max: 10,
-//                 mark: 8
-//             }
-//         ]
-//     },
-//     {
-//         names: 'Rukundo Honore',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 39
-//             },
-//             {
-//                 max: 10,
-//                 mark: 7
-//             }
-//         ]
-//     },
-//     {
-//         names: 'Ndungutse Charles',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 39
-//             },
-//             {
-//                 max: 10,
-//                 mark: 8
-//             }
-//         ]
-//     },
-//     {
-//         names: 'ISHIMWE Vainqueur',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 35
-//             },
-//             {
-//                 max: 10,
-//                 mark: 8
-//             }
-//         ]
-//     },
-//     {
-//         names: 'Rukundo Honore',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 39
-//             },
-//             {
-//                 max: 10,
-//                 mark: 7
-//             }
-//         ]
-//     },
-//     {
-//         names: 'ISHIMWE Vainqueur',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 35
-//             },
-//             {
-//                 max: 10,
-//                 mark: 8
-//             }
-//         ]
-//     },
-//     {
-//         names: 'Rukundo Honore',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 39
-//             },
-//             {
-//                 max: 10,
-//                 mark: 7
-//             }
-//         ]
-//     },
-//     {
-//         names: 'ISHIMWE Vainqueur',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 35
-//             },
-//             {
-//                 max: 10,
-//                 mark: 8
-//             }
-//         ]
-//     },
-//     {
-//         names: 'Rukundo Honore',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 39
-//             },
-//             {
-//                 max: 10,
-//                 mark: 7
-//             }
-//         ]
-//     },
-//     {
-//         names: 'ISHIMWE Vainqueur',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 35
-//             },
-//             {
-//                 max: 10,
-//                 mark: 8
-//             }
-//         ]
-//     },
-//     {
-//         names: 'Rukundo Honore',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 39
-//             },
-//             {
-//                 max: 10,
-//                 mark: 7
-//             }
-//         ]
-//     },
-//     {
-//         names: 'ISHIMWE Vainqueur',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 35
-//             },
-//             {
-//                 max: 10,
-//                 mark: 8
-//             }
-//         ]
-//     },
-//     {
-//         names: 'Rukundo Honore',
-//         records: [
-//             {
-//                 max: 40,
-//                 mark: 39
-//             },
-//             {
-//                 max: 10,
-//                 mark: 7
-//             }
-//         ]
-//     }
-// ]
-
-// //building the heads
-// let heads = ["names"]
-// heads  = heads.concat(theStudents[0].records.map(x => `/${x.max}`))
-
-// let data = theStudents.map(x => [x.names])
-// for(let i = 0; i < theStudents.length; i++){
-//     data[i] = data[i].concat(theStudents[i].records.map(x => x.mark))
-// }
-
-// console.log(data)
-
-// buildTable(heads, data, '.Right')
 
 let selectedCount = document.querySelector('#SelectedCount')
 
@@ -406,6 +222,7 @@ function setListeners(){
 let editBTN = document.querySelector('#EditBTN')
 let individualEdit = document.querySelector('#IndEdit')
 let groupEdit = document.querySelector('#GroupEdit')
+
 editBTN.addEventListener('click', ()=>{
     if(selectedCount.textContent != 0){
         document.querySelector('.Selected .EditChoice').style.display = "flex"
@@ -417,7 +234,7 @@ editBTN.addEventListener('click', ()=>{
         alert("Select at least 1 student")
     }
 })
-// let changed = {}
+
 individualEdit.addEventListener('click', ()=>{
     // console.log("Clicked the individual edit btn")
     for(let selectedCheck of document.querySelectorAll('input[type=checkbox]:checked')){
@@ -472,6 +289,14 @@ individualEdit.addEventListener('click', ()=>{
 
 groupEdit.addEventListener('click', ()=>{
     document.querySelector('.GroupEditPopUp').style.display = "grid"
+
+    for(let record of students[0].records){
+        let option = document.createElement('option')
+        option.textContent = ` on ${record.recordName} ${new Date(record.date).toString().slice(0, 15)}`
+        option.value = record._id
+        document.querySelector('.GroupEditPopUp select').appendChild(option)
+    }
+    
 })
 
 document.querySelector('.PopUpCancel').addEventListener('click', (e)=>{
@@ -486,4 +311,38 @@ document.querySelector('#RemoveBTN').addEventListener('click', (e)=>{
 document.querySelector('#AddBTN').addEventListener('click', (e)=>{
     let count = document.querySelector('#AddOrRemoveCount')
     count.textContent = Number(count.textContent) + 1
+})
+
+document.querySelector('#GroupAdjBTN').addEventListener('click', (e)=>{
+    if(document.querySelector('.GroupEditPopUp select').selectedOptions[0].value == "") return alert("Please select a record")
+    let toSend = {
+        mark: Number(document.querySelector('#AddOrRemoveCount').textContent),
+        recordId: document.querySelector('.GroupEditPopUp select').selectedOptions[0].value,
+        students: []
+    }
+    for(let selectedStudent of document.querySelectorAll('input[type=checkbox]:checked')){
+        if(selectedStudent.parentElement.tagName == "TH") continue
+        toSend.students.push(selectedStudent.parentElement.parentElement.title)
+    }
+    AlertAlt("Updating...", sustain=true)
+    fetch('/student/updateForMany', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(toSend)
+    })
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        if(data.code == "#Error") throw new Error(data.message)
+        setTimeout(()=>{
+            location.reload()
+        }, 1000)
+    })
+    .catch(err => {
+        console.log(err)
+        AlertAlt("Something went wrong. Please try again.")
+    })
+    console.log(toSend)
 })

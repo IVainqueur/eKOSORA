@@ -69,6 +69,7 @@ app.post('/updateSettings/:id', async (req, res)=>{
 })
 
 app.get('/otherSettings', (req, res)=>{
+    if(!req.body.AdP) return res.json({code: "#Success", doc: []})
     require('../models/ml-setting').find({}, (err, doc)=>{
         if(err) res.json({code: "#Error", message: err})
         // console.log(typeof doc[0].value.value.start)
@@ -85,6 +86,17 @@ app.get('/otherSettings', (req, res)=>{
         }
         // console.log(doc1[0].value.value)
         res.json({code: "#Success", doc})
+    })
+})
+
+app.post("/addSubject", (req, res)=>{
+    let newSubject = require('../models/ml-subject')({
+        title: req.body.title,
+        code: req.body.code
+    })
+    newSubject.save((err)=>{
+        if(err) return res.json({code: "#Error", message: err})
+        res.json({code: "#Success"})
     })
 })
 

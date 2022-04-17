@@ -2,7 +2,7 @@
 fetch("/subjects")
 .then(res=>res.json())
 .then(data => {
-    if(data.code == "#Error") return console.log("SOmething went wrong")
+    if(data.code == "#Error") return console.log("Something went wrong")
     for(let subject of data.doc){
         console.log(subject)
         let label = document.createElement('label')
