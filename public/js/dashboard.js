@@ -41,7 +41,7 @@ fetch('/student/getSummary', {
         'Content-Type': 'application/json'
     },
     body: JSON.stringify({
-        lessons: userInfo.lessons
+        lessons: (userInfo.lessons) ? userInfo.lessons : []
     })
 })
 .then(res => res.json())

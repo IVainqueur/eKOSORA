@@ -8,8 +8,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
         <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
         <link rel="stylesheet" href="../css/common.css">
-<link rel="icon" type="image/x-icon" href="../img/favicon.png">
-
+        <link rel="icon" type="image/x-icon" href="../img/favicon.png">
         <link rel="stylesheet" href="../css/marks.css">
         <title>Marks | eKOSORA</title>
     </head>
@@ -20,11 +19,10 @@
                     <p id="HamburgerMenu" class="clickedMenu"></p>
                 </div>
                 <!-- <h1 id="TheLogo"></h1> -->
-                        <a href="/dashboard">
+                <a href="/dashboard">
                     <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
                     <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
                 </a>
-
             </div>
             <div class="Middle">
                 <h1>Marks</h1>
@@ -32,7 +30,7 @@
             <div class="theButtons">
                 <!-- <i class='bx bx-log-out' style='color:#4ca7ce'  ></i> -->
                 <button id="LogOutBTN">LOG OUT</button>
-<i class='bx bx-log-out' style='color:#ffffff'  ></i>
+                <i class="bx bx-log-out" style="color:#ffffff"></i>
                 <!-- <button id="SignUpBTN">SIGN UP</button> -->
             </div>
         </div>
@@ -85,22 +83,13 @@
                             <span>Course:</span>
                             <select name="" id="SubjectChoice">
                                 <option value="">--Select--</option>
-                                <!-- <option value="WUI">Web User Interface</option>
-                        <option value="GUI">Graphical User Interface</option>
-                        <option value="PHP">Web Dev With PHP</option>
-                        <option value="JS">JavaScript</option>
-                        <option value="FOP">Fundamentals of Programming</option>
-                        <option value="ES">Embedded Systems</option>
-                        <option value="DSA">Data Structures and Algorithms</option>
-                        <option value="MTC">Mathematics</option>
-                        <option value="PHY">Physics</option>
-                        <option value="ENG">English</option> -->
                             </select>
                         </label>
                     </div>
                     <div class="Selected">
                         <p>
-                            <span id="SelectedCount">0</span> students selected
+                            <span id="SelectedCount">0</span>
+                            students selected
                         </p>
                         <button id="EditBTN">EDIT</button>
                         <div class="EditChoice">
@@ -132,16 +121,23 @@
                     </div>
                     <select name="" id="">
                         <option value="">Select record</option>
-                        
                     </select>
+                    <div style="display: flex;align-items: center;width: 100%;margin-top: 10px;margin-bottom: 10px;margin-left: 15px;">
+                        <input type="checkbox" style="margin-right: 10px;">
+                        <span>Notify parents/guuardians</span>
+                    </div>
                     <button id="GroupAdjBTN">SUBMIT</button>
                 </div>
             </div>
         </div>
     </body>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    <script  src="../js/common.js"></script>
+    <script
+        src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+    ></script>
+    <script src="../js/common.js"></script>
     <script src="../js/marks.js"></script>
 </html>

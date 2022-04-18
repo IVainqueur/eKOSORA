@@ -3,6 +3,7 @@ const app = express()
 const bodyParser = require('body-parser')
 const cookieParser = require('cookie-parser')
 const mongo = require('mongoose')
+const axios = require('axios')
 const studentRoute = require('./routes/students')
 const getInRoute = require('./routes/getIn')
 const parentRoute = require('./routes/parents')
@@ -42,7 +43,7 @@ app.use((req, res, next)=>{ //Cookie validation
             // console.log(req.path)
             if(req.cookies.jwt == undefined){
                 console.log("No jwt token")
-                if(req.path != "/logout"){
+                if(!["/logout", "/favicon"].includes(req.path)){
                     res.cookie('redirected', 'true', {
                         maxAge: 5*60*1000
                     })
@@ -119,6 +120,7 @@ app.get('/getInfo/:id', (req, res)=>{
     })
 })
 
+
 app.get('*', (req, res)=>{
     res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>Page not found. <a href='/'>Click here</a> to go back</p>")
 })
@@ -127,5 +129,3 @@ app.listen(process.env.PORT, (err)=>{
     if(err) return console.log("Something went wrong!")
     console.log("#ServerUP at "+ process.env.PORT)
 })
-
-

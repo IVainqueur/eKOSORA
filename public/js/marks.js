@@ -335,7 +335,7 @@ document.querySelector('#GroupAdjBTN').addEventListener('click', (e)=>{
     .then(res => res.json())
     .then(data => {
         console.log(data)
-        if(data.code == "#Error") throw new Error(data.message)
+        if(data.code == "#Error") throw new Error(JSON.stringify(data.message))
         setTimeout(()=>{
             location.reload()
         }, 1000)

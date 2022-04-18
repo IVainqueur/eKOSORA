@@ -95,4 +95,52 @@
     </body>
     <script src="../js/common.js"></script>
     <script src="../js/settings.js"></script>
+    <script>
+        //Shit that is only specific for the student's settings page
+        let addParentBTN = document.createElement('button')
+        addParentBTN.textContent = "ADD"
+        addParentBTN.style = `width: fit-content;
+            padding: 10px 25px;
+            border-radius: 20px;`
+
+        document.querySelector('div[title=parentEmails]').appendChild(addParentBTN)
+        document.querySelector('div[title=parentEmails] input').type = "email"
+
+
+        addParentBTN.addEventListener('click',(e)=>{
+            document.querySelector('div[title=parentEmails] input').classList.add("editableOption")
+            document.querySelector('div[title=parentEmails] input').readOnly = false
+            e.target.textContent = "SAVE"
+
+            e.target.onclick = async (e) =>{
+                if(!document.querySelector('div[title=parentEmails] input').checkValidity()){
+                    return AlertAlt("Email required")
+                }
+                if(confirm(`Are you sure you want to add "${document.querySelector('div[title=parentEmails] input').value}" as your parent?`)){
+                    try{
+                        let res = await fetch("/student/addParent", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                studentName: userInfo.names,
+                                studentId: userInfo._id,
+                                email: document.querySelector('div[title=parentEmails] input').value
+                            })
+                        })
+                        let data = await res.json()
+                        if(data.code == "#Error") throw new Error(JSON.stringify(data.message))
+                        AlertAlt("Successfully added new parent")
+                        console.log(data)
+                        // setTimeout(()=>{location.reload()}, 1000)
+                    }catch(e){
+                        AlertAlt("Something went wrong. Please try again", sustain=true)
+                    }
+                }else{
+                    location.reload()
+                }
+            }
+        }, {once: true})
+    </script>
 </html>

@@ -2,32 +2,60 @@ const express = require('express')
 const app = express.Router()
 const bcrypt = require('bcrypt')
 const mongo = require('mongoose')
-const mailer = require('nodemailer');
+const mailer = require('nodemailer')
+const {google} = require('googleapis')
 const {v4: uuidGenerate} = require('uuid')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 const path = require('path')
 
 
+
 //Middleware
 app.use(cookieParser())
+require('dotenv').config()
 
-let transporter =  null;
+// let transporter =  null;
+const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
+const CLIENT_SECRET = process.env.GOOGLE_CLIENT_SECRET
+const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
+const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 
+const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
 
-async function connectToEmail(){
-    transporter = await mailer.createTransport({
-        service: 'gmail',
-        auth: {
-            user: 'ishimvainqueur@gmail.com', // User
-            pass: 'kungfupanda1', // Password
+const sendMail = async (message, receiver, subject)=>{
+    try{
+        const accessToken = await oAuth2Client.getAccessToken()
+        const transporter = mailer.createTransport({
+            service: 'gmail',
+            auth: {
+                type: 'oauth2',
+                user: process.env.GMAIL_USER,
+                clientId: CLIENT_ID,
+                clientSecret: CLIENT_SECRET,
+                refreshToken: REFRESH_TOKEN,
+                accessToken: accessToken
+            }
+        })
+        const mailOptions = {
+            from: "eKOSORA messages <ishimvainqueur@gmail.com>",
+            to: `${receiver}`,
+            subject: subject,
+            text: message,
+            html: message
         }
-
-        
-    })
+        const result = await transporter.sendMail(mailOptions)
+        console.log(result)
+        return {code: "#Success", doc: result}
+    }catch(err){
+        console.log(err)
+        return {code: "#Error", message: err}
+    }
 }
 
-connectToEmail()
+
+
 
 //? THERE WILL BE COOKIE-RELATED VALIDATION
 app.post('/register', async (req, res)=>{
@@ -110,29 +138,38 @@ app.post('/updateMark', (req, res)=>{
     })
 })
 
-app.post('/updateForMany', (req, res)=>{
-    req.body.recordId = mongo.Types.ObjectId(req.body.recordId)
+app.post('/updateForMany', async (req, res)=>{
+    try{
+        let doc = []
+        req.body.recID = req.body.recordId
+        req.body.recordId = mongo.Types.ObjectId(req.body.recordId)
 
-    req.body.students.forEach((studentId, index)=>{
-        req.body.students[index] = mongo.Types.ObjectId(studentId)
-    })
-    
-    
+        req.body.students.forEach((studentId, index)=>{
+            req.body.students[index] = mongo.Types.ObjectId(studentId)
+        })
+        
+        let theSameStudents = await require('../models/ml-student').find({_id: {$in: req.body.students}, records: {$elemMatch: {_id: req.body.recordId}}})
+        theSameStudents = theSameStudents.map(x => x._doc)
 
-    require('../models/ml-student').updateMany({_id: {$in: req.body.students}, records: {$elemMatch: {_id: req.body.recordId}}}, {
-        "records.$.mark": {
-            $cond: {
-                if: {
-                    $gte: [{$add: ["records.$.mark",req.body.mark]}, "records.$.max"]
-                },
-                then: "records.$.max",
-                else: {$add: ["records.$.mark",req.body.mark]}
-            }
-        }
-    }, (err, doc)=>{
-        if(err) return res.json({code: "#Error", error: err})
+        theSameStudents.forEach(async (student, i)=>{
+            student.records.forEach(async (record, recIndex)=>{
+                if(record._id == req.body.recID){
+                    //Check if the new mark will be higher than the maximum
+                    record.mark = ((record.mark+req.body.mark) >= record.max) ? record.max : (record.mark+req.body.mark)
+                    //Check if the new mark is not lower than zero
+                    record.mark = (record.mark < 0) ? 0 : record.mark
+                    doc.push(await require('../models/ml-student').updateOne({_id: student._id, records: {$elemMatch: {_id: record._id}}}, {
+                        "records.$.mark": record.mark
+                    }))
+                }
+            })
+        })
         res.json({code: "#Success", doc})
-    })
+
+    }catch(err){
+        console.log(err)
+        res.json({code: "#Error", message: err})
+    }
 })
 
 app.get('/getRecords/', (req, res)=>{
@@ -183,14 +220,11 @@ app.post('/addParent', async (req, res)=>{
                     code: uuidGenerate()
                 })
                 let saveNewCode = await newCode.save()
-                let text = `Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup/${saveNewCode.code}">Click Here</a>`
-                let message = await transporter.sendMail({
-                    from: "ishimvainqueur@gmail.com",
-                    to: req.body.email,
-                    subject: "Registered as parent",
-                    html: text
-                })
-                console.log(message)
+                let text = `<p style="font-size: 16px">Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup/${saveNewCode.code}">Click Here</a></p>`
+
+                let message = await sendMail(text, req.body.email, "Registered as a parent")
+                if(message.code == "#Error") return  res.json(message)
+                
                 res.json({code: "#Success"})
         
             })
@@ -275,9 +309,17 @@ app.post('/getSummary', async (req, res)=>{
         res.json({code: "#Error", message: e})
     }
     
-})
+});
 
 
+
+// (async function(){
+//     const result = await require('../models/ml-student').aggregate([
+//         {$sum: [2, 5]}
+//     ]);
+    
+//     console.log(result)    ;
+// })()
 
 
 

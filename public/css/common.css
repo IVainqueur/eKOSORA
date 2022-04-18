@@ -62,6 +62,7 @@ i.bx{
 }
 button{
     transition: .5s ease;
+    cursor: pointer;
 }
 button:hover{
     animation: ring .5s ease;
