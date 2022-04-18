@@ -75,7 +75,7 @@ app.use('/getin', getInRoute)
 require('dotenv').config()
 
 //Connecting to the DB
-mongo.connect(`mongodb+srv://iv:${process.env.DB_PASSWORD}@cluster0.kh2e2.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`, (err)=>{
+mongo.connect(`mongodb+srv://iv:${process.env.DB_PASSWORD}@cluster0.kh2e2.mongodb.net/ekosora_db?retryWrites=true&w=majority`, (err)=>{
     if(err) return console.log("Something went wrong.", err)
     console.log("#ConnectedToDB")
 })
