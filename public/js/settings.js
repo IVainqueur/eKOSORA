@@ -110,7 +110,7 @@ const clickedEdit = (e)=>{
     e.target.addEventListener('click', clickedSaveEdit)
     cancelBTN.addEventListener('click', clickedCancelBTN)
     // Array.from(document.querySelectorAll('input[readonly]')).map(x => x.readOnly = false)
-    for(let input of document.querySelectorAll('input[readonly]')){
+    for(let input of document.querySelectorAll('.Settings input[readonly]')){
         // console.log("Did this")
         if(input.parentElement.getAttribute('noteditable') == 'true') continue
         if(input.value == 'unknown') input.value = ''
@@ -190,17 +190,19 @@ observer.observe(document.querySelector('.Settings'))
 
 
 ///! GET EXTRA SETTINGS
-
+AlertAlt("Loading...", true)
 fetch('/settings/otherSettings')
 .then(res => res.json())
 .then(data => {
+    console.log(data)
+    AlertAlt("Updated")
     if(data.code == "#Error"){
         AlertAlt("Could not load other settings. Try refreshing the page!")
     }
     if(data.code == "#Success"){
         if(data.doc.length == 0) return
         for(let setting of data.doc){
-            // console.log(setting.value.value['number'])
+            console.log(setting.value.value['number'])
             let div = document.createElement('div')
             let h1 = document.createElement('h1')
             
@@ -221,18 +223,27 @@ fetch('/settings/otherSettings')
                 input.type = setting.value.value[valueKey].type
                 input.className = "span"
                 input.readOnly = true
+
                 if(setting.value.value[valueKey].type == 'Date'){
                     input.valueAsNumber = Date.parse(new Date(setting.value.value[valueKey].data))
                 }else{
                     input.value = setting.value.value[valueKey].data
                 }
 
-                // console.log(setting.value.value[valueKey])
 
                 field.appendChild(h3)
                 field.appendChild(input)
                 div.appendChild(field)
             }
+
+
+            //* THE EDIT BUTTON FOR EACH SETTING
+            let settingEditBTN = document.createElement('div')
+            settingEditBTN.innerHTML = `<img src="../img/edit.svg" alt="EDIT BUTTON">`
+            settingEditBTN.className = "settingEditBTN"
+
+            div.appendChild(settingEditBTN)
+
 
             document.querySelector('.main').appendChild(div)
 
@@ -245,6 +256,3 @@ fetch('/settings/otherSettings')
 })
 
 
-function getType(value){
-
-}
