@@ -242,6 +242,23 @@ fetch('/settings/otherSettings')
             settingEditBTN.innerHTML = `<img src="../img/edit.svg" alt="EDIT BUTTON">`
             settingEditBTN.className = "settingEditBTN"
 
+            settingEditBTN.addEventListener('click', (e)=>{
+                for(let child of settingEditBTN.parentElement.children){
+                    if((child.tagName == "DIV") && (Array.from(child.classList).includes("Field"))){
+                        for(let subchild of child.children){
+                            if(subchild.tagName == "INPUT"){
+                                subchild.readOnly = false
+                                subchild.classList.add('editableOption')
+                            }
+                        }
+                    }
+                }
+                settingEditBTN.style.transform = "rotate(360deg)"
+                setTimeout(()=>{
+                    document.querySelector('.settingEditBTN img').src = "../img/save.svg"
+                }, 250)
+            }, {once: true})
+
             div.appendChild(settingEditBTN)
 
 
@@ -252,6 +269,7 @@ fetch('/settings/otherSettings')
 
 })
 .catch(err => {
+    console.log(err)
     AlertAlt("Something went wrong. Please try again")
 })
 
