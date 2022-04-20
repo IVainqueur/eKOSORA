@@ -261,6 +261,7 @@ fetch('/settings/otherSettings')
                 }, 250)
                 settingEditBTN.onclick = (e)=>{
                     //To SAVE 
+                    AlertAlt("Updating...", true)
                     let toSend = {}
                     for(let child of settingEditBTN.parentElement.children){
                         if((child.tagName == "DIV") && (Array.from(child.classList).includes("Field"))){
@@ -277,8 +278,7 @@ fetch('/settings/otherSettings')
                         }
                     }
                     toSend._id = div.title
-                    console.log(toSend)
-                    // return console.log(JSON.stringify(toSend))
+                    
                     fetch('/settings/updateOtherSetting', {
                         method: "POST",
                         headers: {
@@ -293,6 +293,8 @@ fetch('/settings/otherSettings')
                     .then(data => {
                         console.log(data)
                         if(data.code != "#Success") throw  new Error(JSON.stringify(data.message))
+                        AlertAlt("Updated")
+                        location.reload()
                     })
                     .catch(err =>{
                         console.log(err)
