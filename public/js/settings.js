@@ -212,6 +212,7 @@ fetch('/settings/otherSettings')
             div.className = "OtherSetting"
 
             div.appendChild(h1)
+            div.title = setting._id
 
             for(let valueKey of Object.keys(setting.value.value)){
                 let field = document.createElement('div')
@@ -229,6 +230,7 @@ fetch('/settings/otherSettings')
                 }else{
                     input.value = setting.value.value[valueKey].data
                 }
+                field.title = valueKey
 
 
                 field.appendChild(h3)
@@ -257,6 +259,46 @@ fetch('/settings/otherSettings')
                 setTimeout(()=>{
                     document.querySelector('.settingEditBTN img').src = "../img/save.svg"
                 }, 250)
+                settingEditBTN.onclick = (e)=>{
+                    //To SAVE 
+                    let toSend = {}
+                    for(let child of settingEditBTN.parentElement.children){
+                        if((child.tagName == "DIV") && (Array.from(child.classList).includes("Field"))){
+                            for(let subchild of child.children){
+                                if(subchild.tagName == "INPUT"){
+                                    if(subchild.type == "date") {toSend[child.title] = new Date(subchild.value)}
+                                    else if(subchild.type == "number") {toSend[child.title] = Number(subchild.value)}
+                                    else{
+                                        toSend[child.title] = subchild.value
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                    toSend._id = div.title
+                    console.log(toSend)
+                    // return console.log(JSON.stringify(toSend))
+                    fetch('/settings/updateOtherSetting', {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': "application/json"
+                        },
+                        body: JSON.stringify(toSend)
+                    })
+                    .then(res => {
+                        console.log(res)
+                        return res.json()
+                    })
+                    .then(data => {
+                        console.log(data)
+                        if(data.code != "#Success") throw  new Error(JSON.stringify(data.message))
+                    })
+                    .catch(err =>{
+                        console.log(err)
+                        AlertAlt("Something went wrong. Please try again")
+                    })
+                }
             }, {once: true})
 
             div.appendChild(settingEditBTN)

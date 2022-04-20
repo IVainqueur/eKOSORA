@@ -44,8 +44,6 @@ app.post('/updateSettings/:id', async (req, res)=>{
         try{
             let newUser = await require(`../models/ml-${req.body.prefix}`).findOne({_id: req.params.id})
             if(!newUser) return res.json({code: "#NoSuchID"})
-            // console.log(req.body.accountType)
-            // console.log(req.body)
 
             res.json({code: "#Success", doc: {
                 names: newUser.names,
@@ -89,15 +87,52 @@ app.get('/otherSettings', (req, res)=>{
     })
 })
 
+app.post('/updateOtherSetting', async (req, res)=>{
+    try{
+        let oldSetting = await require('../models/ml-setting').findOne({_id: req.body._id})
+        if(!oldSetting) return res.send({code: "#NoSuchID", message: "No setting with such an ID in the database"})
+
+        let newValue = {}
+        for(let key of Object.keys(req.body)){
+            if(Object.keys(oldSetting.value.value).includes(key)){
+                if(isIsoDate(req.body[key])) req.body[key] = new Date(req.body[key])
+                newValue[key] = req.body[key]
+
+            }
+        }
+
+        let newSetting = await require('../models/ml-setting').updateOne({_id: req.body._id}, {"value.value": newValue})
+        // console.log(req.body)
+        // console.log(newValue)
+        
+        res.json({code: "#Success"})
+    }catch(e){
+        res.json({code: "#Error", message: e})
+    }
+})
+
 app.post("/addSubject", (req, res)=>{
     let newSubject = require('../models/ml-subject')({
         title: req.body.title,
         code: req.body.code
     })
+    
     newSubject.save((err)=>{
         if(err) return res.json({code: "#Error", message: err})
         res.json({code: "#Success"})
     })
 })
+
+// require('../models/ml-setting').updateOne({_id: mongo.Types.ObjectId("6244838af955bce827f1b5a6")}, {
+//     "value.value.start": new Date()
+// }, (err, doc)=>{
+//     console.log(err, doc)
+// })
+
+function isIsoDate(str) {
+    if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z/.test(str)) return false;
+    var d = new Date(str); 
+    return d.toISOString()===str;
+}
 
 module.exports = app
