@@ -40,7 +40,7 @@ const sendMail = async (message, receiver, subject)=>{
         })
         const mailOptions = {
             from: "eKOSORA messages <ishimvainqueur@gmail.com>",
-            to: `${receiver}`,
+            to: receiver,
             subject: subject,
             text: message,
             html: message
@@ -145,6 +145,7 @@ app.post('/updateForMany', async (req, res)=>{
         req.body.recordId = mongo.Types.ObjectId(req.body.recordId)
 
         req.body.students.forEach((studentId, index)=>{
+            console.log("|",studentId, "|")
             req.body.students[index] = mongo.Types.ObjectId(studentId)
         })
         
@@ -161,6 +162,12 @@ app.post('/updateForMany', async (req, res)=>{
                     doc.push(await require('../models/ml-student').updateOne({_id: student._id, records: {$elemMatch: {_id: record._id}}}, {
                         "records.$.mark": record.mark
                     }))
+                    if(req.body.notifyParents){
+                        let subject = await require('../models/ml-subject').findOne({code: record.subject})
+                        let message = `Dear Sir/Madam <br><br>${student.names} has ${(req.body.mark > 0) ? 'gained' : 'lost'} ${Math.abs(req.body.mark)} mark(s) in ${subject.title}. For more information, you can contact the teacher in charge of the course in question.`
+                        console.log(subject, message)
+                        sendMail(message, student.parentEmails, "Student's marks adjustment")
+                    }
                 }
             })
         })

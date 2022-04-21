@@ -194,8 +194,9 @@ const buildTable = (heads, data, selector)=>{
 let selectedCount = document.querySelector('#SelectedCount')
 
 function setListeners(){
-    for(let checkbox of document.querySelectorAll('input[type=checkbox]')){
+    for(let checkbox of document.querySelectorAll('table input[type=checkbox]')){
         checkbox.onchange= (e)=>{
+            console.log("A Checkbox was clicked")
             
             if(e.target.parentElement.tagName == 'TH' ){
                 selectedCount.textContent = 0
@@ -289,6 +290,10 @@ individualEdit.addEventListener('click', ()=>{
 
 groupEdit.addEventListener('click', ()=>{
     document.querySelector('.GroupEditPopUp').style.display = "grid"
+    
+    for(let option of document.querySelectorAll(`.GroupEditPopUp select option:not(.GroupEditPopUp select option[value=''])`)){
+        document.querySelector(`.GroupEditPopUp select`).removeChild(option)
+    }
 
     for(let record of students[0].records){
         let option = document.createElement('option')
@@ -313,17 +318,27 @@ document.querySelector('#AddBTN').addEventListener('click', (e)=>{
     count.textContent = Number(count.textContent) + 1
 })
 
+document.querySelector('#NotifyBox').addEventListener('click', (e)=>{
+    let messageInput = document.createElement('input');
+    messageInput.placeholder = "Message to attach";
+    document.querySelector('.ActualPopUp').insertBefore(messageInput, document.querySelector('.ActualPopUp').lastElementChild)
+})
+
 document.querySelector('#GroupAdjBTN').addEventListener('click', (e)=>{
     if(document.querySelector('.GroupEditPopUp select').selectedOptions[0].value == "") return alert("Please select a record")
+
     let toSend = {
         mark: Number(document.querySelector('#AddOrRemoveCount').textContent),
         recordId: document.querySelector('.GroupEditPopUp select').selectedOptions[0].value,
-        students: []
+        students: [],
+        notifyParents: (document.querySelector('#NotifyBox').checked)
     }
-    for(let selectedStudent of document.querySelectorAll('input[type=checkbox]:checked')){
+
+    for(let selectedStudent of document.querySelectorAll('table input[type=checkbox]:checked')){
         if(selectedStudent.parentElement.tagName == "TH") continue
-        toSend.students.push(selectedStudent.parentElement.parentElement.title)
+        toSend.students.push(selectedStudent.parentElement.parentElement.title.split(' ').join(''))
     }
+
     AlertAlt("Updating...", sustain=true)
     fetch('/student/updateForMany', {
         method: 'POST',
