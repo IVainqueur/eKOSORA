@@ -98,7 +98,8 @@ app.get('/dashboard', (req, res)=>{
 
 app.get('/marks', (req, res)=>{
     req.body.dir = req.body.prefix
-    req.body.prefix = (req.body.prefix == 'student')? '' : 'edit'
+    req.body.prefix = (['student', 'parent'].includes(req.body.prefix))? '' : 'edit'
+    console.log(`Sending ${req.body.prefix}Marks.html`)
     res.sendFile(__dirname + `/public/html/${req.body.dir}/${req.body.prefix}Marks.html`)
 })
 

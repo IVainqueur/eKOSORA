@@ -1,12 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+        <title>Setup parent account | eKOSORA</title>
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="icon" type="image/x-icon" href="../img/favicon.png">
+        <link rel="stylesheet" href="../css/newRecord.css">
+        <link rel="stylesheet" href="../css/newEducator.css">
+        <style>
+            ul li{
+                margin-left: 30px;
+                list-style: decimal;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="NavBar" class="CommonNav">
+            <div class="LeftSide">
+                <!-- <div class="HamburgerContainer">
+                    <p id="HamburgerMenu" class="clickedMenu"></p>
+                </div> -->
+                <!-- <h1 id="TheLogo"></h1> -->
+                <a href="/dashboard">
+                    <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+                    <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+                </a>
+            </div>
+            <div class="Middle">
+                <h1>New Parent</h1>
+            </div>
+            <div class="theButtons">
+                <!-- <button id="LogOutBTN">LOG OUT</button>
+                <i class="bx bx-log-out" style="color:#ffffff"></i> -->
+                <!-- <button id="SignUpBTN">SIGN UP</button> -->
+                <a href="/login">
+                    <button id="LogInBTN">LOG IN</button>
+                </a>
+            </div>
+        </div>
+        <div class="Content onlyMain">
+            <div class="main ">
+                <div class="TheForm">
+                    <form action="#">
+                        <h1>Some info about you</h1>
+                        <label for="">
+                            <span id="">Names*</span>
+                            <input type="text" name="names" id="">
+                        </label>
+                        <label for="">
+                            <span>Email*</span>
+                            <input type="email" id="" name="email">
+                        </label>
+                        <label for="">
+                            <span>Tel*</span>
+                            <input type="tel" id="" name="tel">
+                        </label>
+                        <label for="">
+                            <span>Password*</span>
+                            <input type="password" id="" name="password">
+                        </label>
+                        <label for="">
+                            <span>Confirm Password*</span>
+                            <input type="password" id="" name="c-password">
+                        </label>
+                        <label for="">
+                            <span id="">Children</span>
+                            <div class="Children"></div>
+                        </label>
+                        <button id="SignUpBTN">ADD</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+    <script src="../js/common.js"></script>
+    <script>
+    //Loading the info we already have
+    if(location.search.match(/_id/)){
+        if(location.search.slice(5).length == 24){
+            AlertAlt("Loading...", true)
+            fetch(`/parent/getParentInfo${location.search}`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if(data.code == "#Error") throw new Error(JSON.stringify(data.message))
+                if(data.code == "#NoSuchID") return AlertAlt("Check if this is the correct url you were given through your email...")
+                AlertAlt("Done")
+
+                for(let key of Object.keys(data.doc)){
+                    if(key == "password") continue
+                    if(key == "children"){
+                        let ul = document.createElement('ul')
+                        for(let child of data.doc["children"]){
+                            let li = document.createElement('li')
+                            li.textContent = child.names
+                            ul.appendChild(li)
+                        }
+                        document.querySelector('.Children').appendChild(ul)
+                    }else{
+                        if(!document.querySelector(`input[name=${key}]`)) continue
+                        document.querySelector(`input[name=${key}]`).value = data.doc[key]
+                    }
+                }
+
+            })
+            .catch(err =>{
+                console.log(err)
+                AlertAlt("Something went wrong. Please try again...", isError=true)
+            })
+        }else{
+            AlertAlt("Check if this is the correct url you were given through your email...")
+        }
+
+        document.querySelector('form').onsubmit = (e)=>{
+            e.preventDefault()
+            if(document.querySelector('.AlertDIV')) document.querySelector('.AlertDIV').classList.remove("showAlert")
+            let toSend = {}
+            for(let input of document.querySelectorAll('form input:not(input[name=password], input[name=c-password])')){
+                if(input.value == "") return AlertAlt(`Please fill the ${input.name} field`, sustain=true, isError=true)
+                toSend[input.getAttribute("name")] = input.value
+
+            }
+
+            let password = document.querySelector('form input[name=password]').value
+            let cpassword = document.querySelector('form input[name=c-password]').value
+
+            if((password == "") || (cpassword == ""))return AlertAlt("Please fill the password fields", sustain=true, isError=true)
+
+            if(password != cpassword) return AlertAlt("The password and confirm password do not match", sustain=true, isError=true)
+
+            toSend.password = password
+
+            fetch("", {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify(toSend)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data)
+                if(data.code == "#Error") throw new Error(JSON.stringify(data.message))
+                if(data.code == "#NoSuchID") return AlertAlt("Check if this is the correct url you were given through your email...", isError=true)
+                AlertAlt("Success")
+            })
+            .catch(err =>{
+                console.log(err)
+                AlertAlt("Something went wrong. Please try again...", isError=true)
+            })
+        }
+        
+    }
+    </script>
 </html>

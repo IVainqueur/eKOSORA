@@ -224,7 +224,7 @@ fetch('/settings/otherSettings')
                 input.type = setting.value.value[valueKey].type
                 input.className = "span"
                 input.readOnly = true
-
+                console.log("Inserting value")
                 if(setting.value.value[valueKey].type == 'Date'){
                     input.valueAsNumber = Date.parse(new Date(setting.value.value[valueKey].data))
                 }else{

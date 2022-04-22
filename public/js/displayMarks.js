@@ -1,5 +1,7 @@
 const makeCards = (toUse)=>{
     // console.log(toUse)
+    let Cards = document.createElement('div')
+    Cards.className = "Cards"
     for(let card of toUse){
         let div = document.createElement('div')
         let title = document.createElement('h1')
@@ -25,22 +27,41 @@ const makeCards = (toUse)=>{
         div.appendChild(date)
         div.appendChild(after)
 
-        document.querySelector('.main').appendChild(div)
+        Cards.appendChild(div)
 
         
     }
+    document.querySelector('.main').appendChild(Cards)
 }
-fetch(`/student/getMarks/${JSON.parse(localStorage.eKOSORA_User)._id}`)
+
+let query = (userInfo.accountType == 'student') ? userInfo._id : userInfo.children.map(x => x._id).join(',')
+fetch(`/student/getMarks?ids=${query}`)
 .then(res => res.json())
 .then(data => {
     if(data.code == "#NoSuchID"){
         document.write("Something is wrong with your account authentication. <a href='/login'>Click Here</a> to log in again")
         return
     }
-    if(data.code == "#Error") return AlertAlt("Something went wrong. Please try again...")
-    // console.log(data)
-    makeCards(data.marks)
+    if(data.code == "#Error") {
+        console.log(data.message)
+        return AlertAlt("Something went wrong. Please try again...")
+    }
+    console.log(data.doc)
+    for(let student of data.doc){
+        let h1 = document.createElement('h1')
+        h1.textContent = student.names + "'s marks"
+        document.querySelector('.main').appendChild(h1)
+        makeCards(student.records)
+    }
+    for(let student of data.doc){
+        let h1 = document.createElement('h1')
+        h1.textContent = student.names + "'s marks"
+        document.querySelector('.main').appendChild(h1)
+        makeCards(student.records)
+    }
 })
 .catch(err => {
-    AlertAlt("Something went wrong. Please try again")
+    console.log(err)
+    AlertAlt("Something went wrong. Please try again", true, true)
 })
+

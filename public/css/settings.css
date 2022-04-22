@@ -158,9 +158,9 @@
 }
 
 .editableOption{
-    box-shadow: inset 4px 4px 13px 0 rgb(0 0 0 / 26%), -4px -4px 13px 2px #ffffff;
-    border-radius: 15px;
-}
+    /* box-shadow: inset 4px 4px 13px 0 rgb(0 0 0 / 26%), -4px -4px 13px 2px #ffffff; */
+    /* border-radius: 15px; */
+background: #c2c2c2 !important;}
 
 .editableOption:focus{
     background: #d8d8d8;
@@ -186,4 +186,11 @@
     transform: rotate(10deg);
     background: #dedddd;
     
+}
+
+.Field[title=password] input{
+    display: block;
+    flex-grow: initial !important;
+    width: 50%;
+    margin-right: 20px;
 }

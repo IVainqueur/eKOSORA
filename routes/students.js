@@ -227,7 +227,7 @@ app.post('/addParent', async (req, res)=>{
                     code: uuidGenerate()
                 })
                 let saveNewCode = await newCode.save()
-                let text = `<p style="font-size: 16px">Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup/${saveNewCode.code}">Click Here</a></p>`
+                let text = `<p style="font-size: 16px">Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup/?_id=${saveNewCode.code}">Click Here</a></p>`
 
                 let message = await sendMail(text, req.body.email, "Registered as a parent")
                 if(message.code == "#Error") return  res.json(message)
@@ -247,15 +247,23 @@ app.post('/addParent', async (req, res)=>{
     }
 })
 
-app.get('/getMarks/:id', async (req, res)=>{
+app.get('/getMarks', async (req, res)=>{
     try{
-        let marks = await require('../models/ml-student').findOne({_id: req.params.id})
-        if(!marks) return res.json({code: "#NoSuchID"})
-        res.json({code: "#Success", marks: marks.records})
+        let marks = await require('../models/ml-student').find({_id: {$in: req.query.ids.split(',')}})
+        if(marks.length == 0) return res.json({code: "#NoSuchID"})
+        marks = marks.map(x => x._doc).map(x => {
+            return {
+                records: x.records,
+                names: x.names
+            }
+        })
+
+        res.json({code: "#Success", doc: marks})
     }catch(e){
         res.json({code: "#Error", message: e})
     }
 })
+
 
 app.post('/getSummary', async (req, res)=>{
     if((req.body.lessons.length == 0) || !req.body.lessons) return res.json({code: "#EmptyLessonsList"})

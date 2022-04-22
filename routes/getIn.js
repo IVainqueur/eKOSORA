@@ -40,6 +40,18 @@ app.post('/login/check', async (req, res)=>{
         res.cookie('jwt', token, {
             maxAge: 7200000
         })
+        let children = []
+        if(req.body.accountType == 'parent'){
+            children = await require('../models/ml-student').find({_id: {$in: user.children}})
+            children = children.map(x => {
+                return {
+                    names: x.names,
+                    code: x.code,
+                    email: x.email,
+                    _id: x._id
+                }
+            })
+        }
         
         return res.json({code: "#Success", doc: {
             names: user.names,
@@ -53,11 +65,13 @@ app.post('/login/check', async (req, res)=>{
             lessons: user.lessons,
             class: user.class,
             profileLink: user.profileLink,
-            accountType: req.body.accountType
+            accountType: req.body.accountType,
+            children: (children.length != 0) ? children : null
 
         }})
     }
     catch(e){
+        console.log(e)
         return res.json({code: "#Error", message: e})
     }
     // if(bcrypt.compare())

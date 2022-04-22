@@ -81,6 +81,8 @@ getInBTN.addEventListener('click', (e)=>{
         }else if(data.code == "#InvalidPassword"){
             theForm.setAttribute('error', `Incorrect password`)
             return theForm.classList.add('errorInForm')
+        }else{
+            throw new Error("Error")
         }
     })
     .catch(err => {
