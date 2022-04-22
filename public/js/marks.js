@@ -200,7 +200,7 @@ function setListeners(){
             
             if(e.target.parentElement.tagName == 'TH' ){
                 selectedCount.textContent = 0
-                for(let oneCheckBox of document.querySelectorAll('input[type=checkbox]')){
+                for(let oneCheckBox of document.querySelectorAll('form input[type=checkbox]')){
                     if(oneCheckBox.parentElement.tagName == 'TH') continue
                     oneCheckBox.checked = e.target.checked
                     oneCheckBox.dispatchEvent(new Event('change'))
