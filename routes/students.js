@@ -208,6 +208,18 @@ app.get('/getRecords/', (req, res)=>{
     }).sort({"names": 1})
 })
 
+app.get('/deleteRecord', async (req, res)=>{
+    console.log(req.query._id)
+    try{
+        let deleteRecord = await require('../models/ml-student').updateMany({"records": {$elemMatch: {"_id": mongo.Types.ObjectId(req.query._id)}}}, {$pull: {"records": {"_id": mongo.Types.ObjectId(req.query._id)}}})
+        console.log(deleteRecord)
+        res.json({code: "#Success"})
+    }catch(err){
+        console.log(err)
+        res.json({code: "#Error", message: err})
+    }
+})
+
 app.post('/addParent', async (req, res)=>{
     try{
         let student = await require('../models/ml-student').updateOne({_id: req.body.studentId}, {$push: {parentEmails: req.body.email}})

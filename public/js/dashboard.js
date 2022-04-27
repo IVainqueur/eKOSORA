@@ -1,4 +1,4 @@
-console.log("Loaded dashboard.js")
+AlertAlt("Loading charts...", sustain=true)
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
@@ -50,7 +50,8 @@ function loadStatistics(){
     .then(res => res.json())
     .then(data => {
         if(data.code == "#Error") throw new Error(data.message)
-
+        console.log(data.doc)
+        if(data.doc.length == 0) return AlertAlt("No charts to show!")
         for(let subject of userInfo.lessons){
             for(let year of Object.keys(data.doc)){
                 let students = data.doc[year]
@@ -209,8 +210,10 @@ function loadStatistics(){
 
             }
         }
+        AlertAlt("Loaded the charts!")
     })
     .catch(e=>{
+        AlertAlt("Something went wrong. Please try again!")
         console.log(e)
     })
 }

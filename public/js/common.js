@@ -89,6 +89,18 @@ if(document.querySelector('.main') && hamburgerMenu){
 
 if(location.pathname != "/getin/login") document.cookie = "redirected=false"
 
+function preventClick(){
+    for(let element of document.querySelectorAll('*')){
+        element.style.pointerEvents = "none"
+    }
+}
+
+function allowClick(){
+    for(let element of document.querySelectorAll('*')){
+        element.style.pointerEvents = ""
+    }
+}
+
 
 let script = document.createElement("script");
 script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";

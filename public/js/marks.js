@@ -1,14 +1,25 @@
+AlertAlt("Loading...", sustain=true)
+preventClick()
 fetch("/subjects")
 .then(res=>res.json())
 .then(data => {
-    if(data.code == "#Error") return console.log("SOmething went wrong")
+    if(data.code == "#Error") return console.log("Something went wrong")
     for(let subject of data.doc){
         let option = document.createElement('option')
         option.value = subject.code
+
+        if(userInfo.lessons){
+            if(!userInfo.lessons.includes(subject.code)){
+                option.disabled = true
+            }
+        }
+
         option.textContent = subject.title
         document.querySelector('select#SubjectChoice').appendChild(option)
     }
     window.dispatchEvent(new Event('hashchange'))
+    AlertAlt("Done loading!")
+    allowClick()
 
 })
 .catch(err => {
@@ -44,6 +55,7 @@ const subjectChoice = document.querySelector('#SubjectChoice')
 window.onhashchange = async (e)=>{
     console.log("The hash changed")
     let modified = location.hash.split('-')
+    if(modified.length == 1) return
     try{
         if(!document.querySelector(`option[value=${modified[0].slice(1)}]`)) return console.log("No such class")
         if(!document.querySelector(`option[value=${modified[1]}]`)) return console.log("No such course", modified)
@@ -127,7 +139,7 @@ function parseFetchData(data){
     if(data[Object.keys(data)[1]][0].records.length == 0) return document.querySelector('.notifier').textContent = "No records to show"
 
     let heads = ["names"]
-    heads = heads.concat(data.records[0].records.map(x => `/${x.max}`))
+    heads = heads.concat(data.records[0].records.map(x => [`/${x.max}`, x._id]))
     // console.log()
     let forTable = []
     forTable = forTable.concat(data.records.map(x => [x.studentName]))
@@ -150,7 +162,6 @@ document.querySelector('.Right h1').insertBefore(className, document.querySelect
 
 //building the table
 const buildTable = (heads, data, selector)=>{
-    // console.log(data)
     document.querySelector('.notifier').textContent = ''
 
     className.textContent = classChoice.selectedOptions[0].textContent
@@ -170,7 +181,8 @@ const buildTable = (heads, data, selector)=>{
     thead.appendChild(checkHead)
     for(let head of heads){
         let th = document.createElement('th')
-        th.textContent = head
+        th.textContent = (Array.isArray(head)) ? head[0] : head
+        th.setAttribute("recordid", ((Array.isArray(head)) ? head[1] : ""))
         thead.appendChild(th)
     }
     for(let i=0; i < data.length; i++){
@@ -200,7 +212,7 @@ function setListeners(){
             
             if(e.target.parentElement.tagName == 'TH' ){
                 selectedCount.textContent = 0
-                for(let oneCheckBox of document.querySelectorAll('form input[type=checkbox]')){
+                for(let oneCheckBox of document.querySelectorAll('table input[type=checkbox]')){
                     if(oneCheckBox.parentElement.tagName == 'TH') continue
                     oneCheckBox.checked = e.target.checked
                     oneCheckBox.dispatchEvent(new Event('change'))
@@ -229,10 +241,12 @@ function setListeners(){
                 tr.children[i+2].style.transform = "scale(1.1)"
                 tr.children[i+2].style.background = "#a8a8a8"
             }
+            recordHeader.setAttribute("hovered", "true")
 
         })
         recordHeader.addEventListener('mouseout', (e)=>{
-            if(recordHeader.getAttribute("hasContextMenu")) return
+            if(recordHeader.getAttribute("hasContextMenu") == "true") return
+            recordHeader.setAttribute("hovered", "false")
             recordHeader.style = ""
             for(let tr of document.querySelectorAll('tr')){
                 tr.children[i+2].style = ""
@@ -247,10 +261,22 @@ function setListeners(){
             let deleteRecordBTN = document.createElement('div')
             deleteRecordBTN.textContent = "DELETE"
             deleteRecordBTN.classList.add("DeleteRecordBTN")
+
+            deleteRecordBTN.addEventListener('click', async (e)=>{
+                document.querySelector('table').click()
+                if(confirm("Are you sure you want to delete this record?")){
+                    AlertAlt("Processing....", sustain=true)
+                    let response = await fetch(`/student/deleteRecord?_id=${recordHeader.getAttribute('recordid')}`)
+                    response = await response.json()
+                    console.log(response)
+                    if(response.code == "#Success") AlertAlt('Done')
+                }
+                
+            })
+
             menu.appendChild(deleteRecordBTN)
-            menu.style.top = e.clientY
-            menu.style.left = e.clientX
-            menu.setAttribute("style", `top: ${e.clientY}px;left: ${e.clientX}px`)
+            
+            menu.setAttribute("style", `top: ${e.pageY}px;left: ${e.pageX}px`)
             recordHeader.setAttribute("hasContextMenu", "true")
             document.body.appendChild(menu)
         })
@@ -259,8 +285,8 @@ function setListeners(){
     for(let element of document.querySelectorAll("body > *:not(.ContextMenu)")){
         element.addEventListener('click', (e)=>{
             if(!document.querySelector('.ContextMenu')) return
-            document.querySelector('.ContextMenu').parentElement.setAttribute("hasContextMenu", "false")
-            document.querySelector('.ContextMenu').parentElement.dispatchEvent(new Event("mouseout"))
+            document.querySelector('th[hovered=true]').setAttribute("hasContextMenu", "false")
+            document.querySelector('th[hovered=true]').dispatchEvent(new Event("mouseout"))
             document.querySelector('.ContextMenu').parentElement.removeChild(document.querySelector('.ContextMenu'))
         })
     }
