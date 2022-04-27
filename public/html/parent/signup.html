@@ -149,6 +149,7 @@
                 if(data.code == "#Error") throw new Error(JSON.stringify(data.message))
                 if(data.code == "#NoSuchID") return AlertAlt("Check if this is the correct url you were given through your email...", isError=true)
                 AlertAlt("Success")
+                location.pathname = "/login"
             })
             .catch(err =>{
                 console.log(err)

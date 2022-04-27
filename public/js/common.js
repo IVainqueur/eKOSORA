@@ -70,7 +70,7 @@ const AlertAlt = (message, sustain, isError)=>{
     }, 3000)
 }
 
-if(document.querySelector('.main')){
+if(document.querySelector('.main') && hamburgerMenu){
     window.onresize = ()=>{
         if(window.innerWidth <= 1110){
             console.log("closing or opening")

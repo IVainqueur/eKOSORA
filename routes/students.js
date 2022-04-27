@@ -110,13 +110,16 @@ app.get('/newRecord', (req, res)=>{
 
 app.post('/addRecord', (req, res)=>{
     req.body.date = Date.parse(new Date(req.body.date).toString().slice(0,15))
+    // console.dir(req.body.reversed)
+    // return res.json({code: "#Success"})
     require('../models/ml-student').updateMany({"class.year": req.body.class.year}, {$push: {records: {
         _id: mongo.Types.ObjectId(),
         recordName: req.body.recordName,
         date: req.body.date,
-        mark: 0,
+        mark: (req.body.reversed == "true") ? req.body.max : 0,
         max: Number(req.body.max),
-        subject: req.body.subject
+        subject: req.body.subject,
+        reversed: (req.body.reversed == "true") ? true : false
     }}}, (err, doc)=>{
         if(err) return res.json({code: "#Error", error: err})
         res.json({code: "#Success", doc})

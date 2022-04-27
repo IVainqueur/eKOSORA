@@ -25,17 +25,38 @@ if(JSON.parse(localStorage.eKOSORA_User).profileLink){
 const fillInData = (toUse)=>{
     for(let input of document.querySelectorAll('.Field input')){
         let value = toUse[input.parentElement.getAttribute('title')]
-        input.value = (value) ? value : 'unknown'
+        
         if(typeof(value) == 'object'){
             if(value.length == 0){
                 input.value = 'unknown'
             }else{
                 if(input.parentElement.getAttribute('title') == "class"){
                     input.value = `Year ${toUse[input.parentElement.getAttribute('title')]['year']} ${toUse[input.parentElement.getAttribute('title')]['class']}`
+                }else if(input.parentElement.getAttribute('title') == "parentEmails"){
+                    console.log("Calling the fillInParents function")
+                    fillInParents(input, toUse["parentEmails"])
                 }
             }
+        }else{
+            input.value = (value) ? value : 'unknown'
+        }
     }
+}
+
+function fillInParents(input, parentEmails){
+    for(let child of input.parentElement.children){
+        if(child.className == 'parentEmail') input.parentElement.removeChild(child)
     }
+    console.log(parentEmails)
+    for(let parentEmail of parentEmails){
+        let div = document.createElement('div')
+        div.className = "parentEmail"
+        div.textContent = parentEmail
+        input.parentElement.insertBefore(div, input)
+    }
+    input.value = ""
+    input.style.height = "0"
+    input.style.padding = "0"
 }
 
 fillInData(JSON.parse(localStorage.eKOSORA_User))

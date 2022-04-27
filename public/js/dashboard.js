@@ -214,3 +214,6 @@ function loadStatistics(){
         console.log(e)
     })
 }
+
+
+loadStatistics()

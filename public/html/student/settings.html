@@ -78,7 +78,7 @@
                         </div>
                         <div class="Field" title="parentEmails" notneeded="true" noteditable="true">
                             <h3>Parents:</h3>
-                            <input type="text" value="Some content" readonly class="span">
+                            <input type="text" placeholder="new parent email" readonly class="span">
                         </div>
                         <div class="Field" title="password">
                             <h3>Password:</h3>
@@ -99,18 +99,27 @@
     <script>
         //Shit that is only specific for the student's settings page
         let addParentBTN = document.createElement('button')
-        addParentBTN.textContent = "ADD"
+        addParentBTN.textContent = "+"
         addParentBTN.style = `width: fit-content;
-            padding: 10px 25px;
-            border-radius: 20px;`
+            padding: 10px 20px;
+            border-radius: 20px;
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;`
 
         document.querySelector('div[title=parentEmails]').appendChild(addParentBTN)
         document.querySelector('div[title=parentEmails] input').type = "email"
 
 
-        addParentBTN.addEventListener('click',(e)=>{
+        addParentBTN.addEventListener('click',
+        (e)=>{
             document.querySelector('div[title=parentEmails] input').classList.add("editableOption")
             document.querySelector('div[title=parentEmails] input').readOnly = false
+            
+
+            document.querySelector('div[title=parentEmails] input').style.height = ""
+            document.querySelector('div[title=parentEmails] input').style.padding = ""
+
             e.target.textContent = "SAVE"
 
             e.target.onclick = async (e) =>{
@@ -142,6 +151,9 @@
                     location.reload()
                 }
             }
-        }, {once: true})
+        },
+         {once: true})
+
+
     </script>
 </html>

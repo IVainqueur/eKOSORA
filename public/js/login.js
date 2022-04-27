@@ -77,9 +77,11 @@ getInBTN.addEventListener('click', (e)=>{
             return location.pathname = (document.cookie.match(/redirected=true/))? decodeURIComponent(document.cookie).match(/from=(\/\w+)/)[1] :'/dashboard'
         }else if(data.code == "#NoSuchUser"){
             theForm.setAttribute('error', `There is no ${selectedForm} registered under the entered email`)
+            document.body.addEventListener('click', (e)=>{theForm.setAttribute('error', ``)}, {once: true})
             return theForm.classList.add('errorInForm')
         }else if(data.code == "#InvalidPassword"){
             theForm.setAttribute('error', `Incorrect password`)
+            document.body.addEventListener('click', (e)=>{theForm.setAttribute('error', ``)}, {once: true})
             return theForm.classList.add('errorInForm')
         }else{
             throw new Error("Error")

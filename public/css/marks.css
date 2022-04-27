@@ -222,6 +222,16 @@ button{
     
 }
 
+.ActualPopUp input[type=text]{
+    border: none;
+    outline: none;
+    padding: 15px;
+    display: block;
+    width: 100%;
+    background-color: #c3c3c3;
+    margin: 10px 0;
+}
+
 .AddOrRemove{
     height: 40px;
     width: 150px;
@@ -335,4 +345,21 @@ button{
     margin-left: 10px;
     
     color: rgb(64, 255, 47);
+}
+
+.ContextMenu{
+    position: absolute;
+    padding: 10px 0;
+    background: var(--darker-blue);
+    
+width: 150px;color: white;box-shadow: 0px 0px 10px rgb(0 0 0 / 50%);border-radius: 4px;}
+
+.ContextMenu > div{
+    padding: 10px;
+    
+}
+
+.ContextMenu > div:hover{
+    background: var(--main-blue);
+    cursor: pointer;
 }

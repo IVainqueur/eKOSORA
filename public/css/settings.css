@@ -194,3 +194,16 @@ background: #c2c2c2 !important;}
     width: 50%;
     margin-right: 20px;
 }
+
+.parentEmail{
+    padding: 10px 25px;
+    background: var(--darker-blue);
+    color: white;border-radius: 20px;
+    margin: 0px 10px 10px 0;
+    /* box-shadow: 4px 4px 13px 0 rgb(0 0 0 / 16%), -4px -4px 13px 2px #ffffff; */
+}
+
+.Field[title=parentEmails] {
+    flex-direction: column;
+    align-items: flex-start;
+}

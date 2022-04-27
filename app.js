@@ -75,8 +75,8 @@ app.use('/getin', getInRoute)
 require('dotenv').config()
 
 //Connecting to the DB
-let CONN_STR = `mongodb+srv://iv:${process.env.DB_PASSWORD}@cluster0.kh2e2.mongodb.net/ekosora_db?retryWrites=true&w=majority`
-// CONN_STR = `mongodb://localhost:27017/eKOSORA`
+let CONN_STR = process.env.DB_CONN_STR
+
 mongo.connect(CONN_STR, (err)=>{
     if(err) return console.log("Something went wrong.", err)
     console.log("#ConnectedToDB")

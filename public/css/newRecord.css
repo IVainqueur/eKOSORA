@@ -90,3 +90,32 @@ select{
     background: rgba(0,0,0,0.1);
 }
 
+
+input[type=checkbox]{
+    border: 2px solid var(--darker-blue);
+    border-radius: 5px;
+    outline: none;
+    width: 25px;
+    height: 25px;
+    appearance: none;
+    padding: 0 !important;
+}
+input[type="checkbox"]:checked {
+    background: var(--darker-blue);
+    /* padding: 20px; */
+    transform: scale(1.1);
+}
+
+.ReversedField{
+    flex-direction: row !important;
+    align-items: center;
+    
+}
+
+.ReversedField input{
+    margin-right: 10px;
+}
+
+.ReversedField span{
+    margin: 0 !important;
+}

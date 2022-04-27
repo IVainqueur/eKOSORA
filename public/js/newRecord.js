@@ -35,6 +35,7 @@ document.querySelector('form').addEventListener('submit', (e)=>{
                 }, {once: true})
                 return
             }
+            if(input.type == 'checkbox') input.value = input.checked
             toUse = input.value
         }else{
             if(input.selectedOptions[0].value == ''){

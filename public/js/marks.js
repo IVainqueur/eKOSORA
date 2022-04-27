@@ -218,6 +218,52 @@ function setListeners(){
             // }
         }
     }
+    let recordHeaders = document.querySelectorAll('th:not(th:nth-of-type(1), th:nth-of-type(2))')
+    
+    recordHeaders.forEach((recordHeader, i)=>{
+        recordHeader.addEventListener('mouseover', (e)=>{
+            recordHeader.style.transform = "scale(1.1)"
+            recordHeader.style.backgroundColor = "#2a5576"
+
+            for(let tr of document.querySelectorAll('tr')){
+                tr.children[i+2].style.transform = "scale(1.1)"
+                tr.children[i+2].style.background = "#a8a8a8"
+            }
+
+        })
+        recordHeader.addEventListener('mouseout', (e)=>{
+            if(recordHeader.getAttribute("hasContextMenu")) return
+            recordHeader.style = ""
+            for(let tr of document.querySelectorAll('tr')){
+                tr.children[i+2].style = ""
+            }
+        })
+        recordHeader.addEventListener('contextmenu', (e)=>{
+            e.preventDefault()
+            console.log(e)
+            //Create context menu
+            let menu = document.createElement('div')
+            menu.classList.add("ContextMenu")
+            let deleteRecordBTN = document.createElement('div')
+            deleteRecordBTN.textContent = "DELETE"
+            deleteRecordBTN.classList.add("DeleteRecordBTN")
+            menu.appendChild(deleteRecordBTN)
+            menu.style.top = e.clientY
+            menu.style.left = e.clientX
+            menu.setAttribute("style", `top: ${e.clientY}px;left: ${e.clientX}px`)
+            recordHeader.setAttribute("hasContextMenu", "true")
+            document.body.appendChild(menu)
+        })
+        
+    })
+    for(let element of document.querySelectorAll("body > *:not(.ContextMenu)")){
+        element.addEventListener('click', (e)=>{
+            if(!document.querySelector('.ContextMenu')) return
+            document.querySelector('.ContextMenu').parentElement.setAttribute("hasContextMenu", "false")
+            document.querySelector('.ContextMenu').parentElement.dispatchEvent(new Event("mouseout"))
+            document.querySelector('.ContextMenu').parentElement.removeChild(document.querySelector('.ContextMenu'))
+        })
+    }
 }
 
 let editBTN = document.querySelector('#EditBTN')
@@ -320,6 +366,7 @@ document.querySelector('#AddBTN').addEventListener('click', (e)=>{
 
 document.querySelector('#NotifyBox').addEventListener('click', (e)=>{
     let messageInput = document.createElement('input');
+    messageInput.type = 'text'
     messageInput.placeholder = "Message to attach";
     document.querySelector('.ActualPopUp').insertBefore(messageInput, document.querySelector('.ActualPopUp').lastElementChild)
 })
