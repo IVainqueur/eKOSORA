@@ -106,3 +106,10 @@ let script = document.createElement("script");
 script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
 
 // document.body.appendChild(script)
+
+
+/* Check if the current url is https */
+
+if(!location.href.match(/https/)){
+    location.href = "https" + location.href.slice(4)
+}

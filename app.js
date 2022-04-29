@@ -13,6 +13,7 @@ const settingsRoute = require('./routes/settings')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const eUpload = require('express-fileupload')
+// const fetch = require('node-fetch')
 
 //middleware
 require('dotenv').config()
@@ -21,6 +22,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(cookieParser())
 app.use(eUpload())
 app.use(express.static('public'))
+
+
 app.use((req, res, next)=>{ //Cookie validation
     // console.log(req)
     // return res.send("Got it")
@@ -134,89 +137,102 @@ app.get('/timetable', (req, res)=>{
 
 
 */
-// const redirectURI = "/auth/google"
-// const querystring = require('query-string')
 
-// app.get("/auth/getURI", (req, res)=>{
-//     res.redirect(getGoogleAuth())
-// })
 
-// app.get(redirectURI, async (req, res)=>{
-//     const code = req.query.code
-//     const allTokens = await getTokens({
-//         code, 
-//         clientId: process.env.GOOGLE_CLIENT_ID,
-//         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-//         redirectUri: `${process.env.SERVER_ROOT_URI}${redirectURI}`
-//     })
-//     console.log(allTokens)
-//     const { id_token, access_token} = allTokens
-//     const googleUser = await axios
-//     .get(
-//         `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
-//         {
-//         headers: {
-//             Authorization: `Bearer ${id_token}`,
-//         },
-//         }
-//     )
-//     .then((res) => res.data)
-//     .catch((error) => {
-//         console.error(`Failed to fetch user`);
-//         throw new Error(error.message);
-//     });
-//     console.log("The google user\n", googleUser)
-//     res.redirect("/login")
+const redirectURI = "/auth/google"
+const querystring = require('query-string')
 
-// })
+app.get("/auth/getURI", (req, res)=>{
+    if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
 
-// function getGoogleAuth(){
-//     const rootURI = "https://accounts.google.com/o/oauth2/v2/auth"
-//     const options = {
-//         redirect_uri: `${process.env.SERVER_ROOT_URI}${redirectURI}`,
-//         client_id: process.env.GOOGLE_CLIENT_ID,
-//         access_type: "offline",
-//         response_type: "code",
-//         prompt: "consent",
-//         scope: [
-//             "https://www.googleapis.com/auth/userinfo.profile",
-//             "https://www.googleapis.com/auth/userinfo.email"
-//         ].join(" ")
-//     }
-//     return `${rootURI}?${querystring.stringify(options)}`
-// }
+    res.redirect(getGoogleAuthURI())
+})
 
-// function getTokens({
-//     code,
-//     clientId,
-//     clientSecret,
-//     redirectUri,
-//   }) {
-//     /*
-//      * Uses the code to get tokens
-//      * that can be used to fetch the user's profile
-//      */
-//     const url = "https://oauth2.googleapis.com/token";
-//     const values = {
-//       code,
-//       client_id: clientId,
-//       client_secret: clientSecret,
-//       redirect_uri: redirectUri,
-//       grant_type: "authorization_code",
-//     };
+app.get(redirectURI, getUserId, async (req, res)=>{
+    //decode JWT Token to get userId
+    const code = req.query.code
+    const allTokens = await getTokens({
+        code, 
+        clientId: process.env.GOOGLE_CLIENT_ID,
+        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+        redirectUri: `${process.env.SERVER_ROOT_URI}${redirectURI}`
+    })
+    console.log(allTokens)
+    const { id_token, access_token} = allTokens
+    const googleUser = await axios.get(
+        `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
+        {
+        headers: {
+            Authorization: `Bearer ${id_token}`,
+        }
+        }
+    )
+    .then((res) => res.data)
+    .catch((error) => {
+        console.error(`Failed to fetch user`);
+        throw new Error(error.message);
+    });
+    console.log("The google user\n", googleUser)
+
+    require('./models/ml-educator').updateOne({_id: req.body.userId}, {allTokens, googleUser}, (err, doc)=>{
+        if(err) return res.send(`Failed to save your data to your account. <a href="/auth/getURI">Click here</a> to try again`)
+
+        console.log(doc)
+
+        return res.redirect("/settings")
+    })
+
+
+})
+
+function getGoogleAuthURI(){
+    const rootURI = "https://accounts.google.com/o/oauth2/v2/auth"
+    const options = {
+        redirect_uri: `${process.env.SERVER_ROOT_URI}${redirectURI}`,
+        client_id: process.env.GOOGLE_CLIENT_ID,
+        access_type: "offline",
+        response_type: "code",
+        prompt: "consent",
+        scope: [
+            "https://www.googleapis.com/auth/userinfo.profile",
+            "https://www.googleapis.com/auth/userinfo.email",
+            "https://mail.google.com"
+        ].join(" ")
+    }
+    return `${rootURI}?${querystring.stringify(options)}`
+}
+
+function getTokens({
+    code,
+    clientId,
+    clientSecret,
+    redirectUri,
+  }) {
+    /*
+     * Uses the code to get tokens
+     * that can be used to fetch the user's profile
+     */
+    const url = "https://oauth2.googleapis.com/token";
+    const values = {
+      code,
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: redirectUri,
+      grant_type: "authorization_code",
+    };
   
-//     return axios
-//       .post(url, querystring.stringify(values), {
-//         headers: {
-//           "Content-Type": "application/x-www-form-urlencoded",
-//         },
-//       })
-//       .then((res) => res.data)
-//       .catch((error) => {
-//         console.error(`Failed to fetch auth tokens`);
-//         throw new Error(error.message);
-//       });
-//   }
+    return axios
+      .post(url, querystring.stringify(values), {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      .then((res) => res.data)
+      .catch((error) => {
+        console.error(`Failed to fetch auth tokens`);
+        throw new Error(error.message);
+      });
+  }
 
 
 app.get('*', (req, res)=>{
@@ -227,3 +243,13 @@ app.listen(process.env.PORT, (err)=>{
     if(err) return console.log("Something went wrong!")
     console.log("#ServerUP at "+ process.env.PORT)
 })
+
+
+function getUserId(req, res, next){
+    jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, result)=>{
+        if(err) return res.json({code: "#InvalidToken"})
+        req.body.userId = result._id
+        next()
+        // console.log(result)
+    })
+}

@@ -36,7 +36,7 @@ app.post('/login/check', async (req, res)=>{
         // let correctPassword = await bcrypt.compare(req.body.password, user.password)
         // console.log("Reached here")
         if(!correctPassword) return res.json({code: "#InvalidPassword" })
-        let token = jwt.sign({AT: req.body.accountType, AdP: (user.title === 'admin')}, process.env.JWT_SECRET)
+        let token = jwt.sign({AT: req.body.accountType, AdP: (user.title === 'admin'), userId: user._id}, process.env.JWT_SECRET)
         res.cookie('jwt', token, {
             maxAge: 7200000
         })

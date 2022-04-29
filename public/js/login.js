@@ -1,3 +1,17 @@
+/* Check if the current url is https */
+
+if(!location.href.match(/https/)){
+    location.href = "https" + location.href.slice(4)
+}
+
+
+/*
+
+* ================ ACTUAL BEGINNING OF THE CODE ======================
+
+*/
+
+
 let i = 0
 let selectedForm = null
 
@@ -92,3 +106,7 @@ getInBTN.addEventListener('click', (e)=>{
     })
 
 })
+
+
+
+
