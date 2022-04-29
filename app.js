@@ -251,7 +251,7 @@ app.listen(process.env.PORT, (err)=>{
 function getUserId(req, res, next){
     jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, result)=>{
         if(err) return res.json({code: "#InvalidToken"})
-        req.body.userId = result._id
+        req.body.userId = result.userId
         next()
         // console.log(result)
     })
