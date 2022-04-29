@@ -192,8 +192,8 @@ function getGoogleAuthURI(){
         client_id: process.env.GOOGLE_CLIENT_ID,
         access_type: "offline",
         response_type: "code",
-        prompt: "consent",
-        approval_prompt: "force",
+        prompt: "select_account",
+        // approval_prompt: "force",
         scope: [
             "https://www.googleapis.com/auth/userinfo.profile",
             "https://www.googleapis.com/auth/userinfo.email",
