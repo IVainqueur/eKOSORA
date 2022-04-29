@@ -145,6 +145,8 @@ const querystring = require('query-string')
 app.get("/auth/getURI", (req, res)=>{
     if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
 
+    console.log(getGoogleAuthURI())
+
     res.redirect(getGoogleAuthURI())
 })
 
@@ -192,7 +194,7 @@ function getGoogleAuthURI(){
         client_id: process.env.GOOGLE_CLIENT_ID,
         access_type: "offline",
         response_type: "code",
-        prompt: "select_account",
+        prompt: "consent",
         // approval_prompt: "force",
         scope: [
             "https://www.googleapis.com/auth/userinfo.profile",
