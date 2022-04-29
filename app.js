@@ -123,9 +123,104 @@ app.get('/getInfo/:id', (req, res)=>{
     })
 })
 
+app.get('/timetable', (req, res)=>{
+    res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>Page still under construction. <a href='/dashboard'>Click here</a> to go back</p>")
+})
+
+//=================== GOOOGLE ================================
+/* 
+* Here is where google authing is going to come into place
+* asdsdasd
+
+
+*/
+// const redirectURI = "/auth/google"
+// const querystring = require('query-string')
+
+// app.get("/auth/getURI", (req, res)=>{
+//     res.redirect(getGoogleAuth())
+// })
+
+// app.get(redirectURI, async (req, res)=>{
+//     const code = req.query.code
+//     const allTokens = await getTokens({
+//         code, 
+//         clientId: process.env.GOOGLE_CLIENT_ID,
+//         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+//         redirectUri: `${process.env.SERVER_ROOT_URI}${redirectURI}`
+//     })
+//     console.log(allTokens)
+//     const { id_token, access_token} = allTokens
+//     const googleUser = await axios
+//     .get(
+//         `https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${access_token}`,
+//         {
+//         headers: {
+//             Authorization: `Bearer ${id_token}`,
+//         },
+//         }
+//     )
+//     .then((res) => res.data)
+//     .catch((error) => {
+//         console.error(`Failed to fetch user`);
+//         throw new Error(error.message);
+//     });
+//     console.log("The google user\n", googleUser)
+//     res.redirect("/login")
+
+// })
+
+// function getGoogleAuth(){
+//     const rootURI = "https://accounts.google.com/o/oauth2/v2/auth"
+//     const options = {
+//         redirect_uri: `${process.env.SERVER_ROOT_URI}${redirectURI}`,
+//         client_id: process.env.GOOGLE_CLIENT_ID,
+//         access_type: "offline",
+//         response_type: "code",
+//         prompt: "consent",
+//         scope: [
+//             "https://www.googleapis.com/auth/userinfo.profile",
+//             "https://www.googleapis.com/auth/userinfo.email"
+//         ].join(" ")
+//     }
+//     return `${rootURI}?${querystring.stringify(options)}`
+// }
+
+// function getTokens({
+//     code,
+//     clientId,
+//     clientSecret,
+//     redirectUri,
+//   }) {
+//     /*
+//      * Uses the code to get tokens
+//      * that can be used to fetch the user's profile
+//      */
+//     const url = "https://oauth2.googleapis.com/token";
+//     const values = {
+//       code,
+//       client_id: clientId,
+//       client_secret: clientSecret,
+//       redirect_uri: redirectUri,
+//       grant_type: "authorization_code",
+//     };
+  
+//     return axios
+//       .post(url, querystring.stringify(values), {
+//         headers: {
+//           "Content-Type": "application/x-www-form-urlencoded",
+//         },
+//       })
+//       .then((res) => res.data)
+//       .catch((error) => {
+//         console.error(`Failed to fetch auth tokens`);
+//         throw new Error(error.message);
+//       });
+//   }
+
 
 app.get('*', (req, res)=>{
-    res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>Page not found. <a href='/'>Click here</a> to go back</p>")
+    res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>Page not found. <a href='/dashboard'>Click here</a> to go back</p>")
 })
 
 app.listen(process.env.PORT, (err)=>{

@@ -10,10 +10,10 @@ const jwt = require('jsonwebtoken')
 const path = require('path')
 
 
-
 //Middleware
 app.use(cookieParser())
 require('dotenv').config()
+process.env.TEST = 43
 
 // let transporter =  null;
 const CLIENT_ID = process.env.GOOGLE_CLIENT_ID
@@ -22,11 +22,52 @@ const REDIRECT_URI = 'https://developers.google.com/oauthplayground'
 const REFRESH_TOKEN = process.env.REFRESH_TOKEN
 
 const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URI)
-oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN})
+
+
+oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN, access_token: "ya29.A0ARrdaM926K37slBX8P2KbiCJmebffJ3z5y5jZwcOSMgbolsBcLcfLXzg956K0Hf2XJRt7VLWISZzqhcw0uNgcR51hIsb0HMkcDnI1CTMLMQfUIjxOXiyV1nClyQusUJ4FfhEX12kelJ9iMFSFdfQigUuLIBV"});
+
+
+// oAuth2Client.refreshAccessToken((err, data)=>{
+//     console.log("Trying to get a new access TOKEN")
+//     console.log((err != null), data)
+// })
+
+(async function(){
+    try{
+        // let tokens = await oAuth2Client.getRequestHeaders()
+        // console.log("Below is the current token")
+        // console.log(tokens.Authorization.slice(7))
+
+        // console.log("Trying to refresh the token")
+        // tokens = await oAuth2Client.refreshAccessToken()
+        // console.log(tokens)
+        
+        oAuth2Client.refreshAccessToken((err, data)=>{
+            console.log(((err) ? err.message : false), data)
+        })
+
+        // const {tokens} = await oAuth2Client.getToken("4/0AX4XfWim548hWZ8cTkTdhQeIBoW5KCOGha0QZLlfVLnjM6ymGQp-__vplHEbS9TSsKu1sQ")
+        // console.log(tokens)
+    }catch(e){
+        console.log("THe token is not refreshed ", e.message)
+    }
+}())
+
+oAuth2Client.on('tokens', (tokens) => {
+	console.log("ON TOKENS"); //<-- This is never reached
+	if (tokens.refresh_token) {
+		// store the refresh_token in my database!
+		console.log("Refresh Token: " + tokens.refresh_token);
+	}
+	console.log("New Access Token: " + tokens.access_token);
+})
+
 
 const sendMail = async (message, receiver, subject)=>{
     try{
+
         const accessToken = await oAuth2Client.getAccessToken()
+        // console.log(accessToken)
         const transporter = mailer.createTransport({
             service: 'gmail',
             auth: {
@@ -35,7 +76,7 @@ const sendMail = async (message, receiver, subject)=>{
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
                 refreshToken: REFRESH_TOKEN,
-                accessToken: accessToken
+                accessToken: accessToken.token
             }
         })
         const mailOptions = {
@@ -49,12 +90,19 @@ const sendMail = async (message, receiver, subject)=>{
         console.log(result)
         return {code: "#Success", doc: result}
     }catch(err){
-        console.log(err)
+        console.log(err.message)
         return {code: "#Error", message: err}
     }
 }
 
+/*
+* Testing out the sendMail function 
+* The most recurring error is GAxios: invalid_grant
+* Another on is GaxiosError: unauthorized_client
 
+*/
+
+// sendMail("Testing this message on myself", "ishimvainqueur@gmail.com", "Testing shit out")
 
 
 //? THERE WILL BE COOKIE-RELATED VALIDATION
@@ -134,7 +182,7 @@ app.post('/updateMark', (req, res)=>{
     req.body.studentId = mongo.Types.ObjectId(req.body.studentId)
     // console.log(req.body)
     require('../models/ml-student').updateOne({_id: req.body.studentId, records: {$elemMatch: {_id: req.body.recordId}}}, {
-        $set: {"records.$.mark": req.body.mark}
+        $set: {"records.$.mark": Number(req.body.mark)}
     }, (err, doc)=>{
         if(err) return res.json({code: "#Error", error: err})
         res.json({code: "#Success", doc})
@@ -159,7 +207,7 @@ app.post('/updateForMany', async (req, res)=>{
             student.records.forEach(async (record, recIndex)=>{
                 if(record._id == req.body.recID){
                     //Check if the new mark will be higher than the maximum
-                    record.mark = ((record.mark+req.body.mark) >= record.max) ? record.max : (record.mark+req.body.mark)
+                    record.mark = ((record.mark+Number(req.body.mark)) >= record.max) ? record.max : (record.mark+Number(req.body.mark))
                     //Check if the new mark is not lower than zero
                     record.mark = (record.mark < 0) ? 0 : record.mark
                     doc.push(await require('../models/ml-student').updateOne({_id: student._id, records: {$elemMatch: {_id: record._id}}}, {
@@ -167,7 +215,7 @@ app.post('/updateForMany', async (req, res)=>{
                     }))
                     if(req.body.notifyParents){
                         let subject = await require('../models/ml-subject').findOne({code: record.subject})
-                        let message = `Dear Sir/Madam <br><br>${student.names} has ${(req.body.mark > 0) ? 'gained' : 'lost'} ${Math.abs(req.body.mark)} mark(s) in ${subject.title}. For more information, you can contact the teacher in charge of the course in question.`
+                        let message = `Dear Sir/Madam <br><br>${student.names} has ${(Number(req.body.mark) > 0) ? 'gained' : 'lost'} ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title}${(req.body.messageAttached) ? `. <br><b>Reason</b>: ${req.body.messageAttached}<br>.`: ""} For more information, you can contact the teacher in charge of the course in question.`
                         console.log(subject, message)
                         sendMail(message, student.parentEmails, "Student's marks adjustment")
                     }

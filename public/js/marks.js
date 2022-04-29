@@ -369,7 +369,7 @@ groupEdit.addEventListener('click', ()=>{
 
     for(let record of students[0].records){
         let option = document.createElement('option')
-        option.textContent = ` on ${record.recordName} ${new Date(record.date).toString().slice(0, 15)}`
+        option.textContent = `${record.recordName} on ${new Date(record.date).toString().slice(0, 15)}`
         option.value = record._id
         document.querySelector('.GroupEditPopUp select').appendChild(option)
     }
@@ -394,6 +394,7 @@ document.querySelector('#NotifyBox').addEventListener('click', (e)=>{
     let messageInput = document.createElement('input');
     messageInput.type = 'text'
     messageInput.placeholder = "Message to attach";
+    messageInput.id = "MessageAttached"
     document.querySelector('.ActualPopUp').insertBefore(messageInput, document.querySelector('.ActualPopUp').lastElementChild)
 })
 
@@ -405,6 +406,10 @@ document.querySelector('#GroupAdjBTN').addEventListener('click', (e)=>{
         recordId: document.querySelector('.GroupEditPopUp select').selectedOptions[0].value,
         students: [],
         notifyParents: (document.querySelector('#NotifyBox').checked)
+    }
+
+    if(document.querySelector('#MessageAttached')){
+        toSend.messageAttached = (document.querySelector('#MessageAttached').value == "") ? undefined : document.querySelector('#MessageAttached').value
     }
 
     for(let selectedStudent of document.querySelectorAll('table input[type=checkbox]:checked')){

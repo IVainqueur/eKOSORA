@@ -42,6 +42,7 @@ function buildTable(heads, data, selector){
             let td = document.createElement('td')
             let textContent = (['', Array(0)].includes(data[i][heads[j]])) ? '~~' : data[i][heads[j]]
             td.innerHTML = ((j == 1) ? `<img src="${data[i]['profileLink']}">` : '') + textContent
+            if((j == 1) && (data[i]['profileLink'] == undefined)) td.innerHTML = "<img src='../img/profile.png'>" + textContent
             tr.appendChild(td)
         }
         let actionTD = document.createElement('td')
