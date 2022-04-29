@@ -63,10 +63,10 @@ oAuth2Client.on('tokens', (tokens) => {
 })
 
 
-const sendMail = async (message, receiver, subject)=>{
+const sendMail = async (message, receiver, subject, accessToken, refreshToken)=>{
     try{
 
-        const accessToken = await oAuth2Client.getAccessToken()
+        // const accessToken = await oAuth2Client.getAccessToken()
         // console.log(accessToken)
         const transporter = mailer.createTransport({
             service: 'gmail',
@@ -75,8 +75,8 @@ const sendMail = async (message, receiver, subject)=>{
                 user: process.env.GMAIL_USER,
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
-                refreshToken: REFRESH_TOKEN,
-                accessToken: accessToken.token
+                refreshToken: refreshToken,
+                accessToken: accessToken
             }
         })
         const mailOptions = {
@@ -189,7 +189,7 @@ app.post('/updateMark', (req, res)=>{
     })
 })
 
-app.post('/updateForMany', async (req, res)=>{
+app.post('/updateForMany', getUserId, async (req, res)=>{
     try{
         let doc = []
         req.body.recID = req.body.recordId
@@ -215,9 +215,11 @@ app.post('/updateForMany', async (req, res)=>{
                     }))
                     if(req.body.notifyParents){
                         let subject = await require('../models/ml-subject').findOne({code: record.subject})
+                        let educator = await require('../models/ml-educator').findOne({_id: req.body.userId})
+
                         let message = `Dear Sir/Madam <br><br>${student.names} has ${(Number(req.body.mark) > 0) ? 'gained' : 'lost'} ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title}${(req.body.messageAttached) ? `. <br><b>Reason</b>: ${req.body.messageAttached}<br>.`: ""} For more information, you can contact the teacher in charge of the course in question.`
                         console.log(subject, message)
-                        sendMail(message, student.parentEmails, "Student's marks adjustment")
+                        sendMail(message, student.parentEmails, "Student's marks adjustment", educator.allTokens.accessToken, educator.allTokens.refreshToken)
                     }
                 }
             })
@@ -399,6 +401,13 @@ app.post('/getSummary', async (req, res)=>{
 //     console.log(result)    ;
 // })()
 
-
+function getUserId(req, res, next){
+    jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, result)=>{
+        if(err) return res.json({code: "#InvalidToken"})
+        req.body.userId = result.userId
+        next()
+        // console.log(result)
+    })
+}
 
 module.exports = app
