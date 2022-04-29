@@ -181,7 +181,7 @@ app.get(redirectURI, getUserId, async (req, res)=>{
 
         console.log(doc)
 
-        return res.redirect("/settings")
+        return res.redirect("/dashboard")
     })
 
 

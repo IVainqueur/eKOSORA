@@ -8,7 +8,9 @@ const educatorSchema = mongo.Schema({
     email: String,
     tel: String,
     password: String,
-    profileLink: String
+    profileLink: String,
+    googleUser: Object,
+    allTokens: Object
 })
 
 module.exports = mongo.model('educator', educatorSchema)
