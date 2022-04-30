@@ -63,7 +63,7 @@ oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN, access_token: "ya29.A
 // })
 
 
-const sendMail = async (message, receiver, subject, accessToken, refreshToken)=>{
+const sendMail = async (message, receiver, subject, sender, accessToken, refreshToken)=>{
     try{
 
         const accessToken = await oAuth2Client.getAccessToken()
@@ -72,7 +72,7 @@ const sendMail = async (message, receiver, subject, accessToken, refreshToken)=>
             service: 'gmail',
             auth: {
                 type: 'oauth2',
-                user: process.env.GMAIL_USER,
+                user: sender,
                 clientId: CLIENT_ID,
                 clientSecret: CLIENT_SECRET,
                 refreshToken: refreshToken,
@@ -80,7 +80,7 @@ const sendMail = async (message, receiver, subject, accessToken, refreshToken)=>
             }
         })
         const mailOptions = {
-            from: "eKOSORA messages <krbenon@gmail.com>",
+            from: `eKOSORA messages ${sender}`,
             to: receiver,
             subject: subject,
             text: message,
@@ -220,7 +220,7 @@ app.post('/updateForMany', getUserId, async (req, res)=>{
                         let message = `Dear Sir/Madam <br><br>${student.names} has ${(Number(req.body.mark) > 0) ? 'gained' : 'lost'} ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title}${(req.body.messageAttached) ? `. <br><b>Reason</b>: ${req.body.messageAttached}<br>.`: ""} For more information, you can contact the teacher in charge of the course in question.`
                         console.log("This is the ID", req.body.userId)
                         console.log(subject, message, educator.allTokens.access_token)
-                        sendMail(message, student.parentEmails, "Student's marks adjustment", educator.allTokens.access_token, educator.allTokens.refresh_token)
+                        sendMail(message, student.parentEmails, "Student's marks adjustment", educator.googleUser.email, educator.allTokens.access_token, educator.allTokens.refresh_token)
                     }
                 }
             })
