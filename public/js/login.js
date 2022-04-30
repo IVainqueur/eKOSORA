@@ -1,7 +1,7 @@
 /* Check if the current url is https */
 
 if(!location.href.match(/https/)){
-    location.href = "https" + location.href.slice(4)
+    //location.href = "https" + location.href.slice(4)
 }
 
 

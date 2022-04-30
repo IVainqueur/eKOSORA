@@ -32,41 +32,41 @@ oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN, access_token: "ya29.A
 //     console.log((err != null), data)
 // })
 
-(async function(){
-    try{
-        // let tokens = await oAuth2Client.getRequestHeaders()
-        // console.log("Below is the current token")
-        // console.log(tokens.Authorization.slice(7))
+// (async function(){
+//     try{
+//         // let tokens = await oAuth2Client.getRequestHeaders()
+//         // console.log("Below is the current token")
+//         // console.log(tokens.Authorization.slice(7))
 
-        // console.log("Trying to refresh the token")
-        // tokens = await oAuth2Client.refreshAccessToken()
-        // console.log(tokens)
+//         // console.log("Trying to refresh the token")
+//         // tokens = await oAuth2Client.refreshAccessToken()
+//         // console.log(tokens)
         
-        oAuth2Client.refreshAccessToken((err, data)=>{
-            console.log(((err) ? err.message : false), data)
-        })
+//         oAuth2Client.refreshAccessToken((err, data)=>{
+//             console.log(((err) ? err.message : false), data)
+//         })
 
-        // const {tokens} = await oAuth2Client.getToken("4/0AX4XfWim548hWZ8cTkTdhQeIBoW5KCOGha0QZLlfVLnjM6ymGQp-__vplHEbS9TSsKu1sQ")
-        // console.log(tokens)
-    }catch(e){
-        console.log("THe token is not refreshed ", e.message)
-    }
-}())
+//         // const {tokens} = await oAuth2Client.getToken("4/0AX4XfWim548hWZ8cTkTdhQeIBoW5KCOGha0QZLlfVLnjM6ymGQp-__vplHEbS9TSsKu1sQ")
+//         // console.log(tokens)
+//     }catch(e){
+//         console.log("THe token is not refreshed ", e.message)
+//     }
+// }())
 
-oAuth2Client.on('tokens', (tokens) => {
-	console.log("ON TOKENS"); //<-- This is never reached
-	if (tokens.refresh_token) {
-		// store the refresh_token in my database!
-		console.log("Refresh Token: " + tokens.refresh_token);
-	}
-	console.log("New Access Token: " + tokens.access_token);
-})
+// oAuth2Client.on('tokens', (tokens) => {
+// 	console.log("ON TOKENS"); //<-- This is never reached
+// 	if (tokens.refresh_token) {
+// 		// store the refresh_token in my database!
+// 		console.log("Refresh Token: " + tokens.refresh_token);
+// 	}
+// 	console.log("New Access Token: " + tokens.access_token);
+// })
 
 
 const sendMail = async (message, receiver, subject, accessToken, refreshToken)=>{
     try{
 
-        // const accessToken = await oAuth2Client.getAccessToken()
+        const accessToken = await oAuth2Client.getAccessToken()
         // console.log(accessToken)
         const transporter = mailer.createTransport({
             service: 'gmail',
@@ -80,7 +80,7 @@ const sendMail = async (message, receiver, subject, accessToken, refreshToken)=>
             }
         })
         const mailOptions = {
-            from: "eKOSORA messages <ishimvainqueur@gmail.com>",
+            from: "eKOSORA messages <krbenon@gmail.com>",
             to: receiver,
             subject: subject,
             text: message,
@@ -215,11 +215,12 @@ app.post('/updateForMany', getUserId, async (req, res)=>{
                     }))
                     if(req.body.notifyParents){
                         let subject = await require('../models/ml-subject').findOne({code: record.subject})
-                        let educator = await require('../models/ml-educator').findOne({_id: req.body.userId})
+                        let educator = await require('../models/ml-educator').findOne({_id: mongo.Types.ObjectId(req.body.userId)})
 
                         let message = `Dear Sir/Madam <br><br>${student.names} has ${(Number(req.body.mark) > 0) ? 'gained' : 'lost'} ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title}${(req.body.messageAttached) ? `. <br><b>Reason</b>: ${req.body.messageAttached}<br>.`: ""} For more information, you can contact the teacher in charge of the course in question.`
-                        console.log(subject, message)
-                        sendMail(message, student.parentEmails, "Student's marks adjustment", educator.allTokens.accessToken, educator.allTokens.refreshToken)
+                        console.log("This is the ID", req.body.userId)
+                        console.log(subject, message, educator.allTokens.access_token)
+                        sendMail(message, student.parentEmails, "Student's marks adjustment", educator.allTokens.access_token, educator.allTokens.refresh_token)
                     }
                 }
             })
@@ -409,5 +410,10 @@ function getUserId(req, res, next){
         // console.log(result)
     })
 }
+
+
+// require('../models/ml-educator').findOne({_id: ("6256809c694faff4d7ad762b")}, (err, data)=>{
+//     console.log(err, data)
+// })
 
 module.exports = app

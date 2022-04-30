@@ -178,7 +178,7 @@ app.get(redirectURI, getUserId, async (req, res)=>{
 
     require('./models/ml-educator').updateOne({_id: req.body.userId}, {allTokens, googleUser}, (err, doc)=>{
         if(err) return res.send(`Failed to save your data to your account. <a href="/auth/getURI">Click here</a> to try again`)
-
+        if(doc.matchedCount == 0) return res.send(`Failed to save your data to your account. <a href="/auth/getURI">Click here</a> to try again`)
         console.log(doc)
 
         return res.redirect("/dashboard")
