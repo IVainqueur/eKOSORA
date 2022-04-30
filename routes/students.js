@@ -221,7 +221,7 @@ app.post('/updateForMany', getUserId, async (req, res)=>{
                         if(!educator.allTokens || !educator.googleUser) return
 
                         let message = `
-                        <div style="width: 500px;margin: auto;margin-top: 20px;">
+                        <div style="width: 500px;margin: auto;margin-top: 20px; font-size: 16px;">
                             <div style="background: #4CA7CE;padding: 10px;">
                                 <img src="https://res.cloudinary.com/dyrneab5i/image/upload/v1651304384/output-onlinepngtools_47_ylmye4.png" style="display: block;" height="45" width="150" title="eKOSORA Logo" alt="eKOSORA" />
                             </div>
@@ -230,6 +230,8 @@ app.post('/updateForMany', getUserId, async (req, res)=>{
                                 ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title}
                                 ${(req.body.messageAttached) ? `. <br><b>Reason</b>: ${req.body.messageAttached}.<br>`: ''}  
                                 For more information, you can contact the teacher in charge of the course in question.
+                                <br>
+                                <p style="text-align: end; padding-right: 15px;">${new Date().toString().slice(0, 21)}</p>
                             </div>
                         </div>
 
