@@ -217,7 +217,26 @@ app.post('/updateForMany', getUserId, async (req, res)=>{
                         let subject = await require('../models/ml-subject').findOne({code: record.subject})
                         let educator = await require('../models/ml-educator').findOne({_id: mongo.Types.ObjectId(req.body.userId)})
 
-                        let message = `Dear Sir/Madam <br><br>${student.names} has ${(Number(req.body.mark) > 0) ? 'gained' : 'lost'} ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title}${(req.body.messageAttached) ? `. <br><b>Reason</b>: ${req.body.messageAttached}<br>.`: ""} For more information, you can contact the teacher in charge of the course in question.`
+
+                        if(!educator.allTokens || !educator.googleUser) return
+
+                        let message = `
+                        <div style="width: 500px;margin: auto;margin-top: 20px;">
+                            <div style="background: #4CA7CE;padding: 10px;">
+                                <img src="https://res.cloudinary.com/dyrneab5i/image/upload/v1651304384/output-onlinepngtools_47_ylmye4.png" style="display: block;" height="45" width="150" title="eKOSORA Logo" alt="eKOSORA" />
+                            </div>
+                            <div style="padding: 10px;background: #f0f0f0;">
+                                Dear Sir/Madam <br><br> ${student.names} has ${(Number(req.body.mark) > 0) ? 'gained' : 'lost'}
+                                ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title}
+                                ${(req.body.messageAttached) ? `. <br><b>Reason</b>: ${req.body.messageAttached}.<br>`: ''}  
+                                For more information, you can contact the teacher in charge of the course in question.
+                            </div>
+                        </div>
+
+                        `
+
+
+
                         console.log("This is the ID", req.body.userId)
                         console.log(subject, message, educator.allTokens.access_token)
                         sendMail(message, student.parentEmails, "Student's marks adjustment", educator.googleUser.email, educator.allTokens.access_token, educator.allTokens.refresh_token)
