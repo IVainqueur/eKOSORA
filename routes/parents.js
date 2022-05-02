@@ -7,6 +7,7 @@ app.get('/signup', (req, res)=>{
 })
 
 app.get('/getParentInfo', async (req, res)=>{
+    // console.log(req.query)
     try{
         require("../models/ml-parent").findOne({_id: req.query._id}, async (err, doc)=>{
             if(err) return res.json({code: "#Error", message: err})
@@ -30,6 +31,7 @@ app.get('/getParentInfo', async (req, res)=>{
 app.post('/signup', async (req, res)=>{
     if(!req.query._id) return res.json({code: "#NoID"})
     try{
+        console.log("Updating the parent")
         let updatedParent = await require("../models/ml-parent").updateOne({_id: req.query._id}, {
             names: req.body.names,
             tel: req.body.tel,
