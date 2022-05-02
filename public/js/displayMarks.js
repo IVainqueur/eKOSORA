@@ -36,7 +36,7 @@ const makeCards = (toUse)=>{
     AlertAlt("Loaded!")
 }
 
-let query = (userInfo.accountType == 'student') ? userInfo._id : userInfo.children.map(x => x._id).join(',')
+let query = (userInfo.accountType == 'student') ? userInfo._id : ((userInfo.children) ? userInfo.children.map(x => x._id).join(',') : '')
 AlertAlt("Loading...", sustain=true)
 fetch(`/student/getMarks?ids=${query}`)
 .then(res => res.json())

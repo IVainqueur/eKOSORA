@@ -31,17 +31,18 @@ app.post('/login/check', async (req, res)=>{
             user = await require(`../models/ml-${req.body.accountType}`).findOne({email: req.body.code})
         }
         if(!user) return res.json({code: "#NoSuchUser" })
-        // console.log(user)
+        
         let correctPassword = (req.body.password === user.password)
-        // let correctPassword = await bcrypt.compare(req.body.password, user.password)
-        // console.log("Reached here")
+        
         if(!correctPassword) return res.json({code: "#InvalidPassword" })
+
         let token = jwt.sign({AT: req.body.accountType, AdP: (user.title === 'admin'), userId: user._id}, process.env.JWT_SECRET)
         res.cookie('jwt', token, {
             maxAge: 7200000
         })
         let children = []
         if(req.body.accountType == 'parent'){
+            if(user.name || user.tel) return res.json({code: "#AccountNotSetup", _id: user._id})
             children = await require('../models/ml-student').find({_id: {$in: user.children}})
             children = children.map(x => {
                 return {

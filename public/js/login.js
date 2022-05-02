@@ -6,7 +6,7 @@ window.onload = (e)=>{
 }
 
 if(!location.href.match(/https/)){
-    location.href = "https" + location.href.slice(4)
+    // location.href = "https" + location.href.slice(4)
 }
 
 
@@ -103,6 +103,8 @@ getInBTN.addEventListener('click', (e)=>{
             theForm.setAttribute('error', `Incorrect password`)
             document.body.addEventListener('click', (e)=>{theForm.setAttribute('error', ``)}, {once: true})
             return theForm.classList.add('errorInForm')
+        }else if(data.code == "#AccountNotSetup"){
+            location.pathname = `/parent?_id=${data._id}`
         }else{
             throw new Error("Error")
         }

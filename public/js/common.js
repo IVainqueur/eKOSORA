@@ -141,5 +141,5 @@ script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.j
 /* Check if the current url is https */
 
 if(!location.href.match(/https/)){
-    location.href = "https" + location.href.slice(4)
+    // location.href = "https" + location.href.slice(4)
 }
