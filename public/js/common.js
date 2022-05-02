@@ -71,7 +71,11 @@ const AlertAlt = (message, sustain, isError)=>{
     setTimeout(()=>{
         if(sustain) return
         div.classList.remove("showAlert")
-        setTimeout(()=>{document.body.removeChild(div)}, 300)
+        setTimeout(()=>{
+            if(document.querySelector('.AlertDIV')){
+                document.body.removeChild(div)
+            }
+        }, 300)
     }, 3000)
 }
 
@@ -107,6 +111,27 @@ function allowClick(){
 }
 
 
+
+function _pick(needed, theObj){
+    let newObj = {}
+    Object.keys(theObj).forEach((key, i)=>{
+        if(needed.includes(key)){
+            newObj[key] = theObj[key]
+        }
+    })
+    return newObj
+}
+
+function _remove(needed, theObj){
+    let newObj = {}
+    Object.keys(theObj).forEach((key, i)=>{
+        if(!needed.includes(key)){
+            newObj[key] = theObj[key]
+        }
+    })
+    return newObj
+}
+
 let script = document.createElement("script");
 script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
 
@@ -116,5 +141,5 @@ script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.j
 /* Check if the current url is https */
 
 if(!location.href.match(/https/)){
-    location.href = "https" + location.href.slice(4)
+    //location.href = "https" + location.href.slice(4)
 }

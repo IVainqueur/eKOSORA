@@ -1,6 +1,13 @@
-fetch(`/getInfo/${JSON.parse(localStorage.eKOSORA_User)._id}`)
+AlertAlt('Getting up-to-date data...', sustain=true)
+let gotAllData = 0
+fetch(`/getInfo`)
 .then(res => res.json())
 .then(data => {
+    gotAllData++
+    if(gotAllData == 2){
+        AlertAlt("Updated")
+    }
+    console.log(data)
     if(data.code == "#Error"){
         return AlertAlt("Something went wrong. Please try again", sustain=true)
     }
@@ -12,6 +19,9 @@ fetch(`/getInfo/${JSON.parse(localStorage.eKOSORA_User)._id}`)
         // document.querySelector('input[type=password]').value = data.password
         fillInData(data.doc)
     }
+    let toStore = _remove(["__v", "password", "allTokens"], data.doc)
+    toStore.googleUser = (toStore.googleUser) ? true : false
+    localStorage.eKOSORA_User = JSON.stringify(toStore)
 })
 .catch(err => {
     AlertAlt("Something went wrong. Please try again")
@@ -38,7 +48,12 @@ const fillInData = (toUse)=>{
                 }else{
                     input.value = value
                 }
+                // console.log(input.parentElement.title)
             }
+        }else if(input.parentElement.getAttribute('title') == 'connectedToGoogle'){
+            console.log("In the CONNECTED TO GOOOGLE ")
+            if(toUse['googleUser']) input.checked = true
+
         }else{
             input.value = (value) ? value : 'unknown'
         }
@@ -213,12 +228,15 @@ observer.observe(document.querySelector('.Settings'))
 
 
 ///! GET EXTRA SETTINGS
-AlertAlt("Loading...", true)
+// AlertAlt("Loading...", true)
 fetch('/settings/otherSettings')
 .then(res => res.json())
 .then(data => {
+    gotAllData++
     console.log(data)
-    AlertAlt("Updated")
+    if(gotAllData == 2){
+        AlertAlt("Updated")
+    }
     if(data.code == "#Error"){
         AlertAlt("Could not load other settings. Try refreshing the page!")
     }
@@ -340,4 +358,13 @@ fetch('/settings/otherSettings')
     AlertAlt("Something went wrong. Please try again")
 })
 
-
+document.querySelector('.Field[title=connectedToGoogle] input[type=checkbox]').addEventListener('click', (e)=>{
+    if(!e.target.checked){
+        if(confirm("Do you want to disconnect your google account from eKOSORA?")){
+            console.log("%c DISCONNECTING THE GOOGLE ACCOUNT", "color:red; font-size: 25px;")
+        }
+    }else{
+        AlertAlt("Redirecting....")
+        location.pathname = '/auth/getURI'
+    }
+})

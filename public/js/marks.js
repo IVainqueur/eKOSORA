@@ -390,7 +390,20 @@ document.querySelector('#AddBTN').addEventListener('click', (e)=>{
     count.textContent = Number(count.textContent) + 1
 })
 
-document.querySelector('#NotifyBox').addEventListener('click', (e)=>{
+document.querySelector('#NotifyBox').addEventListener('change', (e)=>{
+    if(!e.target.checked){
+        document.querySelector('.ActualPopUp').removeChild(document.querySelector('.ActualPopUp #MessageAttached'))
+    }else{
+        if(!userInfo.googleUser) {
+            if(confirm("Your google account is not connected with eKOSORA, do you want to connect it?")){
+                console.log("Niiga please")
+                location.pathname = "/settings"
+            }
+            setTimeout(()=>{e.target.checked = false}, 10)
+            return
+        }
+    }
+    
     let messageInput = document.createElement('input');
     messageInput.type = 'text'
     messageInput.placeholder = "Message to attach";

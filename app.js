@@ -121,9 +121,9 @@ app.get('/settings', (req, res)=>{
     res.sendFile(__dirname + `/public/html/${req.body.prefix}/settings.html`)
 })
 
-app.get('/getInfo/:id', (req, res)=>{
+app.get('/getInfo', getUserId, (req, res)=>{
     // console.log(req.body)
-    require(`./models/ml-${req.body.prefix}`).findOne({_id: req.params.id}, (err, doc)=>{
+    require(`./models/ml-${req.body.prefix}`).findOne({_id: req.body.userId}, (err, doc)=>{
         if(err) return res.json({code: "#Error", message: err})
         if(doc == null) return res.json({code: "#NoSuchID"})
         res.json({code: "#Success", doc})

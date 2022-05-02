@@ -9,15 +9,15 @@
         <!-- <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> -->
         <title>Settings | eKOSORA</title>
         <link rel="stylesheet" href="../css/common.css">
-        
         <link rel="stylesheet" href="../css/settings.css">
         <!-- <link rel="stylesheet" href="../css/newEducator.css"> -->
     </head>
     <style id="style2">*:not(.LoadingOverlay){
 z-index:-1; pointer-events: none;
-}</style>
-<body>
-<div class="LoadingOverlay">
+}
+    </style>
+    <body>
+        <div class="LoadingOverlay">
             <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
                 <img src="../img/loader.gif" alt="Loading...">
                 <p style="text-align: center;">Loading.....</p>
@@ -139,6 +139,17 @@ z-index:-1; pointer-events: none;
                                 class="span"
                             >
                             <img src="../img/visibility_off.svg" alt="View/Hide Password" id="ViewHidePassword">
+                        </div>
+                        <div class="Field" title="connectedToGoogle">
+                            <h3 style="width: fit-content;">Connected To
+                                <span style="color: #4285F4;">G</span>
+                                <span style="color: #DB4437;">O</span>
+                                <span style="color: #F4B400;">O</span>
+                                <span style="color: #4285F4;">G</span>
+                                <span style="color: #0F9D58;">L</span>
+                                <span style="color: #DB4437;">E</span>
+                            </h3>
+                            <input type="checkbox" readonly="" class="span" style="width: 40px;flex-grow: 0;">
                         </div>
                         <div class="TheBTNs">
                             <button id="EditBTN">EDIT</button>
