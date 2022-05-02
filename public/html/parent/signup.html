@@ -9,7 +9,7 @@
         <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
         <title>Setup parent account | eKOSORA</title>
         <link rel="stylesheet" href="../css/common.css">
-        <link rel="icon" type="image/x-icon" href="../img/favicon.png">
+        
         <link rel="stylesheet" href="../css/newRecord.css">
         <link rel="stylesheet" href="../css/newEducator.css">
         <style>
@@ -19,7 +19,17 @@
             }
         </style>
     </head>
-    <body>
+    <style id="style2">*:not(.LoadingOverlay){
+z-index:-1; pointer-events: none;
+}</style>
+<body>
+<div class="LoadingOverlay">
+            <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+                <img src="../img/loader.gif" alt="Loading...">
+                <p style="text-align: center;">Loading.....</p>
+            </div>
+            <img src="../img/loader.gif" alt="Loading...">
+        </div>
         <div id="NavBar" class="CommonNav">
             <div class="LeftSide">
                 <!-- <div class="HamburgerContainer">

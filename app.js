@@ -46,6 +46,7 @@ app.use((req, res, next)=>{ //Cookie validation
             // console.log(req.path)
             if(req.cookies.jwt == undefined){
                 console.log("No jwt token")
+                if(req.path == "/favicon.ico") return res.sendFile(__dirname+'/public/img/favicon.png')
                 if(!["/logout", "/favicon"].includes(req.path)){
                     res.cookie('redirected', 'true', {
                         maxAge: 5*60*1000
@@ -85,6 +86,8 @@ mongo.connect(CONN_STR, (err)=>{
     console.log("#ConnectedToDB")
 })
 
+
+
 app.get('/', (req, res)=>{
     res.sendFile(__dirname + `/public/html/index.html`)
 })
@@ -92,6 +95,7 @@ app.get('/login', (req, res)=>{
     res.redirect('/getin/login')
 })
 app.get('/logout', (req, res)=>{
+    console.log("Logging out")
     res.redirect('/getin/logout')
 })
 app.get('/dashboard', (req, res)=>{

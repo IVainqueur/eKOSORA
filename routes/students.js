@@ -27,42 +27,6 @@ const oAuth2Client = new google.auth.OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_U
 oAuth2Client.setCredentials({refresh_token: REFRESH_TOKEN, access_token: "ya29.A0ARrdaM926K37slBX8P2KbiCJmebffJ3z5y5jZwcOSMgbolsBcLcfLXzg956K0Hf2XJRt7VLWISZzqhcw0uNgcR51hIsb0HMkcDnI1CTMLMQfUIjxOXiyV1nClyQusUJ4FfhEX12kelJ9iMFSFdfQigUuLIBV"});
 
 
-// oAuth2Client.refreshAccessToken((err, data)=>{
-//     console.log("Trying to get a new access TOKEN")
-//     console.log((err != null), data)
-// })
-
-// (async function(){
-//     try{
-//         // let tokens = await oAuth2Client.getRequestHeaders()
-//         // console.log("Below is the current token")
-//         // console.log(tokens.Authorization.slice(7))
-
-//         // console.log("Trying to refresh the token")
-//         // tokens = await oAuth2Client.refreshAccessToken()
-//         // console.log(tokens)
-        
-//         oAuth2Client.refreshAccessToken((err, data)=>{
-//             console.log(((err) ? err.message : false), data)
-//         })
-
-//         // const {tokens} = await oAuth2Client.getToken("4/0AX4XfWim548hWZ8cTkTdhQeIBoW5KCOGha0QZLlfVLnjM6ymGQp-__vplHEbS9TSsKu1sQ")
-//         // console.log(tokens)
-//     }catch(e){
-//         console.log("THe token is not refreshed ", e.message)
-//     }
-// }())
-
-// oAuth2Client.on('tokens', (tokens) => {
-// 	console.log("ON TOKENS"); //<-- This is never reached
-// 	if (tokens.refresh_token) {
-// 		// store the refresh_token in my database!
-// 		console.log("Refresh Token: " + tokens.refresh_token);
-// 	}
-// 	console.log("New Access Token: " + tokens.access_token);
-// })
-
-
 const sendMail = async (message, receiver, subject, sender, accessToken, refreshToken)=>{
     try{
 

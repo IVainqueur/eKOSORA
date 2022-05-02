@@ -307,3 +307,7 @@ option{
 .onlyMain{
     padding-left: 0;
 }
+
+.LoadingOverlay{
+    position: fixed;
+}

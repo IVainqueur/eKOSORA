@@ -1,4 +1,5 @@
 const makeCards = (toUse)=>{
+    
     // console.log(toUse)
     let Cards = document.createElement('div')
     Cards.className = "Cards"
@@ -32,9 +33,11 @@ const makeCards = (toUse)=>{
         
     }
     document.querySelector('.main').appendChild(Cards)
+    AlertAlt("Loaded!")
 }
 
 let query = (userInfo.accountType == 'student') ? userInfo._id : userInfo.children.map(x => x._id).join(',')
+AlertAlt("Loading...", sustain=true)
 fetch(`/student/getMarks?ids=${query}`)
 .then(res => res.json())
 .then(data => {
@@ -53,12 +56,7 @@ fetch(`/student/getMarks?ids=${query}`)
         document.querySelector('.main').appendChild(h1)
         makeCards(student.records)
     }
-    for(let student of data.doc){
-        let h1 = document.createElement('h1')
-        h1.textContent = student.names + "'s marks"
-        document.querySelector('.main').appendChild(h1)
-        makeCards(student.records)
-    }
+    
 })
 .catch(err => {
     console.log(err)

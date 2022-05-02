@@ -35,6 +35,8 @@ const fillInData = (toUse)=>{
                 }else if(input.parentElement.getAttribute('title') == "parentEmails"){
                     console.log("Calling the fillInParents function")
                     fillInParents(input, toUse["parentEmails"])
+                }else{
+                    input.value = value
                 }
             }
         }else{

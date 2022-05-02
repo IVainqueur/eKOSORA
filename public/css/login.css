@@ -141,7 +141,11 @@
     color: #ed4949;
     margin-top: 10px;
 }
-
+.studentErrorInForm::after{
+    content: attr(error);
+    color: #ed4949;
+    margin-top: 10px;
+}
 @media(max-width:1025px){
     .main .LoginChoice{
         width: 40%;

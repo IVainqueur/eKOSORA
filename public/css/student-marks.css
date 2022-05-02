@@ -42,3 +42,7 @@
 .Card .Mark, .Card .Date{
     color: rgba(0,0,0,0.6)
 }
+
+.main h1{
+    text-align: center;
+}

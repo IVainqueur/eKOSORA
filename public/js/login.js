@@ -1,7 +1,12 @@
 /* Check if the current url is https */
+window.onload = (e)=>{
+    console.log("%c LOADED THE PAGE", "color: #48ff48; font-size: 30px")
+    document.querySelector('.LoadingOverlay').style.display = "none"
+    document.querySelector('style#style2').innerHTML = ""
+}
 
 if(!location.href.match(/https/)){
-    //location.href = "https" + location.href.slice(4)
+    location.href = "https" + location.href.slice(4)
 }
 
 
@@ -92,6 +97,7 @@ getInBTN.addEventListener('click', (e)=>{
         }else if(data.code == "#NoSuchUser"){
             theForm.setAttribute('error', `There is no ${selectedForm} registered under the entered email`)
             document.body.addEventListener('click', (e)=>{theForm.setAttribute('error', ``)}, {once: true})
+            if(selectedForm == 'student') return theForm.setAttribute('error', `There is no ${selectedForm} registered under the entered code`)
             return theForm.classList.add('errorInForm')
         }else if(data.code == "#InvalidPassword"){
             theForm.setAttribute('error', `Incorrect password`)

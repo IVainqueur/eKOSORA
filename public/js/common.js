@@ -1,4 +1,9 @@
 console.log("Loaded common.js")
+window.onload = (e)=>{
+    console.log("%c LOADED THE PAGE", "color: #48ff48; font-size: 30px")
+    document.querySelector('.LoadingOverlay').style.display = "none"
+    document.querySelector('style#style2').innerHTML = ""
+}
 const hamburgerMenu = document.querySelector('.HamburgerContainer')
 if(hamburgerMenu){
     hamburgerMenu.onclick = ()=>{
@@ -111,5 +116,5 @@ script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.j
 /* Check if the current url is https */
 
 if(!location.href.match(/https/)){
-    //location.href = "https" + location.href.slice(4)
+    location.href = "https" + location.href.slice(4)
 }
