@@ -207,6 +207,7 @@ display: none;
                         let data = await res.json()
                         if(data.code == "#Error") throw new Error(JSON.stringify(data.message))
                         AlertAlt("Successfully added new parent")
+                        location.reload()
                         console.log(data)
                         // setTimeout(()=>{location.reload()}, 1000)
                     }catch(e){

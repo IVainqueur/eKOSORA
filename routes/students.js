@@ -258,11 +258,14 @@ app.get('/deleteRecord', async (req, res)=>{
 
 app.post('/addParent', async (req, res)=>{
     try{
-        let student = await require('../models/ml-student').updateOne({_id: req.body.studentId}, {$push: {parentEmails: req.body.email}})
+        let student = await require('../models/ml-student').findOne({_id: req.body.studentId})
+        if(student.parentEmails.includes(req.body.email)) return res.json({code: "#Success"})
+
+        student = await require('../models/ml-student').updateOne({_id: req.body.studentId}, {$push: {parentEmails: req.body.email}})
+
         if(student.matchedCount == 0){
             return res.json({code: "#Error", summary: "There is no student with such an ID"})
         }
-        if(student.parentEmails.includes(req.body.email)) return res.json({code: "#Success"})
         let existingParent = await require('../models/ml-parent').findOne({email: req.body.email})
         if(!existingParent){
             let newParent = require('../models/ml-parent')({
@@ -272,14 +275,17 @@ app.post('/addParent', async (req, res)=>{
                 children: [req.body.studentId]
             })
             newParent.save( async (err, result)=>{
+                console.log(err)
                 if(err) return res.json({code: "#Error", message: err})
-                // console.log("Here we send the message after creating a new parent document")
-                let newCode = require('../models/ml-newAccountCode')({
-                    userId: result._id,
-                    code: uuidGenerate()
-                })
-                let saveNewCode = await newCode.save()
-                let text = `<p style="font-size: 16px">Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup/?_id=${saveNewCode.code}">Click Here</a></p>`
+                
+                // let newCode = require('../models/ml-newAccountCode')({
+                //     userId: result._id,
+                //     code: uuidGenerate()
+                // })
+
+                // let saveNewCode = await newCode.save()
+
+                let text = `<p style="font-size: 16px">Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup?_id=${result._id}">Click Here</a></p>`
 
                 sendMail(text, req.body.email, "Registered as parent", "ishimvainqueur@gmail.com", process.env.ADMIN_ACCESS_TOKEN, process.env.ADMIN_REFRESH_TOKEN)
                 

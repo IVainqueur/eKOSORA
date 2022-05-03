@@ -154,4 +154,23 @@
         margin-left: 0;
 
     }
+
+    .AlertDIV{
+        min-width: 200px !important;
+        width: fit-content;
+    }
+}
+
+@media(max-width: 540px){
+    .Statistic{
+        flex-direction: column-reverse;
+    }
+    .Statistic .Summary{
+        width: fit-content;
+        /* margin: auto; */
+    }
+    .Statistic canvas{
+        max-width: 100% !important;
+    }
+
 }

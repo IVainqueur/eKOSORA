@@ -1,4 +1,4 @@
-AlertAlt("Loading charts...", sustain=true)
+AlertAlt("Loading charts...")
 const ctx = document.getElementById('myChart').getContext('2d');
 const myChart = new Chart(ctx, {
     type: 'bar',
