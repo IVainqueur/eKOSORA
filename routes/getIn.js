@@ -28,7 +28,7 @@ app.post('/login/check', async (req, res)=>{
         if(req.body.accountType == 'student'){
             user = await require(`../models/ml-${req.body.accountType}`).findOne({code: {$regex: new RegExp((`\\b${req.body.code}\\b`), "i") }})
         }else{
-            user = await require(`../models/ml-${req.body.accountType}`).findOne({$or: {email: req.body.code, tel: req.body.code}})
+            user = await require(`../models/ml-${req.body.accountType}`).findOne({$or: [{email: req.body.code}, {tel: req.body.code}]})
         }
         if(!user) return res.json({code: "#NoSuchUser" })
         
