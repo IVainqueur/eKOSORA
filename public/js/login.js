@@ -103,6 +103,8 @@ getInBTN.addEventListener('click', (e)=>{
             theForm.setAttribute('error', `Incorrect password`)
             document.body.addEventListener('click', (e)=>{theForm.setAttribute('error', ``)}, {once: true})
             return theForm.classList.add('errorInForm')
+        }else if(data.code == "#AccountNotSetup"){
+            location.href = location.origin + `/parent/signup?_id=${data._id}`
         }else{
             throw new Error("Error")
         }

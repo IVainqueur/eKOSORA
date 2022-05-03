@@ -31,12 +31,13 @@ app.post('/login/check', async (req, res)=>{
             user = await require(`../models/ml-${req.body.accountType}`).findOne({email: req.body.code})
         }
         if(!user) return res.json({code: "#NoSuchUser" })
-        // console.log(user)
+        
         let correctPassword = (req.body.password === user.password)
-        // let correctPassword = await bcrypt.compare(req.body.password, user.password)
-        // console.log("Reached here")
+        
         if(!correctPassword) return res.json({code: "#InvalidPassword" })
+
         let token = jwt.sign({AT: req.body.accountType, AdP: (user.title === 'admin'), userId: user._id}, process.env.JWT_SECRET)
+        if((user.name == "")|| (user.tel == "")) return res.json({code: "#AccountNotSetup", _id: user._id})
         res.cookie('jwt', token, {
             maxAge: 7200000
         })

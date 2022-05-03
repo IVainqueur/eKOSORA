@@ -262,6 +262,7 @@ app.post('/addParent', async (req, res)=>{
         if(student.matchedCount == 0){
             return res.json({code: "#Error", summary: "There is no student with such an ID"})
         }
+        if(student.parentEmails.includes(req.body.email)) return res.json({code: "#Success"})
         let existingParent = await require('../models/ml-parent').findOne({email: req.body.email})
         if(!existingParent){
             let newParent = require('../models/ml-parent')({

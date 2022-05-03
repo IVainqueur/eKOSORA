@@ -29,6 +29,7 @@ app.use((req, res, next)=>{ //Cookie validation
     // return res.send("Got it")
     if(req.originalUrl.match(/login/)) return next()
     if((req.method != 'GET')){
+        if(req.path.match("/parent")) return next()
         if(req.cookies.jwt == undefined){
             console.log("No jwt token")
             return res.json({code: "#NoTokenNoService"})
@@ -42,6 +43,7 @@ app.use((req, res, next)=>{ //Cookie validation
 
     }
     if((req.originalUrl != "/")){
+        if(req.path.match("/parent")) return next()
         if(!req.originalUrl.match(/login/)){
             // console.log(req.path)
             if(req.cookies.jwt == undefined){
