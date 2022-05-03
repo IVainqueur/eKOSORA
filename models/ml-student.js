@@ -14,7 +14,10 @@ const studentSchema = mongo.Schema({
         type: Array,
         default: []
     },
-    profileLink: String
+    profileLink: {
+        type: String,
+        default: "https://res.cloudinary.com/dyrneab5i/image/upload/v1651564772/h2tjxuh4t7c739ks6ife.png"
+    }
 })
 
 module.exports = mongo.model('student', studentSchema)
