@@ -281,8 +281,8 @@ app.post('/addParent', async (req, res)=>{
                 let saveNewCode = await newCode.save()
                 let text = `<p style="font-size: 16px">Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup/?_id=${saveNewCode.code}">Click Here</a></p>`
 
-                let message = await sendMail(text, req.body.email, "Registered as a parent")
-                if(message.code == "#Error") return  res.json(message)
+                sendMail(text, req.body.email, "Registered as parent", "ishimvainqueur@gmail.com", process.env.ADMIN_ACCESS_TOKEN, process.env.ADMIN_REFRESH_TOKEN)
+                
                 
                 res.json({code: "#Success"})
         
