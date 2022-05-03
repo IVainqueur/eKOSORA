@@ -1,3 +1,4 @@
+if(location.pathname == "/announcement") AlertAlt("Loading...", sustain=true)
 fetch('/announcement/view')
 .then(res => res.json())
 .then(data =>{
@@ -22,6 +23,7 @@ fetch('/announcement/view')
             console.log(new Date(announcement.date) - new Date())
             let days = Math.abs(new Date(announcement.date) - new Date())/(1000*60*60*24)
             div.setAttribute('badge', `${Math.floor(days)} days ago`)
+            if(days < 3) div.setAttribute('badge', `New`)
         }
         div.classList.add('NewAnnouncement')
 
@@ -29,6 +31,8 @@ fetch('/announcement/view')
         div.appendChild(content)
         div.appendChild(composer)
         document.querySelector('.Announcements').appendChild(div)
+
+        if(location.pathname == "/announcement") AlertAlt("Loaded all announcements")
     }
 })
 .catch(err => {

@@ -47,3 +47,17 @@
     font-size: 19px;
     font-weight: bold;
 }
+
+.NewAnnouncementLink{
+    position: absolute;
+    top: 70px;
+    right: 10px;
+    background: var(--main-blue);
+    color: white;
+    height: 40px;
+    width: 40px;
+    display: grid;
+    place-content: center;
+    border-radius: 50%;
+    font-size: 2rem;
+}

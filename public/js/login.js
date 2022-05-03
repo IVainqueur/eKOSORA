@@ -6,7 +6,7 @@ window.onload = (e)=>{
 }
 
 if(!location.href.match(/https/)){
-    location.href = "https" + location.href.slice(4)
+    //location.href = "https" + location.href.slice(4)
 }
 
 

@@ -14,17 +14,72 @@
         <link rel="stylesheet" href="../css/newRecord.css">
         <link rel="stylesheet" href="../css/newEducator.css">
     </head>
-    <style id="style2">*:not(.LoadingOverlay){
-z-index:-1; pointer-events: none;
-}</style>
+    <style id="style2">
+    body > *:not(.LoadingOverlay){
+        z-index:-1; 
+        pointer-events: none;
+display: none;
+    }
+    @keyframes loadingAnimation{
+        0%{
+            transform: translateX(0px);
+        }
+        50%{
+            transform: translateX(60px);
+        }
+        100%{
+            transform: translateX(0px);
+        }
+    }
+.LoadingOverlay div:before {
+    content: '';
+    width: 6px;
+    height: 40px;
+    background: #3f7cac;
+    margin: auto;
+    
+    margin-bottom: 20px;
+    
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 16px;
+}
+
+@keyframes apparate {
+    0% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+.LoadingOverlay div:after {
+    content: '';
+    width: 49px;
+    height: 40px;
+    background: #f0f0f0;
+    position: absolute;
+    top: 0;
+    left: 6px;
+    
+}
+
+    </style>
 <body>
-<div class="LoadingOverlay">
-            <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-                <img src="../img/loader.gif" alt="Loading...">
-                <p style="text-align: center;">Loading.....</p>
+<div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+    <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+                <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
+    
+</div>
+<p style="text-align: center;">Loading...</p>
             </div>
-            <img src="../img/loader.gif" alt="Loading...">
-        </div>
         <div id="NavBar" class="CommonNav">
             <div class="LeftSide">
                 <div class="HamburgerContainer">

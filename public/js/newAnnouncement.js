@@ -25,7 +25,7 @@ document.querySelector('form').addEventListener('submit', (e)=>{
         toSend[input.getAttribute('name')] = toUse
     }
     toSend.composer = JSON.parse(localStorage.eKOSORA_User)._id
-    console.log(toSend)
+    AlertAlt("Posting announcement.....")
     fetch('/announcement/add', {
         method: 'POST',
         headers: {
@@ -37,13 +37,15 @@ document.querySelector('form').addEventListener('submit', (e)=>{
     .then(data => {
         console.log(data)
         if(data.code == "#Error"){
-            alert("Something went wrong. Please try again later.")
+            AlertAlt("Something went wrong. Please try again later.", sustain=true, isError=true)
         }else{
             document.querySelector('form').reset()
+            AlertAlt("Posted!")
+            location.pathname = "/announcement"
         }
 
     })
     .catch(err => {
-        AlertAlt("Something went wrong. Please try again")
+        AlertAlt("Something went wrong. Please try again", isError=true, sustain=true)
     })
 })
