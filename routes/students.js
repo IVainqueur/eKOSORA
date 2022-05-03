@@ -197,11 +197,7 @@ app.post('/updateForMany', getUserId, async (req, res)=>{
                                 <br>
                                 <p style="text-align: end; padding-right: 15px;">${new Date().toString().slice(0, 21)}</p>
                             </div>
-                        </div>
-
-                        `
-
-
+                        </div>`
 
                         console.log("This is the ID", req.body.userId)
                         console.log(subject, message, educator.allTokens.access_token)
@@ -285,7 +281,18 @@ app.post('/addParent', async (req, res)=>{
 
                 // let saveNewCode = await newCode.save()
 
-                let text = `<p style="font-size: 16px">Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://eKosora.herokuapp.com/parent/signup?_id=${result._id}">Click Here</a></p>`
+                let text = `
+                <div style="width: 500px;margin: auto;margin-top: 20px; font-size: 16px;">
+                    <div style="background: #4CA7CE;padding: 10px;">
+                        <img src="https://res.cloudinary.com/dyrneab5i/image/upload/v1651304384/output-onlinepngtools_47_ylmye4.png" style="display: block;" height="45" width="150" title="eKOSORA Logo" alt="eKOSORA" />
+                    </div>
+                    <div style="padding: 10px;background: #f0f0f0;">
+                        Dear Sir/Madam, the student ${req.body.studentName} at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://ekosora.herokuapp.com/parent/signup?_id=${result._id}">Click Here</a> 
+                        <br>
+                        <p style="text-align: end; padding-right: 15px;">${new Date().toString().slice(0, 21)}</p>
+                    </div>
+                </div> 
+            `
 
                 sendMail(text, req.body.email, "Registered as parent", "ishimvainqueur@gmail.com", process.env.ADMIN_ACCESS_TOKEN, process.env.ADMIN_REFRESH_TOKEN)
                 
