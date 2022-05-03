@@ -171,11 +171,11 @@ app.post('/updateForMany', getUserId, async (req, res)=>{
             student.records.forEach(async (record, recIndex)=>{
                 if(record._id == req.body.recID){
                     //Check if the new mark will be higher than the maximum
-                    record.mark = ((record.mark+Number(req.body.mark)) >= record.max) ? record.max : (record.mark+Number(req.body.mark))
+                    record.mark = ((Number(record.mark)+Number(req.body.mark)) >= record.max) ? record.max : (Number(record.mark)+Number(req.body.mark))
                     //Check if the new mark is not lower than zero
-                    record.mark = (record.mark < 0) ? 0 : record.mark
+                    record.mark = (Number(record.mark) < 0) ? 0 : Number(record.mark)
                     doc.push(await require('../models/ml-student').updateOne({_id: student._id, records: {$elemMatch: {_id: record._id}}}, {
-                        "records.$.mark": record.mark
+                        "records.$.mark": Number(record.mark)
                     }))
                     if(req.body.notifyParents){
                         let subject = await require('../models/ml-subject').findOne({code: record.subject})
