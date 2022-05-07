@@ -132,6 +132,16 @@ function _remove(needed, theObj){
     return newObj
 }
 
+function arr_remove(needed, theObj){
+    let newObj = []
+    theObj.forEach((key, i)=>{
+        if(!needed.includes(key)){
+            newObj.push(key)
+        }
+    })
+    return newObj
+}
+
 let script = document.createElement("script");
 script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
 

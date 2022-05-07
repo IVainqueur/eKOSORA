@@ -362,6 +362,8 @@ document.querySelector('.Field[title=connectedToGoogle] input[type=checkbox]').a
     if(!e.target.checked){
         if(confirm("Do you want to disconnect your google account from eKOSORA?")){
             console.log("%c DISCONNECTING THE GOOGLE ACCOUNT", "color:red; font-size: 25px;")
+        }else{
+            e.target.checked = true
         }
     }else{
         AlertAlt("Redirecting....")

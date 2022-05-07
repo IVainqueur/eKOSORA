@@ -6,12 +6,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+        <!-- <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> -->
+        <title>Educators | eKOSORA</title>
         <link rel="stylesheet" href="../css/common.css">
         
-        <link rel="stylesheet" href="../css/dashboard.css">
-        <link rel="stylesheet" href="../css/announcements.css">
-        <title>Dashboard | eKOSORA</title>
+        <link rel="stylesheet" href="../css/educators.css">
     </head>
     <style id="style2">
     body > *:not(.LoadingOverlay){
@@ -85,13 +84,11 @@ display: none;
                     <p id="HamburgerMenu" class="clickedMenu"></p>
                 </div>
                 <!-- <h1 id="TheLogo"></h1> -->
-                <a href="/dashboard">
-                    <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
-                    <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
-                </a>
+                <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+                <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
             </div>
             <div class="Middle">
-                <h1>Dashboard</h1>
+                <h1>Students</h1>
             </div>
             <div class="theButtons">
                 <button id="LogOutBTN">LOG OUT</button>
@@ -125,70 +122,20 @@ display: none;
                 </div>
             </div>
             <div class="main">
-                <div class="QuickFeatureContainer">
-                    <h1>Quick Access</h1>
-                    <div class="QuickFeatures">
-                        <a class="QuickFeature" href="/marks">
-                            <img src="../img/marks.png" alt="Marks">
-                            <p>Marks</p>
-                        </a>
-                        <a class="QuickFeature" href="/settings">
-                            <img src="../img/setting.svg" alt="Marks">
-                            <p>Settings</p>
-                        </a>
-                        <a class="QuickFeature" href="/timetable">
-                            <img src="../img/timetable.png" alt="Marks">
-                            <p>Timetable(s)</p>
-                        </a>
-                        <a class="QuickFeature" href="/announcement">
-                            <img src="../img/notification.png" alt="Marks">
-                            <p>Announcements</p>
-                        </a>
-                        <!--<div class="QuickFeature">
-                    <img src="../img/messages.png" alt="Marks">
-                    <p>Messages</p>
-                </div> -->
-                    </div>
-                </div>
-                <div class="Announcements" style="max-width: 100%;width: 100%;min-height: 200px;">
-                    <h1>Announcements</h1>
-                    <script src="../js/getAnnouncements.js"></script>
-                </div>
-                <h1>Statistics Summary</h1>
-                <div class="Statistics">
-                    <div class="Statistic" style="display: none;">
-                        <canvas id="myChart" style="width:100%;max-width:50%; max-height: 400px;"></canvas>
-                        <div class="Summary" for="Web User Interface">
-                            <h1>Summary</h1>
-                            <div class="Best">
-                                <h3>Best Class</h3>
-                                <div class="infoPiece">
-                                    <span>Class:</span>
-                                    <span>Year 1B</span>
-                                </div>
-                                <div class="infoPiece">
-                                    <span>Marks:</span>
-                                    <span>84%</span>
-                                </div>
-                            </div>
-                            <div class="Worst">
-                                <h3>Worst Class</h3>
-                                <div class="infoPiece">
-                                    <span>Class:</span>
-                                    <span>Year 1A</span>
-                                </div>
-                                <div class="infoPiece">
-                                    <span>Marks:</span>
-                                    <span>84%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="Table">
+                    <h1>
+                        <span></span>
+                    </h1>
+                    <p class="Warning"></p>
+                    <p class="notifier" style="text-align: center; color: rgba(0,0,0,0.5); font-size: 18px; font-weight: 400;">
+                        Loading...
+                    </p>
                 </div>
             </div>
+            <!-- <div class="AddBTN"><a href="/students/edit">+</a></div> -->
         </div>
     </body>
-    <script src="../js/chart.js"></script>
     <script src="../js/common.js"></script>
-    <script src="../js/dashboard.js"></script>
+    <script src="../js/students.js"></script>
+    <script></script>
 </html>

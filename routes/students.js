@@ -69,6 +69,14 @@ const sendMail = async (message, receiver, subject, sender, accessToken, refresh
 // sendMail("Testing this message on myself", "ishimvainqueur@gmail.com", "Testing shit out")
 
 
+app.get('/', (req, res)=>{
+    // console.log(req.body)
+    if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+
+    res.sendFile(path.dirname(__dirname)+'/public/html/educator/students.html')
+})
+
+
 //? THERE WILL BE COOKIE-RELATED VALIDATION
 app.post('/register', async (req, res)=>{
     // req.body.password = await bcrypt.hash("password@123", Number(process.env.BCRYPT_SALT))
@@ -95,6 +103,40 @@ app.get('/search', (req, res)=>{
 
             }
         }))
+    })
+})
+
+app.get('/view', (req, res)=>{
+    require('../models/ml-student').find({}, (err, result)=>{
+        if(err) return res.json({code: "#Error", message: err})
+        let doc = []
+        for(let {_doc: educator} of result){
+            // console.dir(educator)
+            let ed = {}
+            Object.keys(educator).map(x=>{
+                if(["__v", "password"].includes(x)) return
+                return ed[x] = educator[x]
+            })
+            doc.push(ed)
+        }
+        console.log(doc[0].class)
+        res.json({code: "#Success", doc})
+    })
+})
+
+app.get('/edit', (req, res)=>{
+    // if(!req.body.AdP) return res.send("This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    if(!req.query.id) return res.redirect('/student')
+    res.sendFile(path.dirname(__dirname)+'/public/html/educator/editStudent.html')
+    
+    
+})
+
+app.get('/getOne', (req, res)=>{
+    require('../models/ml-student').findOne({_id: req.query.id}, (err, doc)=>{
+        if(err) return res.json({code: "#Error", message: err})
+        if(!doc) return res.json({code: "#NotFound"})
+        res.json({code: "#Success", doc})
     })
 })
 

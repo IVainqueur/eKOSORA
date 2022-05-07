@@ -1,15 +1,16 @@
-.Lessons{
+.Lessons {
     height: 0;
     overflow: hidden;
 }
-.showLessons{
+
+.showLessons {
     height: fit-content;
 }
-.Lessons label{
+
+.Lessons label {
     flex-direction: row !important;
     align-items: center;
 }
-
 
 input[type=checkbox] {
     border: 2px solid var(--darker-blue) !important;
@@ -21,13 +22,14 @@ input[type=checkbox] {
     padding: 10px !important;
     margin-right: 10px;
 }
+
 input[type="checkbox"]:checked {
     background: var(--darker-blue);
     /* padding: 20px; */
     /* transform: scale(1.2); */
 }
 
-#LessonsDropDown{
+#LessonsDropDown {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -35,17 +37,15 @@ input[type="checkbox"]:checked {
     align-items: center;
 }
 
-#LessonsDropDown i{
+#LessonsDropDown i {
     font-size: 25px;
     border-radius: 4px;
     cursor: pointer;
-
 }
 
-#LessonsDropDown i:hover{
+#LessonsDropDown i:hover {
     background: rgba(0,0,0,.3);
 }
-
 
 textarea {
     height: 300px;
@@ -53,4 +53,25 @@ textarea {
     background: #d7d7d7;
     outline: none;
     padding: 20px;
-/* box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2), inset -4px -4px 10px white; */}
+    /* box-shadow: inset 4px 4px 10px rgba(0,0,0,0.2), inset -4px -4px 10px white; */
+}
+
+.parentEmail {
+    padding: 10px 25px;
+    background: var(--darker-blue);
+    color: white;
+    border-radius: 20px;
+    margin: 0px 10px 10px 0;
+    /* box-shadow: 4px 4px 13px 0 rgb(0 0 0 / 16%), -4px -4px 13px 2px #ffffff; */
+}
+
+.addParent {
+    width: fit-content !important;
+    /* height: 30px !important; */
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    display: grid;
+    place-content: center;
+}
