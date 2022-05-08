@@ -42,20 +42,36 @@ function fillInParents(input, parentEmails){
     input.style.padding = "0"
 }
 
+function fillInParent(input, parentEmail){
+    let div = document.createElement('div')
+    div.className = "parentEmail"
+    div.textContent = parentEmail
+    input.parentElement.insertBefore(div, input)
+    input.value = ""
+    input.style.height = "0"
+    input.style.padding = "0"
+}
+
 document.querySelector('.addParent').addEventListener('click', (e)=>{
     e.preventDefault()
-    const handler = (e)=>{
-        if(e.key == "Enter"){
-            e.preventDefault()
-            document.querySelector('input[name=parentEmails]').removeEventListener('click', handler)
-        }
+    console.log("Called the addParent listener")
+    let inputBox = document.querySelector('input[name=parentEmails]')
+    if(document.querySelector('.addParent').hasAttribute('adding')){
+        document.querySelector('.addParent').removeAttribute('adding')
+        fillInParent(inputBox, inputBox.value)
+        return
     }
-    document.querySelector('input[name=parentEmails]').addEventListener('keyup', handler, {once: true})
+    document.querySelector('.addParent').setAttribute('adding', '')
+    
+    inputBox.value = ""
+    inputBox.style.height = ""
+    inputBox.style.padding = ""
+    
 })
 
 document.querySelector('form').addEventListener('submit', (e)=>{
     e.preventDefault()
-    let toSend = {lessons: []}
+    let toSend = {parentEmails: []}
     for(let input of document.querySelectorAll('input, select')){
         let toUse = null
         if(input.tagName == "INPUT"){
@@ -67,12 +83,10 @@ document.querySelector('form').addEventListener('submit', (e)=>{
                         input.parentElement.classList.remove('unFilledField')
                     }, {once: true})
                     return
+                }else if(input.getAttribute('name') == 'parentEmails'){
+                    if(!toSend.parentEmails.includes(input.value)) toSend.parentEmails.push(input.value)
                 }
                 
-            }else if(input.type == 'checkbox'){
-                // console.log(input)
-                if(input.checked) toSend.lessons.push(input.value)
-                continue
             }
             toUse = input.value
         }else{
@@ -88,11 +102,27 @@ document.querySelector('form').addEventListener('submit', (e)=>{
         }
         toSend[input.getAttribute('name')] = toUse
     }
+    /* 
 
-    // console.log(checkedBoxes)
-    // toSend.lessons = checkedBoxes
-    // toSend._id = location.search.slice(location.search.indexOf('=')+1)
-    //  console.log(toSend)
+
+    * Here the script checks if the class entered is valid
+    * Ideally there should be a model upon which to check it because different schools have different class-naming schemes
+    * But for now we'll just use the most popular scheme in Rwanda
+    * which is [Year Number] [Class Letter]
+    
+
+
+    */
+    toSend.class = toSend.class.split(' ').join('')
+    if(toSend.class.length > 2) return AlertAlt("[Error] Invalid class. 1A is an example of a valid class name", sustain=false, isError=true)
+
+    if(!toSend.class.match(/[0-9][A-Z]/)) return AlertAlt("[Error] Invalid class. 1A is an example of a valid class name", sustain=false, isError=true)
+    toSend.class = {
+        year: toSend.class[0],
+        class: toSend.class[1]
+    }
+    return console.log(toSend)
+
     fetch('', {
         method: 'POST',
         headers: {

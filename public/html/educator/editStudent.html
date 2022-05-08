@@ -9,8 +9,6 @@
         <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
         <title>Edit Educator | eKOSORA</title>
         <link rel="stylesheet" href="../css/common.css">
-
-
         <link rel="stylesheet" href="../css/newRecord.css">
         <link rel="stylesheet" href="../css/newEducator.css">
     </head>
@@ -70,34 +68,30 @@ display: none;
     left: 6px;
     
 }
-
     </style>
-<body>
-<div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-    <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
-                <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
-    
-</div>
-<p style="text-align: center;">Loading...</p>
-            </div>
+    <body>
+        <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+            <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+            <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;"></div>
+            <p style="text-align: center;">Loading...</p>
+        </div>
         <div id="NavBar" class="CommonNav">
             <div class="LeftSide">
                 <div class="HamburgerContainer">
                     <p id="HamburgerMenu" class="clickedMenu"></p>
                 </div>
                 <!-- <h1 id="TheLogo"></h1> -->
-                        <a href="/dashboard">
+                <a href="/dashboard">
                     <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
                     <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
                 </a>
-
             </div>
             <div class="Middle">
                 <h1>Edit student</h1>
             </div>
             <div class="theButtons">
                 <button id="LogOutBTN">LOG OUT</button>
-<i class='bx bx-log-out' style='color:#ffffff'  ></i>
+                <i class="bx bx-log-out" style="color:#ffffff"></i>
                 <!-- <button id="SignUpBTN">SIGN UP</button> -->
             </div>
         </div>
@@ -119,9 +113,11 @@ display: none;
                     <a href="/settings">Settings</a>
                 </div>
                 <div class="Profile">
-                    <img src="loading.gif" alt="profile"/>
-<div><h3></h3>
-                    <p></p></div>
+                    <img src="loading.gif" alt="profile">
+                    <div>
+                        <h3></h3>
+                        <p></p>
+                    </div>
                 </div>
             </div>
             <div class="main">
@@ -140,15 +136,19 @@ display: none;
                             <span id="">Class</span>
                             <input type="text" name="class">
                         </label>
-                        
                         <label for="">
                             <span>Email*</span>
                             <input type="email" id="DateBox" name="email">
                         </label>
                         <label for="">
                             <span>Parent Emails</span>
-                            <input type="tel" id="DateBox" name="parentEmails">
-                            <button class="addParent">ADD</button>
+                            <input
+                                type="text"
+                                id="DateBox"
+                                name="parentEmails"
+                                placeholder="New parent email"
+                            >
+                            <button class="addParent">NEW</button>
                         </label>
                         <button id="GetIn">SAVE</button>
                     </form>

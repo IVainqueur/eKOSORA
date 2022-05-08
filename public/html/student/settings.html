@@ -9,10 +9,8 @@
         <!-- <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'> -->
         <title>Settings | eKOSORA</title>
         <link rel="stylesheet" href="../css/common.css">
-
-
         <link rel="stylesheet" href="../css/settings.css">
-    <!-- <link rel="stylesheet" href="../css/newEducator.css"> -->
+        <!-- <link rel="stylesheet" href="../css/newEducator.css"> -->
     </head>
     <style id="style2">
     body > *:not(.LoadingOverlay){
@@ -70,16 +68,13 @@ display: none;
     left: 6px;
     
 }
-
     </style>
-<body>
-<div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-    <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
-                <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
-    
-</div>
-<p style="text-align: center;">Loading...</p>
-            </div>
+    <body>
+        <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+            <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+            <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;"></div>
+            <p style="text-align: center;">Loading...</p>
+        </div>
         <div id="NavBar" class="CommonNav">
             <div class="LeftSide">
                 <div class="HamburgerContainer">
@@ -90,14 +85,13 @@ display: none;
                     <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
                     <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
                 </a>
-
             </div>
             <div class="Middle">
                 <h1>Settings</h1>
             </div>
             <div class="theButtons">
                 <button id="LogOutBTN">LOG OUT</button>
-<i class='bx bx-log-out' style='color:#ffffff'  ></i>
+                <i class="bx bx-log-out" style="color:#ffffff"></i>
                 <!-- <button id="SignUpBTN">SIGN UP</button> -->
             </div>
         </div>
@@ -113,43 +107,78 @@ display: none;
                     <a href="/settings">Settings</a>
                 </div>
                 <div class="Profile">
-                    <img src="loading.gif" alt="profile"/>
-<div><h3></h3>
-                    <p></p></div>
+                    <img src="loading.gif" alt="profile">
+                    <div>
+                        <h3></h3>
+                        <p></p>
+                    </div>
                 </div>
             </div>
             <div class="main">
                 <div class="Settings">
                     <div class="ProfileImage">
                         <img src="../img/loader.gif" alt=" ">
-                        
                     </div>
                     <div class="textContent">
                         <div class="Field" title="names">
                             <h3>Names:</h3>
-                            <input type="text" value="Some content" readonly class="span">
+                            <input
+                                type="text"
+                                value="Some content"
+                                readonly
+                                class="span"
+                            >
                         </div>
                         <div class="Field" title="code" noteditable="true">
                             <h3>Code:</h3>
-                            <input type="text" value="Some content" readonly class="span">
+                            <input
+                                type="text"
+                                value="Some content"
+                                readonly
+                                class="span"
+                            >
                         </div>
                         <div class="Field" title="class" noteditable="true">
                             <h3>Class:</h3>
-                            <input type="text" value="Some content" readonly class="span">
+                            <input
+                                type="text"
+                                value="Some content"
+                                readonly
+                                class="span"
+                            >
                         </div>
-                        <div class="Field" title="email" >
+                        <div class="Field" title="email">
                             <h3>E-mail:</h3>
-                            <input type="text" value="Some content" readonly class="span">
+                            <input
+                                type="text"
+                                value="Some content"
+                                readonly
+                                class="span"
+                            >
                         </div>
-                        <div class="Field" title="parentEmails" notneeded="true" noteditable="true">
+                        <div
+                            class="Field"
+                            title="parentEmails"
+                            notneeded="true"
+                            noteditable="true"
+                        >
                             <h3>Parents:</h3>
-                            <input type="text" placeholder="new parent email" readonly class="span">
+                            <input
+                                type="text"
+                                placeholder="new parent email"
+                                readonly
+                                class="span"
+                            >
                         </div>
                         <div class="Field" title="password">
                             <h3>Password:</h3>
-                            <input type="password" value="Some content" readonly class="span">
+                            <input
+                                type="password"
+                                value="Some content"
+                                readonly
+                                class="span"
+                            >
                             <img src="../img/visibility_off.svg" alt="View/Hide Password" id="ViewHidePassword">
-
                         </div>
                         <div class="TheBTNs">
                             <button id="EditBTN">EDIT</button>
@@ -220,7 +249,5 @@ display: none;
             }
         },
          {once: true})
-
-
     </script>
 </html>

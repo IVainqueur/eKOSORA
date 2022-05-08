@@ -1,18 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="../css/common.css">
-
-
-    <link rel="stylesheet" href="../css/login.css">
-    <title>Login | eKOSORA</title>
-</head>
-<style id="style2">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="../css/common.css">
+        <link rel="stylesheet" href="../css/login.css">
+        <title>Login | eKOSORA</title>
+    </head>
+    <style id="style2">
     body > *:not(.LoadingOverlay){
         z-index:-1; 
         pointer-events: none;
@@ -68,64 +66,59 @@ display: none;
     left: 6px;
     
 }
-
     </style>
-<body>
-<div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-    <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
-                <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
-    
-</div>
-<p style="text-align: center;">Loading...</p>
-            </div>
-    <div id="NavBar" class="CommonNav">
-        <!-- <h1 id="TheLogo"></h1> -->
-                        <a href="/dashboard">
-                    <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
-                    <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
-                </a>
-
-        <!-- <div class="theButtons">
+    <body>
+        <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+            <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+            <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;"></div>
+            <p style="text-align: center;">Loading...</p>
+        </div>
+        <div id="NavBar" class="CommonNav">
+            <!-- <h1 id="TheLogo"></h1> -->
+            <a href="/dashboard">
+                <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+                <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+            </a>
+            <!-- <div class="theButtons">
             <a href="/login"><button id="LogInBTN">LOG IN</button></a>
             <a href="#"><button id="SignUpBTN">SIGN UP</button></a>
         </div> -->
-    </div>
-    <div class="main">
-        <div class="LoginChoice">
-            <p>Login as</p>
-            <div class="Choices">
-                <div class="Choice" toInquire="Phone/Email" accountType="parent">
-                    Parent
+        </div>
+        <div class="main">
+            <div class="LoginChoice">
+                <p>Login as</p>
+                <div class="Choices">
+                    <div class="Choice" toInquire="Phone/Email" accountType="parent">
+                        Parent
+                    </div>
+                    <div class="Choice active" toInquire="Student Code" accountType="student">
+                        Student
+                    </div>
+                    <div class="Choice" toInquire="Phone/Email" accountType="educator">
+                        Educator
+                    </div>
                 </div>
-                <div class="Choice active" toInquire="Student Code" accountType="student">
-                    Student
-                </div>
-                <div class="Choice" toInquire="Phone/Email" accountType="educator">
-                    Educator
-                </div>
+                <select name="" id="SelectChoices" style="display: none;">
+                    <option value="parent">Parent</option>
+                    <option value="student">Student</option>
+                    <option value="educator">Educator</option>
+                </select>
             </div>
-            <select name="" id="SelectChoices" style="display: none;">
-                <option value="parent">Parent</option>
-                <option value="student">Student</option>
-                <option value="educator">Educator</option>
-            </select>
+            <div class="TheForm">
+                <form action="#">
+                    <h1>LOGIN</h1>
+                    <label for="">
+                        <span id="RequiredBox">Phone/Email</span>
+                        <input type="text" id="codeBox">
+                    </label>
+                    <label for="">
+                        <span>Password</span>
+                        <input type="password" id="passwordBox">
+                    </label>
+                    <button id="GetIn">GET IN</button>
+                </form>
+            </div>
         </div>
-        <div class="TheForm">
-            <form action="#">
-                <h1>LOGIN</h1>
-                <label for="">
-                    <span id="RequiredBox">Phone/Email</span>
-                    <input type="text" id="codeBox">
-                </label>
-                <label for="">
-                    <span>Password</span>
-                    <input type="password" id="passwordBox">
-                </label>
-                <button id="GetIn">GET IN</button>
-            </form>
-            
-        </div>
-    </div>
-</body>
-<script src="../js/login.js"></script>
+    </body>
+    <script src="../js/login.js"></script>
 </html>

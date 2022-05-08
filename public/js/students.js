@@ -52,7 +52,6 @@ function buildTable(data, selector){
             let td = document.createElement('td')
             
             if(studentData == 'class') {
-                console.log(student[studentData])
                 student[studentData] = `Year ${student.class.year} ${student.class.class}`
             }
             if(typeof(student[studentData]) == 'object') student[studentData] = student[studentData].toString()

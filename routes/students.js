@@ -119,7 +119,7 @@ app.get('/view', (req, res)=>{
             })
             doc.push(ed)
         }
-        console.log(doc[0].class)
+        // console.log(doc[0].class)
         res.json({code: "#Success", doc})
     })
 })
