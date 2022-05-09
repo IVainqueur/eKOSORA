@@ -8,6 +8,7 @@ const {v4: uuidGenerate} = require('uuid')
 const cookieParser = require('cookie-parser')
 const jwt = require('jsonwebtoken')
 const path = require('path')
+const {_pick, _remove, arr_remove} = require('../oneliners')
 
 
 //Middleware
@@ -130,6 +131,21 @@ app.get('/edit', (req, res)=>{
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/editStudent.html')
     
     
+})
+
+app.post('/edit', async (req, res)=>{
+    // console.log(req.query, req.body)
+    if(!req.query.id) return res.json({code: "#MissingID"})
+    if(req.query.id.length !== 24) return res.json({code: "#InvalidID"})
+
+    try{
+        let updated = await require('../models/ml-student').updateOne({_id: req.query.id}, _pick(["parentEmails","names","code","class","email"], req.body))
+        return res.json({code: "#Success"})
+    }catch(e){
+        console.log(e)
+        return res.json({code: "#Error", message: e})
+    }
+
 })
 
 app.get('/getOne', (req, res)=>{

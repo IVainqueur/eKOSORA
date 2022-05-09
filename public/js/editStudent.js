@@ -83,8 +83,6 @@ document.querySelector('form').addEventListener('submit', (e)=>{
                         input.parentElement.classList.remove('unFilledField')
                     }, {once: true})
                     return
-                }else if(input.getAttribute('name') == 'parentEmails'){
-                    if(!toSend.parentEmails.includes(input.value)) toSend.parentEmails.push(input.value)
                 }
                 
             }
@@ -121,24 +119,33 @@ document.querySelector('form').addEventListener('submit', (e)=>{
         year: toSend.class[0],
         class: toSend.class[1]
     }
-    return console.log(toSend)
+    /* 
+    * Adding the parent emails to the request body
+    */
+
+    toSend.parentEmails = []
+
+    for(let parentEmail of document.querySelectorAll('.parentEmail')){
+        toSend.parentEmails.push(parentEmail.textContent)
+    }
+
+    // return console.log(toSend)
 
     fetch('', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-            data: toSend
-        })
+        body: JSON.stringify(toSend)
     })
-    .then(res => {
-       res.json()
-    })
+    .then(res => res.json())
     .then(data => {
         console.log(data)
+        if(data.code != "#Success") throw new Error((data.message) ? data.message : '#UnknownError')
+        location.pathname = "/student"
     })
     .catch(err => {
-        AlertAlt("Something went wrong. Please try again")
+        console.log(err)
+        AlertAlt(`Something went wrong. Please try again. [Error]: ${err.message}`)
     })
 })
