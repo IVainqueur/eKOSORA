@@ -43,7 +43,8 @@ const sendMail = async (message, receiver, subject, sender, accessToken, refresh
                 clientSecret: CLIENT_SECRET,
                 refreshToken: refreshToken,
                 accessToken: accessToken
-            }
+            },
+            from: sender
         })
         const mailOptions = {
             from: `eKOSORA messages ${sender}`,
