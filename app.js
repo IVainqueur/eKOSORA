@@ -129,7 +129,7 @@ app.get('/getInfo', getUserId, (req, res)=>{
         if(err) return res.json({code: "#Error", message: err})
         if(doc == null) return res.json({code: "#NoSuchID"})
         let toSend = {...doc._doc, accountType: req.body.prefix}
-        res.json({code: "#Success", toSend})
+        res.json({code: "#Success", doc: toSend})
     })
 })
 
