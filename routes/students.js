@@ -363,6 +363,7 @@ app.post('/addParent', async (req, res)=>{
         }else{
             require('../models/ml-parent').updateOne({_id: existingParent._id}, {$push: {children: req.body.studentId}}, (err, doc)=>{
                 if(err) return res.json({code: "#Error", message: err})
+                sendMail(text, req.body.email, "Registered as parent", "ishimvainqueur@gmail.com", process.env.ADMIN_ACCESS_TOKEN, process.env.ADMIN_REFRESH_TOKEN)
                 return res.json({code: "#Success", result: doc})
             })
         }
