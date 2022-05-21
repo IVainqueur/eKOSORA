@@ -269,7 +269,13 @@ function setListeners(){
                     let response = await fetch(`/student/deleteRecord?_id=${recordHeader.getAttribute('recordid')}`)
                     response = await response.json()
                     console.log(response)
-                    if(response.code == "#Success") AlertAlt('Done')
+                    
+                    if(response.code == "#Success") {
+                        AlertAlt('Done')
+                        location.reload()
+                    }else{
+                        AlertAlt("Something went wrong. Please refresh and try again")
+                    }
                 }
                 
             })
