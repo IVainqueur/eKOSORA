@@ -10,7 +10,7 @@ fetch("/subjects")
 
         if(userInfo.lessons){
             if(!userInfo.lessons.includes(subject.code)){
-                option.disabled = true
+                if(userInfo.title != "admin") option.disabled = true
             }
         }
 

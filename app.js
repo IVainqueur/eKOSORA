@@ -128,7 +128,11 @@ app.get('/getInfo', getUserId, (req, res)=>{
     require(`./models/ml-${req.body.prefix}`).findOne({_id: req.body.userId}, (err, doc)=>{
         if(err) return res.json({code: "#Error", message: err})
         if(doc == null) return res.json({code: "#NoSuchID"})
-        res.json({code: "#Success", doc})
+        res.json({code: "#Success", doc:{
+                ...doc, 
+                accountType: req.body.prefix
+            }
+        })
     })
 })
 
