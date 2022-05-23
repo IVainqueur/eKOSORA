@@ -1,4 +1,5 @@
 if(location.pathname == "/announcement") AlertAlt("Loading...", sustain=true)
+
 fetch('/announcement/view')
 .then(res => res.json())
 .then(data =>{
@@ -16,21 +17,23 @@ fetch('/announcement/view')
         title.textContent = announcement.title
         let writer = announcement.writtenBy.split(' ').slice(0, -1).map(x => x.slice(0,1)+'.').join(' ') + ` ${announcement.writtenBy.split(' ')[announcement.writtenBy.split(' ').length -1]}`
         composer.innerHTML = `Posted by <strong style="color: rgba(0,0,0,0.6);">${writer}</strong> on <strong style="color: rgba(0,0,0,0.6);">${new Date(announcement.date).toString().slice(0, 15)}</strong>`
+        let timePassed = getTimePassed(announcement.date)
+        let timeLeft = getTimePassed(announcement.expiry)
+        
+        // if(timeLeft.days > 0) continue
+        div.setAttribute('badge', (timePassed.days < 3) ? "New" : `${timePassed.days} days ago`)
 
-        if(Math.abs(new Date(announcement.date) - new Date()) >= 8640000 ) {
-            div.setAttribute('badge', "New")
-        }else{
-            console.log(new Date(announcement.date) - new Date())
-            let days = Math.abs(new Date(announcement.date) - new Date())/(1000*60*60*24)
-            div.setAttribute('badge', `${Math.floor(days)} days ago`)
-            if(days < 3) div.setAttribute('badge', `New`)
-        }
         div.classList.add('NewAnnouncement')
 
-        div.appendChild(title)
-        div.appendChild(content)
-        div.appendChild(composer)
-        document.querySelector('.Announcements').appendChild(div)
+        if(timeLeft.days > 0){
+            div.appendChild(title)
+            div.appendChild(content)
+            div.appendChild(composer)
+            document.querySelector('.Announcements').appendChild(div)
+        }else{
+            // Flag expired announcement
+            console.log(timeLeft, timePassed)
+        }
 
         if(location.pathname == "/announcement") AlertAlt("Loaded all announcements")
     }

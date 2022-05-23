@@ -3,13 +3,13 @@ const app = express.Router()
 const path = require('path')
 
 app.get('/', (req, res)=>{
-    // if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    // if(req.body.prefix != "educator") return res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.</p>")
 
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/announcements.html')
 })
 
 app.get('/new', (req, res)=>{
-    if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    if(req.body.prefix != "educator") return res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.</p>")
 
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/newAnnouncements.html')
 })

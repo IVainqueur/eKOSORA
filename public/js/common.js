@@ -73,7 +73,8 @@ const AlertAlt = (message, sustain, isError)=>{
         div.classList.remove("showAlert")
         setTimeout(()=>{
             if(document.querySelector('.AlertDIV')){
-                document.body.removeChild(div)
+                let alertDIV = document.querySelector('.AlertDIV')
+                alertDIV.parentElement.removeChild(alertDIV)
             }
         }, 300)
     }, 3000)
@@ -141,11 +142,19 @@ function arr_remove(needed, theObj){
     })
     return newObj
 }
-
-let script = document.createElement("script");
-script.src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js";
-
-// document.body.appendChild(script)
+function getTimePassed (date){
+    if(isNaN(date)) date = Date.parse(date)
+    let diff = Date.now() - date
+    let mseconds = diff % 1000
+    let seconds = parseInt(diff/1000) % 60
+    let minutes = parseInt(parseInt(diff/1000)/60) % 60
+    let hours = parseInt(parseInt(parseInt(diff/1000)/60)/60) % 24
+    let days = parseInt(parseInt(parseInt(parseInt(diff/1000)/60)/60)/24)
+    return {
+        days, hours, minutes, seconds, mseconds
+    }
+    
+}
 
 
 /* Check if the current url is https */

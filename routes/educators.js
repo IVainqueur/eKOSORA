@@ -5,13 +5,13 @@ const path = require('path')
 
 app.get('/', (req, res)=>{
     // console.log(req.body)
-    if(!req.body.AdP) return res.send("This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    if(!req.body.AdP) return res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.</p>")
 
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/educators.html')
 })
 
 app.get('/register', (req, res)=>{
-    if(!req.body.AdP) return res.send("This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    if(!req.body.AdP) return res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.</p>")
 
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/registerEducator.html')
 })
@@ -62,7 +62,7 @@ app.get('/getOne', (req, res)=>{
 })
 
 app.get('/edit', (req, res)=>{
-    if(!req.body.AdP) return res.send("This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    if(!req.body.AdP) return res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>This is feature is reserved only for admin educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.</p>")
     if(!req.query.id) return res.redirect('/educator')
     res.sendFile(path.dirname(__dirname)+'/public/html/educator/editEducator.html')
     

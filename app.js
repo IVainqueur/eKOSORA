@@ -150,7 +150,9 @@ const redirectURI = "/auth/google"
 const querystring = require('query-string')
 
 app.get("/auth/getURI", (req, res)=>{
-    if(req.body.prefix != "educator") return res.send("This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.")
+    if(req.body.prefix != "educator") return res.send("<p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'><p style='text-align: center; font-size: 20px; font-family: Laksaman, sans-serif; margin-top: 30px;'>This is feature is reserved only for educators. <a href='/dashboard'>Click Here</a> To return to your dashboard.</p></p>")
+
+    
 
     console.log(getGoogleAuthURI())
 
