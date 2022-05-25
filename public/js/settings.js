@@ -358,20 +358,3 @@ fetch('/settings/otherSettings')
     AlertAlt("Something went wrong. Please try again")
 })
 
-try{
-    document.querySelector('.Field[title=connectedToGoogle] input[type=checkbox]').addEventListener('click', (e)=>{
-        if(!e.target.checked){
-            if(confirm("Do you want to disconnect your google account from eKOSORA?")){
-                console.log("%c DISCONNECTING THE GOOGLE ACCOUNT", "color:red; font-size: 25px;")
-            }else{
-                e.target.checked = true
-            }
-        }else{
-            AlertAlt("Redirecting....")
-            location.pathname = '/auth/getURI'
-        }
-    })
-    
-}catch(e){
-    console.log("%c NOT AN EDUCATOR", "color: cyan;")
-}
