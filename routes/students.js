@@ -35,7 +35,7 @@ const sendMail = async (message, receiver, subject) => {
         console.error(error)
       })
 
-    return { code: '#Success', doc: result }
+    return { code: '#Success'}
   } catch (err) {
     console.log(err)
     return { code: '#Error', message: err }
