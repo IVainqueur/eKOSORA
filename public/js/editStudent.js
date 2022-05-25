@@ -116,7 +116,7 @@ document.querySelector('form').addEventListener('submit', (e)=>{
 
     if(!toSend.class.match(/[0-9][A-Z]/)) return AlertAlt("[Error] Invalid class. 1A is an example of a valid class name", sustain=false, isError=true)
     toSend.class = {
-        year: toSend.class[0],
+        year: Number(toSend.class[0]),
         class: toSend.class[1]
     }
     /* 
