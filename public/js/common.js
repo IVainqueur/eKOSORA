@@ -62,7 +62,7 @@ const AlertAlt = (message, sustain, isError)=>{
     if(document.querySelector('.AlertDIV')){
         document.querySelector('.AlertDIV').classList.remove("showAlert")
         document.body.removeChild(document.querySelector('.AlertDIV'))
-        // setTimeout(()=>{}, 300)
+        
     }
     document.body.appendChild(div)
     setTimeout(()=>{
