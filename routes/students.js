@@ -287,7 +287,7 @@ app.post('/updateForMany', getUserId, async (req, res) => {
                                     ? `. <br><b>Reason</b>: ${req.body.messageAttached}.<br>`
                                     : ''
                                 }  
-                                For more information, you can contact the teacher in charge of the course in question.
+                                For more information, you can contact the teacher in charge of the course (<a href="mailto:${educator.email}"></a>) in question.
                                 <br>
                                 <p style="text-align: end; padding-right: 15px;">${new Date()
                                   .toString()
