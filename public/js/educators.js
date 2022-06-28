@@ -1,11 +1,13 @@
 // let userInfo = JSON.parse(localStorage.eKOSORA_User)
 
+// const { arr_pick } = require("./oneliners")
+
 //GET INFO ABOUT ALL THE REGISTERED EDUCATORS
 fetch('/educator/view')
 .then(res => res.json())
 .then(data => {
     console.log(data)
-    buildTable(Object.keys(data.doc[0]), data.doc, '.Table')
+    buildTable(["names", "code", "title", "lessons", "email", "tel"], data.doc, '.Table')
 })
 .catch(err => {
     AlertAlt("Something went wrong. Please try again")
