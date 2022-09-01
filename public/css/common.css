@@ -328,6 +328,6 @@ option{
 
 .Table{
     overflow-x: auto;
-    width: calc(100vw - 40px);
+    width: 100%;
     margin: auto;
 }
