@@ -1,56 +1,55 @@
-table{
+table {
     width: 100%;
     border-collapse: collapse;
-    /* table-layout: fixed; */
+    table-layout: fixed;
+    min-width: 1000px;
 }
-tr{
+
+tr {
     cursor: pointer;
     position: relative;
     border-left: 5px solid transparent;
     transition: none;
 }
-tr:hover{
+
+tr:hover {
     /* background: rgba(0,0,0,0.1) !important; */
     border-left-color: var(--main-blue);
     transition: .6s ease;
 }
 
-th{
+th {
     background: var(--darker-blue);
     color: white;
     text-transform: capitalize;
 }
 
-
-
-tr:nth-child(even){
+tr:nth-child(even) {
     background: rgba(0,0,0,0.2);
-    
 }
 
-td, th{
+td, th {
     padding: 10px;
     text-align: start;
     width: 100px;
+    word-break: break-all;
 }
-/*  */
 
-td img{
+/*  */
+td img {
     height: 50px;
     width: 50px;
     border-radius: 50%;
     margin-right: 10px;
-    
 }
 
-td:nth-of-type(1){
+td:nth-of-type(1) {
     display: flex;
     align-items: center;
     width: fit-content;
 }
 
-
-.ActionTD img{
+.ActionTD img {
     height: 30px;
     width: 30px;
     border-radius: 50%;
@@ -58,11 +57,11 @@ td:nth-of-type(1){
     border: 2px solid transparent;
 }
 
-.ActionTD img:hover{
+.ActionTD img:hover {
     border-color: var(--main-blue);
 }
 
-.AddBTN{
+.AddBTN {
     position: fixed;
     bottom: 20px;
     right: 20px;
@@ -75,7 +74,7 @@ td:nth-of-type(1){
     place-content: center;
 }
 
-.AddBTN > a{
+.AddBTN > a {
     color: white;
     font-size: 2rem;
     font-weight: bold;

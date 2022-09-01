@@ -325,3 +325,9 @@ option{
     padding: 5px 10px;
     font-size: 14px;
 }
+
+.Table{
+    overflow-x: auto;
+    width: calc(100vw - 40px);
+    margin: auto;
+}
