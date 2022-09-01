@@ -1,128 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="../css/common.css">
-        <link rel="stylesheet" href="../css/marks.css">
-        <title>Marks | eKOSORA</title>
-    </head>
-    <style id="style2">
-    body > *:not(.LoadingOverlay){
-        z-index:-1; 
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/marks.css">
+    <title>Marks | eKOSORA</title>
+</head>
+<style id="style2">
+    body>*:not(.LoadingOverlay) {
+        z-index: -1;
         pointer-events: none;
-display: none;
+        display: none;
     }
-    @keyframes loadingAnimation{
-        0%{
+
+    @keyframes loadingAnimation {
+        0% {
             transform: translateX(0px);
         }
-        50%{
+
+        50% {
             transform: translateX(60px);
         }
-        100%{
+
+        100% {
             transform: translateX(0px);
         }
     }
-.LoadingOverlay div:before {
-    content: '';
-    width: 6px;
-    height: 40px;
-    background: #3f7cac;
-    margin: auto;
-    
-    margin-bottom: 20px;
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 16px;
-}
 
-@keyframes apparate {
-    0% {
-        opacity: 1;
+    .LoadingOverlay div:before {
+        content: '';
+        width: 6px;
+        height: 40px;
+        background: #3f7cac;
+        margin: auto;
+
+        margin-bottom: 20px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 16px;
     }
 
-    50% {
-        opacity: 0
+    @keyframes apparate {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
-    100% {
-        opacity: 1;
-    }
-}
+    .LoadingOverlay div:after {
+        content: '';
+        width: 49px;
+        height: 40px;
+        background: #f0f0f0;
+        position: absolute;
+        top: 0;
+        left: 6px;
 
-.LoadingOverlay div:after {
-    content: '';
-    width: 49px;
-    height: 40px;
-    background: #f0f0f0;
-    position: absolute;
-    top: 0;
-    left: 6px;
-    
-}
-    </style>
-    <body>
-        <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-            <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
-            <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;"></div>
-            <p style="text-align: center;">Loading...</p>
+    }
+</style>
+
+<body>
+    <div class="LoadingOverlay"
+        style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+        <img src="../img/favicon.png"
+            style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+        <div
+            style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
         </div>
-        <div id="NavBar" class="CommonNav">
-            <div class="LeftSide">
-                <div class="HamburgerContainer">
-                    <p id="HamburgerMenu" class="clickedMenu"></p>
+        <p style="text-align: center;">Loading...</p>
+    </div>
+    <div id="NavBar" class="CommonNav">
+        <div class="LeftSide">
+            <div class="HamburgerContainer">
+                <p id="HamburgerMenu" class="clickedMenu"></p>
+            </div>
+            <!-- <h1 id="TheLogo"></h1> -->
+            <a href="/dashboard">
+                <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+                <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+            </a>
+        </div>
+        <div class="Middle">
+            <h1>Marks</h1>
+        </div>
+        <div class="theButtons">
+            <!-- <i class='bx bx-log-out' style='color:#4ca7ce'  ></i> -->
+            <button id="LogOutBTN">LOG OUT</button>
+            <i class="bx bx-log-out" style="color:#ffffff"></i>
+            <!-- <button id="SignUpBTN">SIGN UP</button> -->
+        </div>
+    </div>
+    <div class="Content">
+        <div class="Menu show">
+            <div class="MenuItem">
+                <a href="/dashboard">Dashboard</a>
+            </div>
+            <div class="MenuItem">
+                <a href="/marks">Marks</a>
+            </div>
+            <div class="MenuItem">
+                <a href="/timetable">Timetables</a>
+            </div>
+            <div class="MenuItem">
+                <a href="/student">Students</a>
+            </div>
+            <div class="MenuItem">
+                <a href="/settings">Settings</a>
+            </div>
+            <div class="Profile">
+                <img src="loading.gif" alt="profile">
+                <div>
+                    <h3></h3>
+                    <p></p>
                 </div>
-                <!-- <h1 id="TheLogo"></h1> -->
-                <a href="/dashboard">
-                    <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
-                    <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
-                </a>
-            </div>
-            <div class="Middle">
-                <h1>Marks</h1>
-            </div>
-            <div class="theButtons">
-                <!-- <i class='bx bx-log-out' style='color:#4ca7ce'  ></i> -->
-                <button id="LogOutBTN">LOG OUT</button>
-                <i class="bx bx-log-out" style="color:#ffffff"></i>
-                <!-- <button id="SignUpBTN">SIGN UP</button> -->
             </div>
         </div>
-        <div class="Content">
-            <div class="Menu show">
-                <div class="MenuItem">
-                    <a href="/dashboard">Dashboard</a>
-                </div>
-                <div class="MenuItem">
-                    <a href="/marks">Marks</a>
-                </div>
-                <div class="MenuItem">
-                    <a href="/timetable">Timetables</a>
-                </div>
-                <div class="MenuItem">
-                    <a href="/student">Students</a>
-                </div>
-                <div class="MenuItem">
-                    <a href="/settings">Settings</a>
-                </div>
-                <div class="Profile">
-                    <img src="loading.gif" alt="profile">
-                    <div>
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                </div>
-            </div>
-            <div class="main">
-                <div class="Left">
-                    <!-- <div class="Selected">
+        <div class="main">
+            <div class="Left">
+                <!-- <div class="Selected">
                 <p><span id="SelectedCount">0</span> students selected</p>
                 <button id="EditBTN">EDIT</button>
                 <div class="EditChoice">
@@ -131,81 +141,82 @@ display: none;
                 </div>
                 
             </div> -->
-                    <div class="Choosing">
-                        <h1>Choose</h1>
-                        <label for="">
-                            <span>Class:</span>
-                            <select name="" id="ClassChoice">
-                                <option value="">--Select--</option>
-                                <option value="year1_A">Year 1 A</option>
-                                <option value="year1_B">Year 1 B</option>
-                                <option value="year2_A">Year 2 A</option>
-                                <option value="year2_B">Year 2 B</option>
-                                <option value="year2_C">Year 2 C</option>
-                                <option value="year3_A">Year 3 A</option>
-                                <option value="year3_B">Year 3 B</option>
-                            </select>
-                        </label>
-                        <label for="">
-                            <span>Course:</span>
-                            <select name="" id="SubjectChoice">
-                                <option value="">--Select--</option>
-                            </select>
-                        </label>
-                    </div>
-                    <div class="Selected">
-                        <p>
-                            <span id="SelectedCount">0</span>
-                            students selected
-                        </p>
-                        <button id="EditBTN">EDIT</button>
-                        <div class="EditChoice">
-                            <button id="IndEdit">INDIVIDUALLY</button>
-                            <button id="GroupEdit">AS A GROUP</button>
-                        </div>
-                    </div>
+                <div class="Choosing">
+                    <h1>Choose</h1>
+                    <label for="">
+                        <span>Class:</span>
+                        <select name="" id="ClassChoice">
+                            <option value="">--Select--</option>
+                            <option value="year1_A">Year 1 A</option>
+                            <option value="year1_B">Year 1 B</option>
+                            <option value="year2_A">Year 2 A</option>
+                            <option value="year2_B">Year 2 B</option>
+                            <option value="year2_C">Year 2 C</option>
+                            <option value="year3_A">Year 3 A</option>
+                            <option value="year3_B">Year 3 B</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <span>Course:</span>
+                        <select name="" id="SubjectChoice">
+                            <option value="">--Select--</option>
+                        </select>
+                    </label>
                 </div>
-                <div class="Right">
-                    <h1>
-                        <span></span>
-                    </h1>
-                    <p class="Warning"></p>
-                    <!-- <img src="../img/loader.gif" alt="Loading"> -->
-                    <p class="notifier" style="text-align: center; color: rgba(0,0,0,0.5); font-size: 18px; font-weight: 400;">
-                        Nothing selected
+                <div class="Selected">
+                    <p>
+                        <span id="SelectedCount">0</span>
+                        students selected
                     </p>
-                    <span title="Add new record" id="NewRecordBTN" onclick="window.location.pathname = '/student/newRecord'">+</span>
+                    <button id="EditBTN">EDIT</button>
+                    <div class="EditChoice">
+                        <button id="IndEdit">INDIVIDUALLY</button>
+                        <button id="GroupEdit">AS A GROUP</button>
+                    </div>
                 </div>
             </div>
-            <div class="GroupEditPopUp">
-                <div class="PopUpCancel"></div>
-                <div class="ActualPopUp">
-                    <h1>Marks to Add or Remove</h1>
-                    <div class="AddOrRemove">
-                        <div class="span" id="RemoveBTN">-</div>
-                        <div class="span" id="AddOrRemoveCount">0</div>
-                        <div class="span" id="AddBTN">+</div>
-                    </div>
-                    <select name="" id="">
-                        <option value="">Select record</option>
-                    </select>
-                    <div style="display: flex;align-items: center;width: 100%;margin-top: 10px;margin-bottom: 10px;margin-left: 15px;">
-                        <input type="checkbox" style="margin-right: 10px;" id="NotifyBox">
-                        <span>Notify parents/guardians</span>
-                    </div>
-                    <button id="GroupAdjBTN">SUBMIT</button>
-                </div>
+            <div class="Right">
+                <h1>
+                    <span></span>
+                </h1>
+                <p class="Warning"></p>
+                <!-- <img src="../img/loader.gif" alt="Loading"> -->
+                <p class="notifier"
+                    style="text-align: center; color: rgba(0,0,0,0.5); font-size: 18px; font-weight: 400;">
+                    Nothing selected
+                </p>
+                <span title="Add new record" id="NewRecordBTN"
+                    onclick="window.location.pathname = '/student/newRecord'">+</span>
             </div>
         </div>
-    </body>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
-    <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
-        integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
-        crossorigin="anonymous"
-        referrerpolicy="no-referrer"
-    ></script>
-    <script src="../js/common.js"></script>
+        <div class="GroupEditPopUp">
+            <div class="PopUpCancel"></div>
+            <div class="ActualPopUp">
+                <h1>Marks to Add or Remove</h1>
+                <div class="AddOrRemove">
+                    <div class="span" id="RemoveBTN">-</div>
+                    <div class="span" id="AddOrRemoveCount">0</div>
+                    <div class="span" id="AddBTN">+</div>
+                </div>
+                <select name="" id="">
+                    <option value="">Select record</option>
+                </select>
+                <div
+                    style="display: flex;align-items: center;width: 100%;margin-top: 10px;margin-bottom: 10px;margin-left: 15px;">
+                    <input type="checkbox" style="margin-right: 10px;" id="NotifyBox">
+                    <span>Notify parents/guardians</span>
+                </div>
+                <button id="GroupAdjBTN">SUBMIT</button>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script> -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+    integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="../js/common.js"></script>
 <script src="../js/oneliners.js"></script>
-    <script src="../js/marks.js"></script>
+<script src="../js/marks.js"></script>
+
 </html>

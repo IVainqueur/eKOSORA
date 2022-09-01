@@ -1,145 +1,156 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
-        <title>Setup parent account | eKOSORA</title>
-        <link rel="stylesheet" href="../css/common.css">
-        <link rel="stylesheet" href="../css/newRecord.css">
-        <link rel="stylesheet" href="../css/newEducator.css">
-        <style>
-            ul li{
-                margin-left: 30px;
-                list-style: decimal;
-            }
-        </style>
-    </head>
-    <style id="style2">
-    body > *:not(.LoadingOverlay){
-        z-index:-1; 
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <title>Setup parent account | eKOSORA</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/newRecord.css">
+    <link rel="stylesheet" href="../css/newEducator.css">
+    <style>
+        ul li {
+            margin-left: 30px;
+            list-style: decimal;
+        }
+    </style>
+</head>
+<style id="style2">
+    body>*:not(.LoadingOverlay) {
+        z-index: -1;
         pointer-events: none;
-display: none;
+        display: none;
     }
-    @keyframes loadingAnimation{
-        0%{
+
+    @keyframes loadingAnimation {
+        0% {
             transform: translateX(0px);
         }
-        50%{
+
+        50% {
             transform: translateX(60px);
         }
-        100%{
+
+        100% {
             transform: translateX(0px);
         }
     }
-.LoadingOverlay div:before {
-    content: '';
-    width: 6px;
-    height: 40px;
-    background: #3f7cac;
-    margin: auto;
-    
-    margin-bottom: 20px;
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 16px;
-}
 
-@keyframes apparate {
-    0% {
-        opacity: 1;
+    .LoadingOverlay div:before {
+        content: '';
+        width: 6px;
+        height: 40px;
+        background: #3f7cac;
+        margin: auto;
+
+        margin-bottom: 20px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 16px;
     }
 
-    50% {
-        opacity: 0
+    @keyframes apparate {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
-    100% {
-        opacity: 1;
-    }
-}
+    .LoadingOverlay div:after {
+        content: '';
+        width: 49px;
+        height: 40px;
+        background: #f0f0f0;
+        position: absolute;
+        top: 0;
+        left: 6px;
 
-.LoadingOverlay div:after {
-    content: '';
-    width: 49px;
-    height: 40px;
-    background: #f0f0f0;
-    position: absolute;
-    top: 0;
-    left: 6px;
-    
-}
-    </style>
-    <body>
-        <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-            <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
-            <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;"></div>
-            <p style="text-align: center;">Loading...</p>
+    }
+</style>
+
+<body>
+    <div class="LoadingOverlay"
+        style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+        <img src="../img/favicon.png"
+            style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+        <div
+            style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
         </div>
-        <div id="NavBar" class="CommonNav">
-            <div class="LeftSide">
-                <!-- <div class="HamburgerContainer">
+        <p style="text-align: center;">Loading...</p>
+    </div>
+    <div id="NavBar" class="CommonNav">
+        <div class="LeftSide">
+            <!-- <div class="HamburgerContainer">
                     <p id="HamburgerMenu" class="clickedMenu"></p>
                 </div> -->
-                <!-- <h1 id="TheLogo"></h1> -->
-                <a href="/dashboard">
-                    <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
-                    <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
-                </a>
-            </div>
-            <div class="Middle">
-                <h1>New Parent</h1>
-            </div>
-            <div class="theButtons">
-                <!-- <button id="LogOutBTN">LOG OUT</button>
+            <!-- <h1 id="TheLogo"></h1> -->
+            <a href="/dashboard">
+                <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+                <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+            </a>
+        </div>
+        <div class="Middle">
+            <h1>New Parent</h1>
+        </div>
+        <div class="theButtons">
+            <!-- <button id="LogOutBTN">LOG OUT</button>
                 <i class="bx bx-log-out" style="color:#ffffff"></i> -->
-                <!-- <button id="SignUpBTN">SIGN UP</button> -->
-                <a href="/login">
-                    <button id="LogInBTN">LOG IN</button>
-                </a>
+            <!-- <button id="SignUpBTN">SIGN UP</button> -->
+            <a href="/login">
+                <button id="LogInBTN">LOG IN</button>
+            </a>
+        </div>
+    </div>
+    <div class="Content onlyMain">
+        <div class="main ">
+            <div class="TheForm">
+                <form action="#">
+                    <h1>Some info about you</h1>
+                    <label for="">
+                        <span id="">Names*</span>
+                        <input type="text" name="names" id="">
+                    </label>
+                    <label for="">
+                        <span>Email*</span>
+                        <input type="email" id="" name="email">
+                    </label>
+                    <label for="">
+                        <span>Tel*</span>
+                        <input type="tel" id="" name="tel">
+                    </label>
+                    <label for="">
+                        <span>Password*</span>
+                        <input type="password" id="" name="password">
+                    </label>
+                    <label for="">
+                        <span>Confirm Password*</span>
+                        <input type="password" id="" name="c-password">
+                    </label>
+                    <label for="">
+                        <span id="">Children</span>
+                        <div class="Children"></div>
+                    </label>
+                    <button id="SignUpBTN">ADD</button>
+                </form>
             </div>
         </div>
-        <div class="Content onlyMain">
-            <div class="main ">
-                <div class="TheForm">
-                    <form action="#">
-                        <h1>Some info about you</h1>
-                        <label for="">
-                            <span id="">Names*</span>
-                            <input type="text" name="names" id="">
-                        </label>
-                        <label for="">
-                            <span>Email*</span>
-                            <input type="email" id="" name="email">
-                        </label>
-                        <label for="">
-                            <span>Tel*</span>
-                            <input type="tel" id="" name="tel">
-                        </label>
-                        <label for="">
-                            <span>Password*</span>
-                            <input type="password" id="" name="password">
-                        </label>
-                        <label for="">
-                            <span>Confirm Password*</span>
-                            <input type="password" id="" name="c-password">
-                        </label>
-                        <label for="">
-                            <span id="">Children</span>
-                            <div class="Children"></div>
-                        </label>
-                        <button id="SignUpBTN">ADD</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </body>
-    <script src="../js/common.js"></script>
+    </div>
+</body>
+<script src="../js/common.js"></script>
 <script src="../js/oneliners.js"></script>
-    <script src="../js/parent-signup.js"></script>
+<script src="../js/parent-signup.js"></script>
+
 </html>

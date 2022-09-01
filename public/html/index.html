@@ -1,138 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>eKOSORA</title>
-        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="../css/common.css">
-        <link rel="stylesheet" href="../css/index.css">
-    </head>
-    <style id="style2">
-    body > *:not(.LoadingOverlay){
-        z-index:-1; 
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>eKOSORA</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/index.css">
+</head>
+<style id="style2">
+    body>*:not(.LoadingOverlay) {
+        z-index: -1;
         pointer-events: none;
-display: none;
+        display: none;
     }
-    @keyframes loadingAnimation{
-        0%{
+
+    @keyframes loadingAnimation {
+        0% {
             transform: translateX(0px);
         }
-        50%{
+
+        50% {
             transform: translateX(60px);
         }
-        100%{
+
+        100% {
             transform: translateX(0px);
         }
     }
-.LoadingOverlay div:before {
-    content: '';
-    width: 6px;
-    height: 40px;
-    background: #3f7cac;
-    margin: auto;
-    
-    margin-bottom: 20px;
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 16px;
-}
 
-@keyframes apparate {
-    0% {
-        opacity: 1;
+    .LoadingOverlay div:before {
+        content: '';
+        width: 6px;
+        height: 40px;
+        background: #3f7cac;
+        margin: auto;
+
+        margin-bottom: 20px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 16px;
     }
 
-    50% {
-        opacity: 0
+    @keyframes apparate {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
-    100% {
-        opacity: 1;
-    }
-}
+    .LoadingOverlay div:after {
+        content: '';
+        width: 49px;
+        height: 40px;
+        background: #f0f0f0;
+        position: absolute;
+        top: 0;
+        left: 6px;
 
-.LoadingOverlay div:after {
-    content: '';
-    width: 49px;
-    height: 40px;
-    background: #f0f0f0;
-    position: absolute;
-    top: 0;
-    left: 6px;
-    
-}
-    </style>
-    <body>
-        <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-            <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
-            <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;"></div>
-            <p style="text-align: center;">Loading...</p>
+    }
+</style>
+
+<body>
+    <div class="LoadingOverlay"
+        style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+        <img src="../img/favicon.png"
+            style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+        <div
+            style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
         </div>
-        <div id="NavBar" class="CommonNav">
-            <!-- <h1 id="TheLogo"></h1> -->
-            <a href="/dashboard">
-                <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
-                <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+        <p style="text-align: center;">Loading...</p>
+    </div>
+    <div id="NavBar" class="CommonNav">
+        <!-- <h1 id="TheLogo"></h1> -->
+        <a href="/dashboard">
+            <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+            <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+        </a>
+        <div class="theButtons">
+            <a href="/login">
+                <button id="LogInBTN">LOG IN</button>
             </a>
-            <div class="theButtons">
-                <a href="/login">
-                    <button id="LogInBTN">LOG IN</button>
-                </a>
-                <!-- <a href="#"><button id="SignUpBTN">SIGN UP</button></a> -->
-            </div>
+            <!-- <a href="#"><button id="SignUpBTN">SIGN UP</button></a> -->
         </div>
-        <div id="Landing">
+    </div>
+    <div id="Landing">
+        <div class="TheText">
+            <h1>Work Smarter. Not Harder</h1>
+            <p>Work from anywhere you are, at any time of the day</p>
+            <a href="/login">
+                <button>LOG IN</button>
+            </a>
+        </div>
+        <div class="TheSVG">
+            <img src="../img/remoteWork.png" alt="Work from anywhere">
+        </div>
+    </div>
+    <div class="Features">
+        <div class="Feature">
+            <img src="../img/migrate.png" alt="Migrate from paper">
             <div class="TheText">
-                <h1>Work Smarter. Not Harder</h1>
-                <p>Work from anywhere you are, at any time of the day</p>
-                <a href="/login">
-                    <button>LOG IN</button>
-                </a>
-            </div>
-            <div class="TheSVG">
-                <img src="../img/remoteWork.png" alt="Work from anywhere">
+                <h1>Migrate From Paper</h1>
+                <p>Why would you stay in the analog age, recording all your important data on paper. Join eKOSORA and
+                    have all your data saved digitally</p>
             </div>
         </div>
-        <div class="Features">
-            <div class="Feature">
-                <img src="../img/migrate.png" alt="Migrate from paper">
-                <div class="TheText">
-                    <h1>Migrate From Paper</h1>
-                    <p>Why would you stay in the analog age, recording all your important data on paper. Join eKOSORA and have all your data saved digitally</p>
-                </div>
-            </div>
-            <div class="Feature">
-                <img src="../img/timeManagement.png" alt="Migrate from paper">
-                <div class="TheText">
-                    <h1>Maximum Efficiency</h1>
-                    <p>Be able to do your work easier and faster. Save time and effort by JOINING eKOSORO.</p>
-                </div>
-            </div>
-            <div class="Feature">
-                <img src="../img/speed.png" alt="Migrate from paper">
-                <div class="TheText">
-                    <h1>So fast it's problematic</h1>
-                    <p>No ruffling through papers just find one student. With the click of button, you can find all the information about a student.</p>
-                </div>
+        <div class="Feature">
+            <img src="../img/timeManagement.png" alt="Migrate from paper">
+            <div class="TheText">
+                <h1>Maximum Efficiency</h1>
+                <p>Be able to do your work easier and faster. Save time and effort by JOINING eKOSORO.</p>
             </div>
         </div>
-    </body>
-    <script>
+        <div class="Feature">
+            <img src="../img/speed.png" alt="Migrate from paper">
+            <div class="TheText">
+                <h1>So fast it's problematic</h1>
+                <p>No ruffling through papers just find one student. With the click of button, you can find all the
+                    information about a student.</p>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
     /* Check if the current url is https */
 
-    if(!location.href.match(/https/)){
+    if (!location.href.match(/https/)) {
         // location.href = "https" + location.href.slice(4)
     }
 
-    window.onload = (e)=>{
+    window.onload = (e) => {
         console.log("%c LOADED THE PAGE", "color: #48ff48; font-size: 30px")
         document.querySelector('.LoadingOverlay').style.display = "none"
         document.querySelector('style#style2').innerHTML = ""
     }
-    </script>
+</script>
+
 </html>

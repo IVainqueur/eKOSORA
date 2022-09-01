@@ -1,166 +1,177 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
-        <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
-        <title>New Record | eKOSORA</title>
-        <link rel="stylesheet" href="../css/common.css">
-        <link rel="stylesheet" href="../css/newRecord.css">
-    </head>
-    <style id="style2">
-    body > *:not(.LoadingOverlay){
-        z-index:-1; 
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Quantico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Questrial&display=swap" rel="stylesheet">
+    <link href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css" rel="stylesheet">
+    <title>New Record | eKOSORA</title>
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/newRecord.css">
+</head>
+<style id="style2">
+    body>*:not(.LoadingOverlay) {
+        z-index: -1;
         pointer-events: none;
-display: none;
+        display: none;
     }
-    @keyframes loadingAnimation{
-        0%{
+
+    @keyframes loadingAnimation {
+        0% {
             transform: translateX(0px);
         }
-        50%{
+
+        50% {
             transform: translateX(60px);
         }
-        100%{
+
+        100% {
             transform: translateX(0px);
         }
     }
-.LoadingOverlay div:before {
-    content: '';
-    width: 6px;
-    height: 40px;
-    background: #3f7cac;
-    margin: auto;
-    
-    margin-bottom: 20px;
-    
-    position: absolute;
-    top: 0;
-    left: 0;
-    border-radius: 16px;
-}
 
-@keyframes apparate {
-    0% {
-        opacity: 1;
+    .LoadingOverlay div:before {
+        content: '';
+        width: 6px;
+        height: 40px;
+        background: #3f7cac;
+        margin: auto;
+
+        margin-bottom: 20px;
+
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 16px;
     }
 
-    50% {
-        opacity: 0
+    @keyframes apparate {
+        0% {
+            opacity: 1;
+        }
+
+        50% {
+            opacity: 0
+        }
+
+        100% {
+            opacity: 1;
+        }
     }
 
-    100% {
-        opacity: 1;
-    }
-}
+    .LoadingOverlay div:after {
+        content: '';
+        width: 49px;
+        height: 40px;
+        background: #f0f0f0;
+        position: absolute;
+        top: 0;
+        left: 6px;
 
-.LoadingOverlay div:after {
-    content: '';
-    width: 49px;
-    height: 40px;
-    background: #f0f0f0;
-    position: absolute;
-    top: 0;
-    left: 6px;
-    
-}
-    </style>
-    <body>
-        <div class="LoadingOverlay" style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
-            <img src="../img/favicon.png" style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
-            <div style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;"></div>
-            <p style="text-align: center;">Loading...</p>
+    }
+</style>
+
+<body>
+    <div class="LoadingOverlay"
+        style="position: absolute;background: #f0f0f0;width: 100vw;height: 100vh;z-index: 1000;top: 0;left: 0;display: grid;place-content: center;">
+        <img src="../img/favicon.png"
+            style="height: 40px;width: 40px;margin: auto;/* animation: apparate 1s infinite linear; */">
+        <div
+            style="/* width: 40px; *//* height: 40px; *//* background: var(--main-blue); *//* margin: auto; */animation: loadingAnimation 1s infinite linear;/* margin-bottom: 20px; */position: relative;text-align: center;/* width: fit-content; *//* transform: translateY(-50px); */margin-top: -40px;">
         </div>
-        <div id="NavBar" class="CommonNav">
-            <div class="LeftSide">
-                <div class="HamburgerContainer">
-                    <p id="HamburgerMenu" class="clickedMenu"></p>
-                </div>
-                <!-- <h1 id="TheLogo"></h1> -->
-                <a href="/dashboard">
-                    <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
-                    <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
-                </a>
+        <p style="text-align: center;">Loading...</p>
+    </div>
+    <div id="NavBar" class="CommonNav">
+        <div class="LeftSide">
+            <div class="HamburgerContainer">
+                <p id="HamburgerMenu" class="clickedMenu"></p>
             </div>
-            <div class="Middle">
-                <h1>New Record</h1>
-            </div>
-            <div class="theButtons">
-                <button id="LogOutBTN">LOG OUT</button>
-                <i class="bx bx-log-out" style="color:#ffffff"></i>
-                <!-- <button id="SignUpBTN">SIGN UP</button> -->
-            </div>
+            <!-- <h1 id="TheLogo"></h1> -->
+            <a href="/dashboard">
+                <img src="../img/bigLogo.svg" alt="eKOSORA" id="TheLogo">
+                <img src="../img/logo.svg" alt="eKOSORA" id="TheSmallLogo">
+            </a>
         </div>
-        <div class="Content">
-            <div class="Menu show">
-                <div class="MenuItem">
-                    <a href="/dashboard">Dashboard</a>
-                </div>
-                <div class="MenuItem active">
-                    <a href="/marks">Marks</a>
-                </div>
-                <div class="MenuItem">
-                    <a href="/timetable">Timetables</a>
-                </div>
-                <div class="MenuItem">
-                    <a href="/student">Students</a>
-                </div>
-                <div class="MenuItem">
-                    <a href="/settings">Settings</a>
-                </div>
-                <div class="Profile">
-                    <img src="loading.gif" alt="profile">
-                    <div>
-                        <h3></h3>
-                        <p></p>
-                    </div>
-                </div>
+        <div class="Middle">
+            <h1>New Record</h1>
+        </div>
+        <div class="theButtons">
+            <button id="LogOutBTN">LOG OUT</button>
+            <i class="bx bx-log-out" style="color:#ffffff"></i>
+            <!-- <button id="SignUpBTN">SIGN UP</button> -->
+        </div>
+    </div>
+    <div class="Content">
+        <div class="Menu show">
+            <div class="MenuItem">
+                <a href="/dashboard">Dashboard</a>
             </div>
-            <div class="main">
-                <div class="TheForm">
-                    <form action="#">
-                        <h1>New Record</h1>
-                        <label for="">
-                            <span id="ClassName">Class</span>
-                            <select name="class" id="ClassChoice">
-                                <option value="">--Select--</option>
-                                <option value="1">Year 1</option>
-                                <option value="2">Year 2</option>
-                                <option value="3">Year 3</option>
-                            </select>
-                        </label>
-                        <label for="">
-                            <span id="RecordName">Record Name</span>
-                            <input type="text" id="RecordNameBox" name="recordName">
-                        </label>
-                        <label for="">
-                            <span id="Subject">Subject/Course</span>
-                            <select name="subject" id="SubjectChoice">
-                                <option value="">--Select--</option>
-                            </select>
-                        </label>
-                        <label for="">
-                            <span id="MaxMark">Maximum marks</span>
-                            <input type="number" id="MaxMarkBox" name="max">
-                        </label>
-                        <label for="" class="ReversedField">
-                            <input type="checkbox" id="MaxMarkBox" name="reversed">
-                            <span id="MaxMark">Reversed (starts from the max going downwards)</span>
-                        </label>
-                        <label for="">
-                            <span>Date</span>
-                            <input type="date" id="DateBox" name="date">
-                        </label>
-                        <button id="GetIn">ADD RECORD</button>
-                    </form>
+            <div class="MenuItem active">
+                <a href="/marks">Marks</a>
+            </div>
+            <div class="MenuItem">
+                <a href="/timetable">Timetables</a>
+            </div>
+            <div class="MenuItem">
+                <a href="/student">Students</a>
+            </div>
+            <div class="MenuItem">
+                <a href="/settings">Settings</a>
+            </div>
+            <div class="Profile">
+                <img src="loading.gif" alt="profile">
+                <div>
+                    <h3></h3>
+                    <p></p>
                 </div>
             </div>
         </div>
-    </body>
-    <script src="../js/common.js"></script>
+        <div class="main">
+            <div class="TheForm">
+                <form action="#">
+                    <h1>New Record</h1>
+                    <label for="">
+                        <span id="ClassName">Class</span>
+                        <select name="class" id="ClassChoice">
+                            <option value="">--Select--</option>
+                            <option value="1">Year 1</option>
+                            <option value="2">Year 2</option>
+                            <option value="3">Year 3</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <span id="RecordName">Record Name</span>
+                        <input type="text" id="RecordNameBox" name="recordName">
+                    </label>
+                    <label for="">
+                        <span id="Subject">Subject/Course</span>
+                        <select name="subject" id="SubjectChoice">
+                            <option value="">--Select--</option>
+                        </select>
+                    </label>
+                    <label for="">
+                        <span id="MaxMark">Maximum marks</span>
+                        <input type="number" id="MaxMarkBox" name="max">
+                    </label>
+                    <label for="" class="ReversedField">
+                        <input type="checkbox" id="MaxMarkBox" name="reversed">
+                        <span id="MaxMark">Reversed (starts from the max going downwards)</span>
+                    </label>
+                    <label for="">
+                        <span>Date</span>
+                        <input type="date" id="DateBox" name="date">
+                    </label>
+                    <button id="GetIn">ADD RECORD</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../js/common.js"></script>
 <script src="../js/oneliners.js"></script>
-    <script src="../js/newRecord.js"></script>
+<script src="../js/newRecord.js"></script>
+
 </html>
