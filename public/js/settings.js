@@ -170,11 +170,11 @@ document.querySelector('.ProfileImage').addEventListener('click', (e)=>{
         let reader = new FileReader()
         let failed = false
         reader.onload = async function(event) {
-            if(event.total > 100000){
-                console.log("Inside the load function")
-                failed = true
-                return alert("The file must be under 50Kb in size")
-            } 
+            // if(event.total > 100000){
+            //     console.log("Inside the load function")
+            //     failed = true
+            //     return alert("The file must be under 50Kb in size")
+            // } 
             let img = document.querySelector('.ProfileImage img')
             img.src = event.target.result
             let data = new FormData()
