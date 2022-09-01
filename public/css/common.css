@@ -259,6 +259,7 @@ button:hover{
 
 a{
     text-decoration: none;
+    color: initial;
 }
 
 .Content{
@@ -310,4 +311,17 @@ option{
 
 .LoadingOverlay{
     position: fixed;
+}
+
+.Announcements h1{ 
+    display: flex;
+    align-items: center;
+    gap: 1px;
+}
+.announcementsNum{
+    color: white;
+    background: var(--darker-blue);
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 14px;
 }
