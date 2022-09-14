@@ -35,7 +35,7 @@ const sendMail = async (message, receiver, subject) => {
         console.error(error)
       })
 
-    return { code: '#Success'}
+    return { code: '#Success' }
   } catch (err) {
     console.log(err)
     return { code: '#Error', message: err }
@@ -152,13 +152,13 @@ app.get('/findOne/:id', (req, res) => {
           doc == null
             ? null
             : [doc].map((x) => {
-                return {
-                  name: x.names,
-                  class: x.class,
-                  email: x.email,
-                  records: x.records,
-                }
-              })[0],
+              return {
+                name: x.names,
+                class: x.class,
+                email: x.email,
+                records: x.records,
+              }
+            })[0],
       })
     },
   )
@@ -276,22 +276,19 @@ app.post('/updateForMany', getUserId, async (req, res) => {
                                 <img src="https://res.cloudinary.com/dyrneab5i/image/upload/v1651304384/output-onlinepngtools_47_ylmye4.png" style="display: block;" height="45" width="150" title="eKOSORA Logo" alt="eKOSORA" />
                             </div>
                             <div style="padding: 10px;background: #f0f0f0;">
-                                Dear Sir/Madam <br><br> ${student.names} has ${
-              Number(req.body.mark) > 0 ? 'gained' : 'lost'
-            }
-                                ${Math.abs(Number(req.body.mark))} mark(s) in ${
-              subject.title
-            }
-                                ${
-                                  req.body.messageAttached
-                                    ? `. <br><b>Reason</b>: ${req.body.messageAttached}.<br>`
-                                    : ''
-                                }  
+                                Dear Sir/Madam <br><br> ${student.names} has ${Number(req.body.mark) > 0 ? 'gained' : 'lost'
+              }
+                                ${Math.abs(Number(req.body.mark))} mark(s) in ${subject.title
+              }
+                                ${req.body.messageAttached
+                ? `. <br><b>Reason</b>: ${req.body.messageAttached}.<br>`
+                : ''
+              }  
                                 For more information, you can contact the teacher in charge of the course (<a href="mailto:${educator.email}">their email</a>) in question.
                                 <br>
                                 <p style="text-align: end; padding-right: 15px;">${new Date()
-                                  .toString()
-                                  .slice(0, 21)}</p>
+                .toString()
+                .slice(0, 21)}</p>
                             </div>
                         </div>`
 
@@ -320,8 +317,8 @@ app.get('/getRecords/', (req, res) => {
     .find(
       {
         $and: [
-          { 'class.class': req.query.class },
-          { 'class.year': Number(req.query.year) },
+          { 'class._class': req.query.class },
+          { 'class._year': Number(req.query.year) },
         ],
       },
       (err, doc) => {
@@ -414,15 +411,13 @@ app.post('/addParent', async (req, res) => {
                         <img src="https://res.cloudinary.com/dyrneab5i/image/upload/v1651304384/output-onlinepngtools_47_ylmye4.png" style="display: block;" height="45" width="150" title="eKOSORA Logo" alt="eKOSORA" />
                     </div>
                     <div style="padding: 10px;background: #f0f0f0;">
-                        Dear Sir/Madam, the student ${
-                          req.body.studentName
-                        } at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://ekosora.herokuapp.com/parent/signup?_id=${
-          result._id
-        }">Click Here</a> 
+                        Dear Sir/Madam, the student ${req.body.studentName
+          } at Rwanda Coding Academy has registered you as their parent or guardian under this email on eKOSORA platform. To confirm and finish setting up your parent account,  <a href="https://ekosora.herokuapp.com/parent/signup?_id=${result._id
+          }">Click Here</a> 
                         <br>
                         <p style="text-align: end; padding-right: 15px;">${new Date()
-                          .toString()
-                          .slice(0, 21)}</p>
+            .toString()
+            .slice(0, 21)}</p>
                     </div>
                 </div> 
             `
